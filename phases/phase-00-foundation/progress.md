@@ -9,6 +9,6 @@
 | ADR·Template | 완료 | Phase 0 결정과 최소 Template 작성 |
 | 링크·일관성 검증 | 완료 | 상대경로, 빈 파일, whitespace와 책임·소유권 경계 정적 검토 |
 | Cross-Repo 검증 | 시작 전 | 다른 7개 Repository 구현 및 계약 버전 `NOT_STARTED` |
-| 게시 기준 고정 | 시작 전 | Commit SHA와 PR은 게시 후 갱신 필요 |
+| 게시 기준 고정 | 진행 중 | docs 핵심 Commit 고정, PR과 Cross-Repo 기준은 아직 TBD |
 
 문서 작성 완료를 시스템 구현 또는 통합 검증 완료로 간주하지 않는다. Phase 상태는 게시 기준과 검증이 확정될 때까지 `IN_PROGRESS`다.
