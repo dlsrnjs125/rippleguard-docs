@@ -9,4 +9,10 @@
 - Loan Service만 최종 대출 상태를 변경한다.
 - Agent 오류, 계약 불일치, 증거 부족 또는 정책 엔진 장애 시 자동화 범위를 줄이고 추가 검증이나 Manual Safe Mode로 전환한다.
 
+## 독립 검증과 실행 계획
+
+Governance Service가 Preflight 결과와 Case 조건을 바탕으로 필요한 전문 Agent와 병렬·순차 관계를 포함한 실행 계획을 결정한다. Agent Runtime은 전달받은 계획과 허용된 입력 범위대로 실행하며 정책적으로 어떤 Agent가 필요한지 임의 결정하지 않는다.
+
+RippleGuard Agent와 Evidence & Control Agent는 동일한 Decision Envelope를 기준으로 독립 실행한다. 서로의 최종 결론은 입력으로 사용하지 않고 Governance Service가 Schema와 provenance를 검증한 뒤 비교한다.
+
 Prompt, 모델, Tool 또는 정책 변경은 Golden Case Replay와 Shadow Mode 비교를 통과한 뒤 활성화한다. 정책 엔진이나 Governance Service를 우회하는 Tool과 직접 상태 변경 경로는 허용하지 않는다.

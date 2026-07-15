@@ -19,3 +19,5 @@ RippleGuard는 대출 판단을 Decision Case로 추적하고, Loan Decision Age
 - 불완전하거나 위반된 Assurance는 추가 검증 또는 차단으로 안전하게 축소된다.
 - Replay로 Agent·Prompt·정책 버전 변화에 따른 결과 차이를 확인할 수 있다.
 - 서비스 데이터 소유권과 최종 상태 변경 권한이 경계를 넘어가지 않는다.
+
+측정은 [Consequence Risk Model](../domain/consequence-risk-model.md)의 Detection Rate, Escape Rate, 위험 유형별 탐지율, Propagation Containment Rate, Decision Trace Completeness 정의를 사용한다. 목표 임계치는 Golden Case 라벨과 표본이 준비된 뒤 과장 없이 확정한다.

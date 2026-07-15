@@ -12,6 +12,6 @@
 | Contract Version | 사용한 계약 버전 |
 | DB Migration | 적용된 Migration 식별자 |
 | Verification | 테스트·검증 결과 링크 |
-| Status | `NOT_STARTED`, `IN_PROGRESS`, `VERIFIED`, `BLOCKED` |
+| Status | `NOT_STARTED`, `IN_PROGRESS`, `IN_REVIEW`, `VERIFIED`, `BLOCKED` |
 
 Branch 이름만으로 Baseline을 고정하지 않으며 변경 가능한 `latest` 태그도 기준으로 쓰지 않는다. Baseline 변경은 영향을 받는 Repository의 호환성 검증 후 문서 변경으로 남긴다. 검증 전 값은 `TBD`이고 추측으로 채우지 않는다.

@@ -5,6 +5,8 @@
 - 프로젝트 기준과 MVP 범위 확정
 - 서비스 경계와 데이터 소유권 확정
 - 핵심 Envelope와 Case 상태 머신 정의
+- Consequence Risk Model과 Assurance Routing 정의
+- 기술 스택, 운영 통제, 보안·개인정보 기준 정의
 - 멀티레포 추적 체계와 Phase별 문서 Template 구축
 
 ## 범위
