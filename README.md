@@ -15,10 +15,13 @@ RippleGuard는 대출심사 AI의 판단이 목적과 범위를 벗어나거나 
 - [Assurance Routing](governance/assurance-routing.md)
 - [Security and Privacy](architecture/security-and-privacy.md)
 - [Phase 현황](tracking/phase-status.md)
+- [Phase 의존성](tracking/phase-dependency-map.md)
+- [프로젝트 위험](tracking/project-risk-register.md)
+- [Release Readiness](tracking/release-readiness.md)
 - [Phase 0](phases/phase-00-foundation/README.md)
 - [ADR 목록](adr/README.md)
 
-현재 **Phase 0 — Foundation & Contracts**는 `IN_PROGRESS`이다. 상세 진척과 완료 검증은 [Phase 0 progress](phases/phase-00-foundation/progress.md)와 [verification](phases/phase-00-foundation/verification.md)에서 추적한다.
+현재 **Phase 0 — Foundation & Architecture Baseline**은 `IN_PROGRESS`이다. 상세 진척과 완료 검증은 [Phase 0 progress](phases/phase-00-foundation/progress.md)와 [verification](phases/phase-00-foundation/verification.md)에서 추적한다.
 
 ## Repository 구성
 

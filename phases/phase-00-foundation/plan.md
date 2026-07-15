@@ -11,8 +11,12 @@
 - [x] Consequence Risk Model과 Assurance Routing 정의
 - [x] FDS Simulator와 위험신호 Metadata 정의
 - [x] 기술 스택, Governance Console, 보안·사람 검토 기준 정의
+- [x] Phase 1~10 목표·범위·의존성·인계 조건 정의
+- [x] 프로젝트 Risk·Roadmap 변경·Release Readiness 추적 구조 정의
 - [x] 문서 관리 정책 정의
 - [x] 멀티레포 Baseline 규칙 정의
 - [x] 초기 ADR과 MVP Agent 역할 범위 작성
 - [x] 문서 링크와 의미 일관성 정적 검증
+- [ ] Phase 1 초기 실행 계약과 Event 공통 Envelope 확정
+- [ ] 로컬 인프라 기본 구성 검증
 - [ ] 게시 Commit·PR을 Phase Baseline에 고정
