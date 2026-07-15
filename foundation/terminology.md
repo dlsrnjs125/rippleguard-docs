@@ -14,6 +14,7 @@
 | Assurance Incomplete | 필요한 증거 또는 통제 확인이 부족해 자동 처리를 계속할 수 없는 상태 |
 | Assurance Violated | 명시된 정책이나 통제 조건을 위반한 상태 |
 | Agent Run | 특정 Agent·모델·Prompt·Tool·입력 버전으로 수행된 한 번의 실행 |
+| Evaluation Run | 한 Decision Case 안에서 고정 Snapshot·실행 계획·Policy Version으로 수행되는 전체 평가 단위; 하나 이상의 Agent Run을 포함 |
 | Shadow Mode | 운영 결정에는 영향을 주지 않고 결과와 차이만 기록하는 Agent 실행 모드 |
 | Manual Safe Mode | 자동화 범위를 중단하거나 축소하고 사람의 확인을 필수로 하는 안전 경로 |
 | Golden Case | 예상 입력·출력·근거가 검증되어 회귀 및 Replay 비교 기준으로 사용하는 사례 |

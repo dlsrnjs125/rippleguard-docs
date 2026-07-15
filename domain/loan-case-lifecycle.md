@@ -28,7 +28,7 @@ Governance Service만 이 상태를 변경한다.
 | `PROPOSAL_READY` | Decision Envelope와 필요한 전문 Agent 결과 수신 | `ASSURANCE_EVALUATED`, `VERIFICATION_REQUIRED`, `RECALCULATION_REQUIRED` |
 | `ASSURANCE_EVALUATED` | Assurance Profile과 정책 평가 완료 | `VERIFICATION_REQUIRED`, `BLOCKED`, `RECALCULATION_REQUIRED`, `RESOLVED` |
 | `VERIFICATION_REQUIRED` | 확정되지 않은 사실 또는 증빙 보완 필요 | `PREFLIGHT_COMPLETED`, `EVALUATION_REQUESTED`, `BLOCKED` |
-| `BLOCKED` | 금지 조건 또는 안전 경로 실패로 진행 차단 | `RESOLVED` |
+| `BLOCKED` | 현재 Evaluation Run의 금지 조건 또는 안전 경로 실패로 진행 차단 | `RECALCULATION_REQUIRED`, `RESOLVED` |
 | `RECALCULATION_REQUIRED` | 정형 입력 변경 후 재평가 필요 | `PREFLIGHT_COMPLETED`, `EVALUATION_REQUESTED`, `BLOCKED` |
 | `RESOLVED` | Governance 실행 경로 확정 | 없음 |
 
@@ -43,4 +43,6 @@ Governance Service만 이 상태를 변경한다.
 | `loan.decision.commanded.v1` | Governance Service | 수신 시 `UNDER_GOVERNANCE_REVIEW → DECISION_RECEIVED` | 발행 전에 `→ RESOLVED` |
 | `loan.decision.finalized.v1` | Loan Service | `DECISION_RECEIVED → FINALIZED` | 상태 변경 없이 결과 참조 기록 |
 
-Event는 원자적 교차 DB 갱신을 의미하지 않는다. 각 Consumer는 중복과 순서 지연을 견디도록 멱등 처리하고, 허용되지 않은 전이는 거부·기록한다. 상세 상태와 Event Schema의 Source of Truth는 `rippleguard-contracts`다.
+`BLOCKED → RECALCULATION_REQUIRED`는 정책 위반을 Override하는 전이가 아니다. 금지된 FDS Feature 제거, 만료된 Snapshot 교체처럼 위반 원인이 제거된 새 입력 Version이 검증된 경우에만 허용한다. 이후 새 Evaluation Run을 만들고 `EVALUATION_REQUESTED`로 진행하며 차단된 Run과 근거는 보존한다. 복구할 수 없는 정책 결과나 신청 종료는 `RESOLVED`로 간다.
+
+Event는 원자적 교차 DB 갱신을 의미하지 않는다. 각 Consumer는 중복과 순서 지연을 견디도록 멱등 처리하고, 허용되지 않은 전이는 거부·기록한다. 한 Decision Case 안의 개별 실행 상태는 [Evaluation Run](evaluation-run.md)이 소유한다. 상세 상태와 Event Schema의 Source of Truth는 `rippleguard-contracts`다.

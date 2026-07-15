@@ -8,10 +8,12 @@ RippleGuard는 대출심사 AI의 판단이 목적과 범위를 벗어나거나 
 
 - [프로젝트 개요](foundation/project-overview.md)
 - [MVP 범위](foundation/mvp-scope.md)
+- [Canonical Scenarios](foundation/canonical-scenarios.md)
 - [시스템 컨텍스트](architecture/system-context.md)
 - [서비스 경계](architecture/service-boundaries.md)
 - [기술 스택](architecture/technology-stack.md)
 - [Consequence Risk Model](domain/consequence-risk-model.md)
+- [Evaluation Run](domain/evaluation-run.md)
 - [Assurance Routing](governance/assurance-routing.md)
 - [Security and Privacy](architecture/security-and-privacy.md)
 - [Phase 현황](tracking/phase-status.md)

@@ -8,6 +8,9 @@
 - [x] Agent 권한 정의
 - [x] Case 상태와 전이 원칙 정의
 - [x] Loan Application과 Decision Case 상태 소유권 분리
+- [x] Evaluation Run과 Hard Block 재산출 경로 정의
+- [x] 결정론적·Agent 검사 경계와 조건부 Trigger·Sample Audit 정의
+- [x] Canonical Scenario와 평가 Dataset 분리 정의
 - [x] Consequence Risk Model과 Assurance Routing 정의
 - [x] FDS Simulator와 위험신호 Metadata 정의
 - [x] 기술 스택, Governance Console, 보안·사람 검토 기준 정의

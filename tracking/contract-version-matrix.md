@@ -9,6 +9,7 @@
 | `agent.evaluation.completed` | Agent Runtime | Governance, Audit | TBD | TBD | TBD | NOT_STARTED |
 | `loan.decision.commanded` | Governance Service | Loan Service | TBD | TBD | TBD | NOT_STARTED |
 | Decision Envelope | Agent Runtime | Governance Service | TBD | TBD | TBD | NOT_STARTED |
+| Evaluation Run | Governance Service | Agent Runtime, Audit Service | TBD | TBD | TBD | NOT_STARTED |
 | Consequence Envelope | Agent Runtime | Governance Service | TBD | TBD | TBD | NOT_STARTED |
 | Evidence & Control Findings | Agent Runtime | Governance Service | TBD | TBD | TBD | NOT_STARTED |
 | Assurance Policy Input | Governance Service | OPA | TBD | TBD | TBD | NOT_STARTED |

@@ -7,5 +7,7 @@
 - [ ] Mock Agent·Assurance 흐름 구현
 - [ ] Decision Command와 최종 상태 반영 검증
 - [ ] Kafka 중복·지연·실패 시나리오 검증
+- [ ] `correlationId`·`causationId`와 원본 Event 저장 구현
+- [ ] 최소 Case Timeline 조회 API 구현
 - [ ] Docker Compose 최소 수직 흐름 실행
 - [ ] Verification과 Cross-Repo Baseline 고정

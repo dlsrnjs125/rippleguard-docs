@@ -11,7 +11,7 @@
 
 ## 범위와 경계
 
-- 포함: 전체 MSA 구조, Loan·Governance 상태 분리, 핵심 Envelope, Event 경계, Risk·Assurance 모델, ADR, 기술·보안 기준, 전체 Roadmap과 추적 체계
+- 포함: 전체 MSA 구조, Loan·Governance·Evaluation Run 상태 분리, 핵심 Envelope, Event 경계, Risk·Assurance 모델, Canonical Scenario, ADR, 기술·보안 기준, 전체 Roadmap과 추적 체계
 - 제외: 실제 서비스 기능, 운영 배포, 실제 금융기관 연동
 - 변경 금지: 실행 가능한 Schema는 `rippleguard-contracts`, 배포 설정은 `rippleguard-infra`, 서비스 내부 구현은 각 Repository가 소유한다.
 
@@ -25,7 +25,7 @@
 
 ## 선행 조건과 산출물
 
-선행 Phase는 없다. 산출물은 프로젝트·MVP 기준, 서비스 경계, 기술 스택, 상태 머신, Decision·Consequence·Assurance 문서, Event 공통 기준, ADR, Phase 1~10 계획과 로컬 인프라 기본 기준이다.
+선행 Phase는 없다. 산출물은 프로젝트·MVP 기준, Canonical Scenario, 서비스 경계, 기술 스택, 상태 머신과 Evaluation Run, Decision·Consequence·Assurance 문서, Event 공통 기준, ADR, Phase 1~10 계획과 로컬 인프라 기본 기준이다.
 
 ## 통합 지점과 실패 경로
 

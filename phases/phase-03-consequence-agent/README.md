@@ -22,11 +22,11 @@ Loan Decision이 데이터 목적·의미·판단 범위를 바꾸며 만드는 
 | `rippleguard-contracts` | Consequence Envelope와 Event Schema |
 | `rippleguard-agent-runtime` | RippleGuard Agent Graph·Tool·검증 |
 | `rippleguard-governance-service` | 실행 계획, 결과 Validator와 Case 연결 |
-| `rippleguard-infra` | FDS Simulator와 통합 실행 |
+| `rippleguard-infra` | REST FDS Simulator Container와 고정 Test Fixture |
 
 ## 선행 조건과 산출물
 
-검증된 Decision Envelope, FDS 목적 Metadata와 Golden 위험 Case 초안이 필요하다. 산출물은 Consequence Envelope, Agent Output 검증, 위험 유형별 Test와 Image다.
+검증된 Decision Envelope, FDS 목적 Metadata와 Development·Regression 위험 Case가 필요하다. 산출물은 Consequence Envelope, Agent Output 검증, 위험 유형별 Test와 Image다. Phase 9 Holdout 결과를 Prompt·Trigger·Policy 튜닝에 사용하지 않는다.
 
 ## 통합 지점과 실패 경로
 
