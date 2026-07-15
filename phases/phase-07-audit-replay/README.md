@@ -36,9 +36,11 @@ Audit Service가 Kafka Event를 소비하고 Object Reference로 Evidence를 연
 
 - 전체 Case Timeline 조회와 Single Case Replay 성공
 - Golden Case Replay와 Version Diff 재현
+- Sample Audit Escape를 위험 유형으로 등록하고 영향 가능 Evaluation Run을 검색할 수 있음
+- Escape Event, 영향 Run 목록과 비교 Replay 계약 검증
 - Hash Chain 변경 탐지와 Trace Gap 표시 검증
 - Docker 통합과 Baseline 고정
 
 ## 다음 Phase 인계 조건
 
-장애 Drill에서 결과를 판정할 Trace, 중복·순서·Replay 관측 기준이 준비되어야 한다.
+장애 Drill에서 결과를 판정할 Trace, 중복·순서·Replay 관측 기준과 Sample Audit Escape 영향 Run 검색 결과가 준비되어야 한다.

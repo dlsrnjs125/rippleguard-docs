@@ -1,6 +1,7 @@
 # Phase 4 Plan
 
 - [ ] Evidence Findings와 Control Coverage 계약 구현
+- [ ] Governance의 검증·채택 Finding Snapshot Versioned 저장 구현
 - [ ] MinIO 제한 접근과 Object Reference 구현
 - [ ] 문서 파싱·Chunk·pgvector 흐름 구현
 - [ ] Legacy Control Registry 구현

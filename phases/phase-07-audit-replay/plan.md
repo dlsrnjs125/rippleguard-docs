@@ -5,6 +5,8 @@
 - [ ] Correlation·Causation 기반 Timeline 구현
 - [ ] Single Case·Golden Case Replay 구현
 - [ ] 영향 범위 Replay와 Sample Audit Trace 조회 구현
+- [ ] Sample Audit Escape 등록 Event와 영향 Evaluation Run 검색 계약 구현
+- [ ] 영향 Run의 신규·기존 결과 비교 Replay 구현
 - [ ] Version Diff API와 UI 구현
 - [ ] Trace Gap·순서 역전·변경 탐지 검증
 - [ ] Replay와 운영 상태 격리 검증

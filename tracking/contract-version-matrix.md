@@ -13,5 +13,7 @@
 | Consequence Envelope | Agent Runtime | Governance Service | TBD | TBD | TBD | NOT_STARTED |
 | Evidence & Control Findings | Agent Runtime | Governance Service | TBD | TBD | TBD | NOT_STARTED |
 | Assurance Policy Input | Governance Service | OPA | TBD | TBD | TBD | NOT_STARTED |
+| Sample Audit Escape Event | Audit/Replay Service | Governance Service | TBD | TBD | TBD | NOT_STARTED |
+| Impacted Evaluation Run Query | Governance Service | Audit/Replay Service | TBD | TBD | TBD | NOT_STARTED |
 
 계약 구현 전이므로 버전을 추측하지 않는다. 계약이 추가되면 `rippleguard-contracts`의 태그 또는 불변 식별자와 Producer/Consumer 호환성 검증을 기록한다.

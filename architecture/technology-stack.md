@@ -12,7 +12,7 @@ Phase 0에서 언어와 핵심 프레임워크 경계를 고정한다. 구체적
 | Policy | OPA | Versioned Assurance Routing 정책 |
 | Database | PostgreSQL | 서비스별 독립 DB |
 | RAG·Vector | pgvector | Agent Runtime의 목적 제한 검색 파생 데이터 |
-| Document Object | MinIO | 원문 문서와 Evidence 객체 |
+| Document Object | MinIO | 사용자 제출 원본과 선택적 대용량 파싱 원본 Artifact; 업무 상태와 Evidence Finding은 PostgreSQL Versioned Record |
 | Observability | OpenTelemetry, Prometheus, Grafana | 분산 Trace, Metric, Dashboard |
 | Local Integration | Docker Compose | 모든 Image와 플랫폼 구성 통합 |
 | FDS Simulator | 경량 Mock Server 또는 WireMock | 운영형 Demo REST Source; 고정 JSON Fixture는 Test 전용 |
