@@ -10,7 +10,7 @@
 | `agent.evaluation.requested` | Governance Service | Agent Runtime | `eventType: agent.evaluation.requested.v1`; schema `1.0.0` | same major `v1` | `make validate` PASS in `rippleguard-contracts` | CONTRACT_READY |
 | `agent.evaluation.completed` | Phase 1 MOCK: Governance Service; Phase 2+ AGENT: Agent Runtime | Governance, Audit | `eventType: agent.evaluation.completed.v1`; schema `1.0.0` | same major `v1` | `make validate` PASS in `rippleguard-contracts` | CONTRACT_READY |
 | `loan.decision.commanded` | Governance Service | Loan Service | `eventType: loan.decision.commanded.v1`; schema `1.0.0` | same major `v1` | `make validate` PASS in `rippleguard-contracts` | CONTRACT_READY |
-| Decision Envelope | Agent Runtime | Governance Service | `1.0.0` | Phase 0 schema | `make validate` PASS in `rippleguard-contracts` | CONTRACT_READY |
+| Decision Envelope | Phase 1 MOCK: Governance Service / `mock-evaluator`; Phase 2+ AGENT: Agent Runtime | Governance Service | `1.0.0` | Phase 0 schema | `make validate` PASS in `rippleguard-contracts` | CONTRACT_READY |
 | Evaluation Run | Governance Service | Agent Runtime, Audit Service | `1.0.0` | Phase 0 schema | `make validate` PASS in `rippleguard-contracts` | CONTRACT_READY |
 | Consequence Envelope | Agent Runtime | Governance Service | TBD | TBD | TBD | NOT_STARTED |
 | Evidence & Control Findings | Agent Runtime | Governance Service | TBD | TBD | TBD | NOT_STARTED |

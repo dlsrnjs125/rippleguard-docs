@@ -10,6 +10,6 @@
 | 링크·일관성 검증 | 완료 | 상대경로, 빈 파일, whitespace와 책임·소유권 경계 정적 검토 |
 | Cross-Repo 검증 | IN_REVIEW | Contracts PR #2와 Infra PR #1은 main에 병합됐고 CI/로컬 검증 확인됨; Docs finalization PR #4 병합 대기 |
 | Phase 1~10 계획 | REVIEWED | 목적·경계·의존성·완료·인계 조건 작성; 실행 문서는 시작 시 생성 |
-| 게시 기준 고정 | IN_REVIEW | Contracts와 Infra merge commit은 기록됨; Docs finalization PR #4 head `f93108ddee238877875565c04589c48072e46d6f`; merge commit은 병합 후 Metadata PR에서 고정 |
+| 게시 기준 고정 | IN_REVIEW | Contracts와 Infra merge commit은 기록됨; Docs finalization PR #4 current head는 움직이는 후보로만 취급; merge commit은 병합 후 Metadata PR에서 고정 |
 
 문서 작성 완료를 서비스 구현 완료로 간주하지 않는다. 외부 Contracts·Infra 검증은 완료됐지만 현재 Docs PR 자체가 review 중이므로 Phase 0 상태는 `IN_REVIEW`로 유지한다.
