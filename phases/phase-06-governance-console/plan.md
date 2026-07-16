@@ -4,9 +4,15 @@
 - [ ] Agent Registry와 상태 전이 UI 구현
 - [ ] Manual Safe Mode·Segment Isolation 구현
 - [ ] Reviewer Task와 정형 결과 입력 구현
-- [ ] Static Architecture Graph용 Versioned Topology Manifest 확정
+- [ ] Static Topology Manifest 최소 Schema를 `rippleguard-contracts`에서 확정
+- [ ] 공통 Graph Node·Link Core DTO 계약 확정
+- [ ] Architecture Graph 전용 Node·Link Extension 확정
+- [ ] `rippleguard-infra`를 Versioned Topology Manifest 원본 소유 Repository로 확정
+- [ ] Static Architecture Graph용 Versioned Topology Manifest 위치·버전 규칙·배포 방식 확정
+- [ ] Contract Fixture를 기준으로 Web Renderer 구현
 - [ ] `react-force-graph-2d` 기반 Topology View 구현
 - [ ] Graph Search·Filter·Legend·Detail Panel 구현
+- [ ] Reference device/browser, First Interactive, Layout Stabilization, Reduced Motion 측정 기준 확정
 - [ ] 핵심 Service·Agent·Tool·Policy 관계와 Kafka Pub/Sub 방향 표시 검증
 - [ ] Graph 민감정보 비노출과 Node·Link Budget 가독성 검증
 - [ ] Operator·Reviewer·Auditor RBAC 검증

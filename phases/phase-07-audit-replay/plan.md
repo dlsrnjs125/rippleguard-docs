@@ -3,6 +3,10 @@
 - [ ] Trace·Replay·Version Metadata 계약 구현
 - [ ] Append-only Audit Schema와 Hash Chain 구현
 - [ ] Correlation·Causation 기반 Timeline 구현
+- [ ] Phase 6 공통 Graph Node·Link Core DTO를 재사용해 Execution Graph API 계약 확장
+- [ ] Execution Node Extension 계약 구현
+- [ ] Causation/Trace Edge Extension과 `linkOrigin`·`causalityStatus`·`evidenceRefs` 계약 구현
+- [ ] Pagination·Filter Contract 구현
 - [ ] Case·EvaluationRun Execution Graph Read Model 계약 구현
 - [ ] Agent Run·Envelope·Policy Decision Node 조회 구현
 - [ ] Event Directional Particle과 시간순 Playback 또는 Step Highlight 구현

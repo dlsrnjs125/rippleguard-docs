@@ -18,7 +18,9 @@
 
 Graph Node, Link, Tooltip과 Side Panel 기본 Payload에는 주민등록번호, 전체 계좌번호, 원문 Prompt, LLM 전체 응답, 문서 원문, 전체 금융 Snapshot, Secret, Access Token, Raw Tool Credential을 포함하지 않는다.
 
-Graph에는 마스킹 ID, Reason Code, Version, 상태와 Reference만 표시한다. Reference를 클릭해 상세 데이터에 접근하는 경우에도 RBAC, 목적 제한, Audit Event가 필요하다. 학습 데이터 전체, 모든 RAG Chunk, Embedding 관계, 모든 로그 Event를 MVP Graph에 펼치지 않는다.
+Graph에는 마스킹 ID, Reason Code, Version, 상태와 Reference만 표시한다. `metadataRef`는 opaque application reference이며 Graph API 응답에 Presigned URL, MinIO URL, 원문 Object Key를 포함하지 않는다. 상세 조회는 별도 Authorized API에서 Case, Role, Purpose, Retention을 재검증하고 Audit Event를 남긴다. 학습 데이터 전체, 모든 RAG Chunk, Embedding 관계, 모든 로그 Event를 MVP Graph에 펼치지 않는다.
+
+Graph 민감정보 차단의 1차 책임은 Audit & Replay Service의 Graph Read Model과 Contracts Schema에 있다. Web은 허용된 Summary만 표시하고 DOM·Canvas Tooltip에 민감정보가 노출되지 않게 해야 하지만, 서버가 원문을 보낸 뒤 Web에서 숨기는 구조는 허용하지 않는다.
 
 ## 문서 Prompt Injection
 

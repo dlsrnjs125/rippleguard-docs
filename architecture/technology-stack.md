@@ -19,6 +19,8 @@ Phase 0에서 언어와 핵심 프레임워크 경계를 고정한다. 구체적
 | Web | React 또는 Next.js | 신청·심사·Governance Console; Phase 6 전에 하나를 확정 |
 | Graph Visualization | react-force-graph-2d | Phase 6 정적 Architecture Graph와 Phase 7 EvaluationRun Execution Graph |
 
-`XGBoost 또는 LightGBM`, `React 또는 Next.js`는 허용 후보가 확정된 상태이며 최종 선택은 후속 검증 Decision으로 남아 있다. `react-force-graph-2d`는 Graph Visualization 후보로 고정하되 구체적인 라이브러리 버전은 `rippleguard-web` 구현 Phase에서 검증 후 확정한다. Kafka, OPA, PostgreSQL, pgvector, MinIO, OpenTelemetry, Prometheus, Grafana와 Docker Compose는 Phase 0 아키텍처 기준이다.
+`XGBoost 또는 LightGBM`, `React 또는 Next.js`는 허용 후보가 확정된 상태이며 최종 선택은 후속 검증 Decision으로 남아 있다. Graph Visualization의 default implementation choice는 `react-force-graph-2d`이며 구체적인 라이브러리 버전은 `rippleguard-web` 구현 Phase에서 검증 후 확정한다. Kafka, OPA, PostgreSQL, pgvector, MinIO, OpenTelemetry, Prometheus, Grafana와 Docker Compose는 Phase 0 아키텍처 기준이다.
+
+Phase 6 spike는 접근성, 100-node 성능, Next.js/React 통합, Reduced Motion 동작을 검증한다. 검증 실패 시 ADR amendment로 대체 기술을 검토한다.
 
 MVP Graph는 2D Canvas 기반 정보 탐색을 우선한다. `react-force-graph-3d`, VR, AR, Three.js 기반 3D Graph는 시각 효과보다 가독성, 접근성, 구현 안정성을 우선하기 위해 MVP에서 제외한다.
