@@ -2,7 +2,8 @@
 
 - [ ] `rippleguard-contracts` Phase 1 계약 PR 병합
 - [ ] 신청 REST와 Snapshot 계약 확정
-- [ ] Loan·Decision Case 상태 Event 확정
+- [ ] Phase 0 상태·Event 계약 재사용 범위와 Consumer 적용 규칙 확정
+- [ ] Phase 0 Published Contract의 호환 변경 원칙과 major 변경 ADR 요구 기준 확인
 - [ ] `rippleguard-loan-service` 신청·Snapshot·Outbox PR 병합
 - [ ] Loan/Governance DB Migration 작성
 - [ ] Outbox·Inbox와 Consumer 멱등성 구현
