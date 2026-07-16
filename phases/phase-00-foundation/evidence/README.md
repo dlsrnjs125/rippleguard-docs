@@ -10,8 +10,9 @@ Phase 완료 증빙에는 문서 Link Check 결과, Repository Tree, Contract Sc
 | Contracts 검증 | `make validate` | 16 schemas, 30 valid examples, 54 intentional invalid examples, 8 scenarios, 1 compatibility check |
 | Contracts CI | GitHub Actions `Contract validation` run #8 | success on PR head `39b22e40ae10a9ec3678cfac509a7fe6b747eaa4` |
 | Infra PR | `dlsrnjs125/rippleguard-infra` PR #1 | merged, merge commit `22db5e4fcc435d2492ad10bf33c18618ecc46282` |
+| Infra CI | GitHub Actions `Infra validation` run #5 | success on PR head `06e6f30fb20bdc121b163699acdb33330cafd0b8`; commands: `make validate-static`, `make validate-contract-baseline` |
 | Infra baseline 검증 | `make validate-static`, `make validate-contract-baseline` | Compose config, secret pattern, contracts schema/topic baseline comparison PASS |
 | Infra 플랫폼 검증 | `make platform-up`, `make platform-check`, `make platform-down` | Kafka topic, Loan/Governance PostgreSQL, OPA, MinIO, Kafka UI health PASS |
-| Infra CI | GitHub status/workflow API 조회 | 확인 가능한 run/status 없음; Phase 0 VERIFIED 전환 보류 |
+| Docs finalization PR | `dlsrnjs125/rippleguard-docs` PR #4 | candidate head `f93108ddee238877875565c04589c48072e46d6f`; merge commit은 병합 후 Metadata PR에서 고정 |
 
 원본 로그 전체는 복사하지 않는다. 자세한 baseline 값은 [Cross-Repo Baseline](../cross-repo-baseline.md)과 [Verification](../verification.md)에 기록한다.
