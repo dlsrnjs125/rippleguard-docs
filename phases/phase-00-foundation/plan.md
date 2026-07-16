@@ -20,6 +20,6 @@
 - [x] 멀티레포 Baseline 규칙 정의
 - [x] 초기 ADR과 MVP Agent 역할 범위 작성
 - [x] 문서 링크와 의미 일관성 정적 검증
-- [ ] Phase 1 초기 실행 계약과 Event 공통 Envelope 확정
-- [ ] 로컬 인프라 기본 구성 검증
+- [x] Phase 1 초기 실행 계약과 Event 공통 Envelope 확정
+- [x] 로컬 인프라 기본 구성 검증
 - [ ] 게시 Commit·PR을 Phase Baseline에 고정
