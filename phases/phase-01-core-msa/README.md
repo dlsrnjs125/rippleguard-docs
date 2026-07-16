@@ -1,7 +1,7 @@
 # Phase 1 — Core MSA Foundation
 
 - Phase: 1
-- 상태: `PLANNED`
+- 상태: `IN_PROGRESS`
 - 선행 Phase: Phase 0
 - 후속 Phase: Phase 2
 
@@ -31,6 +31,19 @@ Phase 0의 상태·Event 경계와 초기 계약이 리뷰 가능해야 한다. 
 
 Phase 0 handoff에는 Loan Application 상태와 `loan.application.submitted.v1` 제출 Event 계약이 포함된다. 신청 REST/OpenAPI는 Phase 1 구현 산출물이며 Phase 1 진입 조건은 아니다.
 
+## Repository 작업 순서
+
+Phase 1은 다음 순서로 하나의 Repository씩 진행한다.
+
+1. `rippleguard-contracts`
+2. `rippleguard-loan-service`
+3. `rippleguard-governance-service`
+4. `rippleguard-audit-replay-service`
+5. `rippleguard-infra`
+6. `rippleguard-docs` finalization
+
+현재 Repository PR이 main에 병합된 뒤 다음 Repository 작업을 시작한다. 한 번에 하나의 Repository만 수정하며, 각 서비스 상세 구현은 해당 Repository에서 관리한다. 중앙 Docs에는 Cross-Repo 진행 상태와 검증 Baseline만 기록한다.
+
 ## 통합 지점과 실패 경로
 
 Loan Service가 신청 Event를 발행하고 Governance가 Case를 생성한다. Mock 결과 후 Governance가 Decision Command를 발행하며 Loan Service가 멱등 적용한다. 중복·지연·실패 시 기존 상태를 유지하고 재처리 또는 DLT 대상으로 기록한다.
@@ -46,3 +59,12 @@ Loan Service가 신청 Event를 발행하고 Governance가 Case를 생성한다.
 ## 다음 Phase 인계 조건
 
 Mock Agent를 실제 Loan Decision Agent로 교체할 Versioned Snapshot과 평가 요청·결과 계약이 준비되어야 한다.
+
+## 실행 추적
+
+- [Plan](plan.md)
+- [Progress](progress.md)
+- [Cross-Repo Baseline](cross-repo-baseline.md)
+- [Verification](verification.md)
+- [Troubleshooting](troubleshooting/README.md)
+- [Evidence](evidence/README.md)
