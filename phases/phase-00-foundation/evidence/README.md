@@ -13,6 +13,6 @@ Phase 완료 증빙에는 문서 Link Check 결과, Repository Tree, Contract Sc
 | Infra CI | GitHub Actions `Infra validation` run #5 | success on PR head `06e6f30fb20bdc121b163699acdb33330cafd0b8`; commands: `make validate-static`, `make validate-contract-baseline` |
 | Infra baseline 검증 | `make validate-static`, `make validate-contract-baseline` | Compose config, secret pattern, contracts schema/topic baseline comparison PASS |
 | Infra 플랫폼 검증 | `make platform-up`, `make platform-check`, `make platform-down` | Kafka topic, Loan/Governance PostgreSQL, OPA, MinIO, Kafka UI health PASS |
-| Docs finalization PR | `dlsrnjs125/rippleguard-docs` PR #4 | current PR Head reviewed; merge commit은 병합 후 Metadata PR에서 고정 |
+| Docs finalization PR | `dlsrnjs125/rippleguard-docs` PR #4 | merged, merge commit `d729e21c62a2372ea044c6f68fe827595b266483` |
 
 원본 로그 전체는 복사하지 않는다. 자세한 baseline 값은 [Cross-Repo Baseline](../cross-repo-baseline.md)과 [Verification](../verification.md)에 기록한다.

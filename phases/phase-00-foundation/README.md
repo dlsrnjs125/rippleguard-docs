@@ -1,7 +1,7 @@
 # Phase 0 — Foundation & Architecture Baseline
 
 - Phase: 0
-- 상태: `IN_REVIEW`
+- 상태: `VERIFIED`
 - 선행 Phase: 없음
 - 후속 Phase: Phase 1
 
@@ -42,7 +42,7 @@ Docs의 설명용 모델을 Contracts의 실행 Schema와 연결하고, Infra가
 
 Phase 1의 신청·상태 Event, 서비스별 DB 소유권, 로컬 Kafka·PostgreSQL 통합 기준이 구현 가능한 수준으로 준비되어야 한다.
 
-Contracts와 Infra의 main 병합 결과와 CI 결과는 [Cross-Repo Baseline](cross-repo-baseline.md)에 기록했다. 이 Docs finalization PR의 merge commit이 아직 main baseline으로 고정되지 않았으므로 Phase 0은 `IN_REVIEW`이며 Phase 1은 아직 `READY`로 전환하지 않는다.
+Contracts, Infra와 Docs finalization의 main 병합 결과와 CI·검증 결과는 [Cross-Repo Baseline](cross-repo-baseline.md)에 고정했다. Phase 0은 `VERIFIED`이며 Phase 1 Core MSA Foundation을 시작할 수 있다.
 
 ## 실행 추적
 
