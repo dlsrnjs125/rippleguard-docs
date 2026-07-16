@@ -14,6 +14,12 @@
 
 보존기간, 암호화, 마스킹과 삭제 정책은 데이터 분류별로 구성하고 Audit Reference가 원문 복사를 유발하지 않게 한다.
 
+## Graph Visualization 보안 경계
+
+Graph Node, Link, Tooltip과 Side Panel 기본 Payload에는 주민등록번호, 전체 계좌번호, 원문 Prompt, LLM 전체 응답, 문서 원문, 전체 금융 Snapshot, Secret, Access Token, Raw Tool Credential을 포함하지 않는다.
+
+Graph에는 마스킹 ID, Reason Code, Version, 상태와 Reference만 표시한다. Reference를 클릭해 상세 데이터에 접근하는 경우에도 RBAC, 목적 제한, Audit Event가 필요하다. 학습 데이터 전체, 모든 RAG Chunk, Embedding 관계, 모든 로그 Event를 MVP Graph에 펼치지 않는다.
+
 ## 문서 Prompt Injection
 
 업로드 문서는 신뢰할 수 없는 **데이터**이며 Agent 명령이 아니다.

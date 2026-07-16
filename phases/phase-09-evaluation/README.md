@@ -9,9 +9,11 @@
 
 RippleGuard Multi-Agent와 Assurance Gate가 단일 모델·단일 Agent보다 2차 위험을 더 잘 통제하는지 재현 가능한 Golden Case로 평가한다.
 
+Graph 평가는 화면의 화려함이 아니라 사용자가 특정 EvaluationRun의 입력, Agent, 정책, 최종 결과 경로를 정확하게 찾을 수 있는지를 검증한다.
+
 ## 범위와 경계
 
-- 포함: `Loan Model Only`, `Loan Agent Only`, `Multi-Agent + Assurance Gate` 비교, Development·Regression과 분리된 Holdout Evaluation Case를 포함한 Golden Case 20~30건, 품질·시간·비용·사람 검토율
+- 포함: `Loan Model Only`, `Loan Agent Only`, `Multi-Agent + Assurance Gate` 비교, Development·Regression과 분리된 Holdout Evaluation Case를 포함한 Golden Case 20~30건, 품질·시간·비용·사람 검토율, Graph 사용성·정확성 평가
 - 제외: 실제 고객 성능, 규제 적합성 인증, 통계적으로 일반화된 금융기관 결론
 - 변경 금지: 분모 0을 성공으로 처리하거나 합성 데이터 결과를 실제 금융 성능으로 과장하지 않는다.
 
@@ -38,6 +40,11 @@ Reliability 검증된 Baseline과 Partition·Label Version이 고정된 Golden C
 - 위험 유형별 Detection·Escape·Containment·Trace 지표 산출
 - 처리시간, Agent 호출 비용, 사람 검토율 비교
 - 모든 결과의 Run·Version·Case 재현 가능
+- Graph Load Time과 Node·Link Render Budget 검증
+- Case 추적 완료 시간과 최종 결정 근거 탐색 시간 측정
+- 잘못된 인과관계 해석 건수 기록
+- Graph와 Timeline 결과 불일치 건수 기록
+- Node Filter 사용 후 가독성 평가
 - Holdout 결과와 개발·회귀 결과를 분리 보고하고 평가 누수 여부 기록
 - 한계·실패·N/A와 Cross-Repo Baseline 기록
 

@@ -5,6 +5,10 @@
 - [ ] 세 비교군 실행 Manifest 확정
 - [ ] Detection·Escape·Containment 지표 계산
 - [ ] Trace Completeness·시간·비용·검토율 계산
+- [ ] Graph Load Time과 Node·Link Render Budget 측정
+- [ ] Case 추적 완료 시간과 최종 결정 근거 탐색 시간 측정
+- [ ] 잘못된 인과관계 해석과 Graph·Timeline 불일치 건수 기록
+- [ ] Node Filter 사용 후 가독성 평가
 - [ ] 실패 Run과 N/A 처리 검증
 - [ ] Golden Replay로 결과 재현
 - [ ] 평가 보고서와 한계 작성

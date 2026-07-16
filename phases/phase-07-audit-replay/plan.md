@@ -3,11 +3,18 @@
 - [ ] Trace·Replay·Version Metadata 계약 구현
 - [ ] Append-only Audit Schema와 Hash Chain 구현
 - [ ] Correlation·Causation 기반 Timeline 구현
+- [ ] Case·EvaluationRun Execution Graph Read Model 계약 구현
+- [ ] Agent Run·Envelope·Policy Decision Node 조회 구현
+- [ ] Event Directional Particle과 시간순 Playback 또는 Step Highlight 구현
+- [ ] Agent 실행·생략 이유와 Hard Block·Verification·Safe Automation 경로 표시 검증
+- [ ] Run 간 `supersedesRunId` 연결 표시 검증
 - [ ] Single Case·Golden Case Replay 구현
 - [ ] 영향 범위 Replay와 Sample Audit Trace 조회 구현
 - [ ] Sample Audit Escape 등록 Event와 영향 Evaluation Run 검색 계약 구현
 - [ ] 영향 Run의 신규·기존 결과 비교 Replay 구현
 - [ ] Version Diff API와 UI 구현
 - [ ] Trace Gap·순서 역전·변경 탐지 검증
+- [ ] Graph와 Timeline 결과 의미상 일치 검증
+- [ ] Graph PII·Prompt·문서 원문 비노출 검증
 - [ ] Replay와 운영 상태 격리 검증
 - [ ] Docker 통합과 Cross-Repo Baseline 고정

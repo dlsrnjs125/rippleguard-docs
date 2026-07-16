@@ -27,5 +27,7 @@ stateDiagram-v2
 - Manual Safe Mode는 Agent 또는 정책 전체의 자동 결정 경로를 중단하고 승인된 수동 절차로 축소한다.
 - Segment Isolation은 특정 상품, 신청자 Segment, 모델·Agent Version 또는 위험신호 Source만 격리한다.
 - Console은 Run Trace, Golden Case Replay, Version Diff와 System Health를 연결해 보여준다.
+- Phase 6 Console은 Versioned Topology Manifest 기반 Static Architecture Graph를 제공할 수 있다. 이 Graph는 실시간 서비스 디스커버리가 아니며 Agent·Tool·Policy·Event 관계를 설명하는 운영 보조 View다.
+- Phase 7 이후 Execution Graph는 Audit & Replay Service의 Read Model을 통해 제공하며, Web이 Kafka 또는 운영 DB를 직접 조회해 Graph를 만들지 않는다.
 - Prompt와 정책 원본은 운영 화면에서 직접 편집하지 않는다. Versioned Repository 변경, 검증, 승인, 배포 절차를 거친다.
 - 안전 통제 해제는 활성화와 동일한 검증·이중 확인을 요구한다.
