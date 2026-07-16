@@ -14,3 +14,16 @@ MVP 전체를 관통하는 대표 흐름의 이름과 기대 경로를 고정한
 | CS-008 | Agent 장애와 Manual Safe Mode | 필수 Agent Timeout·Health 불가 | 계획된 필수 Agent 실행 실패 | `INCOMPLETE` | `MANUAL_SAFE_MODE`, 복구 후 새 Run과 Replay | 7, 8, 9 |
 
 각 Scenario는 Development, Regression, Holdout 중 Dataset Partition을 명시한다. 같은 의미를 가진 Holdout Case의 세부 값과 기대 결과를 Prompt·Policy 튜닝에 사용하지 않는다.
+
+## Graph Demonstration Mapping
+
+Graph 시연은 대표 Case의 핵심 인과관계만 보여준다. 학습 데이터 전체, 문서 원문, 원문 Prompt, 전체 금융 Snapshot은 Graph Node로 표시하지 않는다.
+
+| Scenario | Architecture Graph 관련 여부 | Execution Graph 예상 핵심 Node | 예상 최종 Routing | 시연 Phase |
+| --- | --- | --- | --- | --- |
+| CS-001 정상 자동 승인 | Loan Service, Governance Service, Agent Runtime, Kafka, OPA 기본 경로 | Case, EvaluationRun, Loan Decision Agent, Decision Envelope, Policy Decision, Final Decision | `SAFE_AUTOMATION → APPROVE` | 6, 7, 9 |
+| CS-003 Cross-Purpose Data Reuse Hard Block | FDS Simulator, Loan Service, RippleGuard Agent, OPA 관계 | Case, EvaluationRun, FDS Event, RippleGuard Agent Run, Consequence Envelope, Policy Decision, Hard Block | `HARD_BLOCK` | 6, 7, 9 |
+| CS-004 Scope Escalation 탐지 | FDS Simulator, RippleGuard Agent, Governance Service 관계 | Case, EvaluationRun, Scope Metadata Event, RippleGuard Agent Run, Consequence Envelope, Policy Decision | `HARD_BLOCK` | 6, 7, 9 |
+| CS-006 Evidence 누락 후 Human Verification | Evidence & Control Agent, Human Task, Governance Service 관계 | Case, EvaluationRun, Evidence Finding, Human Verification Task, Policy Decision | `ADDITIONAL_VERIFICATION` | 6, 7, 9 |
+| CS-003/CS-004/CS-005 수정 Snapshot 기반 새 EvaluationRun 재산출 | Loan Service Snapshot, Governance Service, Audit & Replay Service 관계 | Previous EvaluationRun, `supersedesRunId`, New EvaluationRun, corrected Snapshot Reference, Final Decision | 원인 제거 후 새 Run으로 재평가 | 7, 9 |
+| CS-008 Agent 장애 후 Manual Safe Mode | Agent Runtime, Governance Service, Web, Audit & Replay Service 관계 | Agent Run Timeout, EvaluationRun Failed/Incomplete, Manual Safe Mode Event, Human Task | `MANUAL_SAFE_MODE` | 7, 8, 9 |

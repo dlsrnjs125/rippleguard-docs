@@ -38,3 +38,9 @@ Run 상태는 덮어쓰거나 `BLOCKED → RUNNING`으로 되돌리지 않는다
 5. Run 2는 Preflight부터 Agent, Assurance, OPA를 모두 재실행한다.
 
 사람은 기존 위반을 Override하지 못한다. 이전 Run, Evidence, Policy Result와 전파 영향은 Audit Trace에 영구 Reference로 남긴다. 실행 가능한 Schema는 `rippleguard-contracts`가 Source of Truth다.
+
+## Execution Graph 연결
+
+Phase 7 Execution Graph는 특정 `decisionCaseId` 또는 `evaluationRunId`를 기준으로 Evaluation Run, Agent Run, Envelope, Policy Decision, Human Task, Final Decision과 Event 인과관계를 표시한다.
+
+Graph 링크는 `correlationId`, `causationId`, `evaluationRunId`, `agentRunId`, `supersedesRunId`를 중심으로 구성한다. Graph는 Audit Read Model에서 파생되며, Timeline을 대체하지 않는다. Graph와 Timeline 결과가 의미상 불일치하면 Trace Read Model Drift로 기록한다.
