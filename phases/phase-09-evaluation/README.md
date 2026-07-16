@@ -43,6 +43,9 @@ Reliability 검증된 Baseline과 Partition·Label Version이 고정된 Golden C
 - Graph Load Time과 Node·Link Render Budget 검증
 - Case 추적 완료 시간과 최종 결정 근거 탐색 시간 측정
 - 잘못된 인과관계 해석 건수 기록
+- Truncated Graph를 완전한 Trace로 잘못 해석한 건수 기록
+- Filter 적용 상태 인지율 측정
+- 누락 Node 탐색 성공률 측정
 - Graph와 Timeline 결과 불일치 건수 기록
 - Node Filter 사용 후 가독성 평가
 - Holdout 결과와 개발·회귀 결과를 분리 보고하고 평가 누수 여부 기록

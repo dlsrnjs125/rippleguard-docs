@@ -7,6 +7,7 @@
 - [ ] Execution Node Extension 계약 구현
 - [ ] Causation/Trace Edge Extension과 `linkOrigin`·`causalityStatus`·`evidenceRefs` 계약 구현
 - [ ] Pagination·Filter Contract 구현
+- [ ] Graph Response Envelope의 `traceCompleteness`, `isTruncated`, `appliedFilters`, 누락 개수, `nextCursor`, `warnings` 구현
 - [ ] Case·EvaluationRun Execution Graph Read Model 계약 구현
 - [ ] Agent Run·Envelope·Policy Decision Node 조회 구현
 - [ ] Event Directional Particle과 시간순 Playback 또는 Step Highlight 구현
@@ -19,6 +20,8 @@
 - [ ] Version Diff API와 UI 구현
 - [ ] Trace Gap·순서 역전·변경 탐지 검증
 - [ ] Graph와 Timeline 결과 의미상 일치 검증
+- [ ] 부분 Graph와 완전한 Trace 구분 표시 검증
+- [ ] Trace Gap과 Budget·Filter·Retention 생략 구분 검증
 - [ ] Graph PII·Prompt·문서 원문 비노출 검증
 - [ ] Replay와 운영 상태 격리 검증
 - [ ] Docker 통합과 Cross-Repo Baseline 고정

@@ -47,6 +47,10 @@ Audit Service가 Kafka Event를 소비하고 Object Reference로 Evidence를 연
 - 이전 Run과 재산출 Run 연결
 - Trace Gap 또는 순서 역전 표시
 - Graph와 Timeline 결과의 의미상 일치 검증
+- 부분 Graph 응답이 전체 Trace로 오인되지 않음
+- 적용 Filter와 누락 Node·Link 개수 표시
+- Trace Gap과 Budget·Filter·Retention 생략 구분
+- Pagination 또는 Expand 조회로 누락 범위 탐색 가능
 - 원문 Prompt·PII·문서 원문 비노출
 - Docker 통합과 Baseline 고정
 

@@ -4,6 +4,65 @@
 
 Graph View Model은 화면 렌더링과 문서화 기준을 맞추기 위한 중간 설계다. 서비스 상태 변경, 정책 판단, Event 확정의 Source of Truth가 아니다.
 
+## Graph Response Envelope
+
+Graph 응답은 Node·Link 배열만 반환하지 않는다. 현재 응답이 전체 Trace인지, Budget·Filter·Retention·수집 Gap 때문에 일부 Trace인지 구분할 수 있는 Envelope Metadata를 포함해야 한다.
+
+| 필드 | 의미 |
+| --- | --- |
+| `graphId` | Graph 응답 식별자. 예: `execution:case-1001:run-3` |
+| `viewType` | `STATIC_ARCHITECTURE` 또는 `EVALUATION_RUN_EXECUTION` |
+| `schemaVersion` | Graph 응답 Schema Version |
+| `generatedAt` | 응답 또는 Artifact 생성 시각 |
+| `sourceBaseline` | 재현 기준 Commit·Version 묶음 |
+| `caseId` | 관련 Case ID, 해당 없으면 `null` |
+| `evaluationRunId` | 관련 EvaluationRun ID, 해당 없으면 `null` |
+| `nodeCount` | 응답에 포함된 Node 수 |
+| `linkCount` | 응답에 포함된 Link 수 |
+| `isTruncated` | Budget, Pagination, Retention 등으로 응답이 잘렸는지 여부 |
+| `traceCompleteness` | 응답 전체의 Trace 완전성 상태 |
+| `appliedFilters` | Event Type, 시간 범위, Agent Run 등 적용된 Filter |
+| `omittedNodeCount` | 응답에 포함되지 않은 Node 수. 알 수 없으면 `null` |
+| `omittedLinkCount` | 응답에 포함되지 않은 Link 수. 알 수 없으면 `null` |
+| `nextCursor` | 추가 조회용 opaque cursor |
+| `warnings` | 사용자가 오해하지 않아야 할 경고 메시지 |
+
+`traceCompleteness` 값은 다음 중 하나를 사용한다.
+
+- `COMPLETE`: 응답이 요청 범위의 Trace를 모두 포함함
+- `PARTIAL_BY_FILTER`: 사용자가 적용한 Filter로 일부 Trace가 제외됨
+- `PARTIAL_BY_BUDGET`: 초기 Render Budget 또는 응답 크기 제한으로 일부 Trace가 제외됨
+- `PARTIAL_BY_RETENTION`: 보존기간 또는 권한 제한으로 일부 Trace가 제외됨
+- `GAP_DETECTED`: 수집 실패 또는 Event 누락이 감지됨
+- `CONFLICTED`: Timeline, Event, Reference 사이에 충돌이 감지됨
+
+`GAP`과 `CONFLICTED` Edge는 개별 Link의 `causalityStatus`이며, `traceCompleteness`는 Graph 응답 전체 상태다. 화면은 `isTruncated`, `traceCompleteness`, `appliedFilters`, `omittedNodeCount`, `omittedLinkCount`, `nextCursor`, `warnings`를 사용자가 볼 수 있게 표시해야 한다.
+
+예시 설명 모델:
+
+```json
+{
+  "graphId": "execution:case-1001:run-3",
+  "viewType": "EVALUATION_RUN_EXECUTION",
+  "schemaVersion": "1.0.0",
+  "nodeCount": 87,
+  "linkCount": 121,
+  "isTruncated": true,
+  "traceCompleteness": "PARTIAL_BY_BUDGET",
+  "appliedFilters": {
+    "eventTypes": ["agent.evaluation.completed.v1"],
+    "timeRange": null,
+    "agentRunIds": []
+  },
+  "omittedNodeCount": 32,
+  "omittedLinkCount": 44,
+  "nextCursor": "opaque-cursor",
+  "warnings": [
+    "Additional events are hidden by the initial render budget."
+  ]
+}
+```
+
 ## Graph Node 개념
 
 최소 필드는 다음과 같다.
@@ -41,6 +100,20 @@ Graph View Model은 화면 렌더링과 문서화 기준을 맞추기 위한 중
 - `EXTERNAL_SYSTEM`
 
 `POLICY`는 정적 정책 정의와 `policyVersion`, `bundleVersion`을 표현한다. `POLICY_DECISION`은 특정 EvaluationRun의 정책 실행 결과와 `allow`, `deny`, `route`, `reasonCodes`, `evaluatedAt`을 표현한다. 필요하면 최종 Routing 결과를 `ROUTING_DECISION`으로 분리한다.
+
+Node ID는 원본 업무 ID만 사용하지 않는다. 서로 다른 Node Type이 같은 업무 ID를 가질 수 있으므로 Graph 내부 ID는 다음 규칙을 따른다.
+
+```text
+<nodeType>:<opaque-domain-id>
+```
+
+예시는 다음과 같다.
+
+- `EVENT:evt-123`
+- `EVALUATION_RUN:run-123`
+- `POLICY_DECISION:policy-result-123`
+
+화면 Label에는 이 복합 ID를 직접 표시하지 않고 사용자에게 의미 있는 짧은 이름을 표시한다.
 
 ## Graph Link 개념
 
@@ -92,6 +165,14 @@ Graph View Model은 화면 렌더링과 문서화 기준을 맞추기 위한 중
 - 경고선: `GAP` 또는 `CONFLICTED`
 
 `animated`는 서버 DTO 필드가 아니다. Web은 `animationEligible`, 선택 Link, Playback Cursor, 사용자 설정과 Reduced Motion 설정을 조합해 실제 Animation 여부를 계산한다.
+
+Link ID는 Source, Target, Link Type, Origin과 증거 식별자를 조합해 충돌을 방지한다.
+
+```text
+<linkOrigin>:<linkType>:<source>:<target>:<sequence-or-evidence-id>
+```
+
+복합 Link ID도 화면 Label로 직접 표시하지 않는다.
 
 ## 표시 금지 데이터
 

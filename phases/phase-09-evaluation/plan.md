@@ -8,6 +8,8 @@
 - [ ] Graph Load Time과 Node·Link Render Budget 측정
 - [ ] Case 추적 완료 시간과 최종 결정 근거 탐색 시간 측정
 - [ ] 잘못된 인과관계 해석과 Graph·Timeline 불일치 건수 기록
+- [ ] Truncated Graph를 완전한 Trace로 잘못 해석한 건수 측정
+- [ ] Filter 적용 상태 인지율과 누락 Node 탐색 성공률 측정
 - [ ] Node Filter 사용 후 가독성 평가
 - [ ] 실패 Run과 N/A 처리 검증
 - [ ] Golden Replay로 결과 재현
