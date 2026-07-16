@@ -42,6 +42,8 @@ Docs의 설명용 모델을 Contracts의 실행 Schema와 연결하고, Infra가
 
 Phase 1의 신청·상태 Event, 서비스별 DB 소유권, 로컬 Kafka·PostgreSQL 통합 기준이 구현 가능한 수준으로 준비되어야 한다.
 
+Contracts와 Infra의 main 병합 결과는 [Cross-Repo Baseline](cross-repo-baseline.md)에 기록했다. Infra CI 상태 확인이 남아 있으므로 Phase 0은 아직 `VERIFIED`가 아니며 Phase 1은 `READY`로 전환하지 않는다.
+
 ## 실행 추적
 
 - [Plan](plan.md)

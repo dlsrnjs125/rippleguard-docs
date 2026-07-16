@@ -23,7 +23,7 @@ RippleGuard는 대출심사 AI의 판단이 목적과 범위를 벗어나거나 
 - [Phase 0](phases/phase-00-foundation/README.md)
 - [ADR 목록](adr/README.md)
 
-현재 **Phase 0 — Foundation & Architecture Baseline**은 `IN_PROGRESS`이다. 상세 진척과 완료 검증은 [Phase 0 progress](phases/phase-00-foundation/progress.md)와 [verification](phases/phase-00-foundation/verification.md)에서 추적한다.
+현재 **Phase 0 — Foundation & Architecture Baseline**은 `IN_PROGRESS`이다. Contracts와 Infra 결과는 main에 병합됐지만 Infra CI 상태 확인이 남아 있어 `VERIFIED`로 전환하지 않는다. 상세 진척과 완료 검증은 [Phase 0 progress](phases/phase-00-foundation/progress.md)와 [verification](phases/phase-00-foundation/verification.md)에서 추적한다.
 
 ## Repository 구성
 

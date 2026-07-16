@@ -15,3 +15,5 @@
 | 10 | [Final Integration & Closure](../phases/phase-10-final-integration/README.md) | PLANNED | 9 | 재현 가능한 최종 Baseline과 문서 확정 |
 
 허용 상태는 `PLANNED`, `READY`, `IN_PROGRESS`, `BLOCKED`, `IN_REVIEW`, `VERIFIED`, `SUPERSEDED`다. 상태 변경은 선행 조건, Verification과 Cross-Repo Baseline에 근거하며 변경 이유는 [Roadmap Change Log](roadmap-change-log.md)에 남긴다.
+
+Phase 0은 Contracts와 Infra 결과가 main에 병합됐지만 Infra CI 상태를 확인할 수 없어 `IN_PROGRESS`로 유지한다. 이 확인이 완료되면 Phase 0은 `VERIFIED`, Phase 1은 `READY`로 전환할 수 있다.
