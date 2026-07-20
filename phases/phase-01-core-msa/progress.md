@@ -169,13 +169,14 @@ Owner:
 
 - `rippleguard-infra`
 
-## Docs Published Baseline
+## Docs Candidate Baseline
 
 Status: IN_REVIEW_FOR_MERGE
 
 Evidence:
 
-- Current docs branch records the `VERIFIED` snapshot, remediation history and deferred risks.
+- PR #7 head branch `docs/phase-1-baseline-finalization` records the `VERIFIED` snapshot, remediation history and deferred risks.
+- Phase 1 `VERIFIED` and Phase 2 `READY` become the published project status when PR #7 is merged to main.
 
 Remaining:
 
