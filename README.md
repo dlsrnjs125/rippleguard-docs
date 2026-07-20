@@ -26,7 +26,7 @@ RippleGuard는 대출심사 AI의 판단이 목적과 범위를 벗어나거나 
 - [Phase 1](phases/phase-01-core-msa/README.md)
 - [ADR 목록](adr/README.md)
 
-현재 **Phase 0 — Foundation & Architecture Baseline**은 `VERIFIED`이고 **Phase 1 — Core MSA Foundation**은 `IN_PROGRESS`이다. Phase 1은 AI 없는 최소 수직 흐름과 서비스별 DB·Event·Timeline 기반을 구현한다. 상세 진척과 완료 검증은 [Phase 1 progress](phases/phase-01-core-msa/progress.md)와 [verification](phases/phase-01-core-msa/verification.md)에서 추적한다.
+현재 **Phase 0 — Foundation & Architecture Baseline**과 **Phase 1 — Core MSA Foundation**은 `VERIFIED`이다. Phase 1 서비스 image provenance와 Docker Compose runtime verification이 PASS로 재검증되어 **Phase 2 — Loan Decision Agent**는 `READY`이다. 상세 진척과 완료 검증은 [Phase 1 progress](phases/phase-01-core-msa/progress.md)와 [verification](phases/phase-01-core-msa/verification.md)에서 추적한다.
 
 Agent Graph Visualization은 Phase 6에서 정적 Architecture Graph, Phase 7에서 EvaluationRun Execution Graph로 계획한다. 실제 React 구현, Graph API 구현과 Training Data·전체 Data Provenance Graph는 이번 Roadmap 문서 범위에 포함하지 않는다.
 

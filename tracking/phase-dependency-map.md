@@ -20,13 +20,13 @@ flowchart TD
 | Phase | 필수 선행 결과 | 제한적 병렬 가능 범위 | 시작 금지 조건 |
 | --- | --- | --- | --- |
 | 1 | Phase 0 상태·계약·소유권 기준 | Infra Skeleton | 핵심 Event·DB 소유권 미정 |
-| 2 | Phase 1 Versioned Snapshot·평가 경계 | 합성 데이터 준비 | 최소 수직 흐름 미검증 |
+| 2 | Phase 1 Versioned Snapshot·평가 경계·검증된 Kafka/PostgreSQL Infra·commit-tagged OCI Image Baseline·최소 Case Timeline | 합성 데이터 준비 | Phase 1 published baseline 미병합 또는 Agent Runtime 연결 환경 미확인 |
 | 3 | Phase 2 Decision Envelope | FDS Case 작성 | Decision provenance 미검증 |
 | 4 | Phase 2 Decision, Phase 3 독립 실행 경계 | 문서 Fixture·Control Registry | 문서 보안·Finding 계약 미정 |
 | 5 | Consequence와 Evidence Findings | OPA Rule 초안 | 필수 입력·Hard Block 의미 미정 |
 | 6 | Phase 5 Agent 상태·Task·정책 API, Phase 1~2 최소 Trace API, `rippleguard-contracts`의 Static Manifest Schema와 Graph Core DTO 초안, `rippleguard-infra` Manifest 소유권 기준 | Phase 5 후반 Web 기본 화면과 Static Architecture Graph 초안 | 권한·상태 또는 최소 Timeline API 미검증 상태의 운영 변경, Manifest가 실제 Architecture Baseline과 대조 불가, Web 내부 하드코딩 Manifest |
 | 7 | Phase 1~2 Audit Foundation, Phase 5 Trace Metadata, Phase 6 운영 Event, Phase 6 Graph Core DTO와 Static Manifest 기준 | Hash Chain·Replay 설계와 Execution Graph API·Read Model 확장 설계 | Correlation·Causation·Version Metadata 미정, 실제 causation Edge와 파생 Edge 구분 필드 미정 |
-| 8 | 전체 수직 Trace와 Replay | 장애 Scenario 작성 | 정상 경로 Baseline 미검증 |
+| 8 | 전체 수직 Trace와 Replay | 장애 Scenario 작성 | 정상 경로 Baseline 또는 Phase 2+ Agent 경로 미검증 |
 | 9 | Reliability 검증 Baseline, Timeline·Graph 조회 Baseline | 평가 Script·보고서 틀 | 실행 불안정, Golden Case 미고정 또는 Graph와 Timeline 의미 불일치 |
 | 10 | Phase 0~9 검증 결과 | 문서 Link·Readiness 사전 점검 | 필수 Baseline·평가 Evidence 누락 |
 
