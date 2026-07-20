@@ -8,5 +8,6 @@ Phase 추가·삭제·분리, 서비스·Repository 경계, 핵심 Agent 역할,
 | 2026-07-15 | Phase 0 중심 추적 | Phase 0~10 전체 Delivery Roadmap | 프로젝트 종료까지 의존성·검증 Baseline을 중앙 관리 | 전체 | N/A |
 | 2026-07-16 | Graph Visualization 범위 미정 | Phase 6 Static Architecture Graph, Phase 7 EvaluationRun Execution Graph, Phase 9 Graph 사용성·정확성 평가 추가. Data Provenance Graph는 MVP 제외 | Multi-Agent 구조와 실행 인과관계를 설명·추적하되 Graph를 Source of Truth로 만들지 않기 위함 | 6, 7, 9, 10 | [ADR-006](../adr/ADR-006-agent-graph-visualization-scope.md) |
 | 2026-07-16 | Phase 0 `IN_REVIEW`, Phase 1 `PLANNED` | Phase 0 `VERIFIED`, Phase 1 `IN_PROGRESS` | Phase 0 Contracts·Infra·Docs published baseline을 main merge commit으로 고정하고 Phase 1 Core MSA tracking 시작 | 0, 1 | N/A |
+| 2026-07-20 | Phase 1 `IN_PROGRESS` | Phase 1 `IN_REVIEW`, Phase 2 `PLANNED` 유지 | Phase 1 implementation PRs and CI are merged, but image provenance and Docker Compose runtime checks are not complete | 1, 2 | N/A |
 
 계획이 대체되더라도 이전 문서와 ADR을 삭제하지 않는다. 변경된 Phase는 필요하면 `SUPERSEDED`로 표시하고 새 경로와 인계 조건을 연결한다.

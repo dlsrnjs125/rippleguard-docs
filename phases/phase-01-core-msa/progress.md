@@ -2,16 +2,16 @@
 
 | 작업 | 상태 | 비고 |
 | --- | --- | --- |
-| Phase 1 Kickoff | IN_REVIEW | Phase 0 Published Baseline 확인 후 kickoff tracking PR #6 review 중 |
-| Contracts | NOT_STARTED | 신청 REST·Snapshot 신규 계약과 Phase 0 Event·Mock Evaluation 적용 계약 보완 예정 |
-| Loan Service | NOT_STARTED | 신청, Versioned Snapshot, Outbox, 최종 Loan 상태 반영 구현 예정 |
-| Governance Service | NOT_STARTED | Decision Case, Mock Evaluation, Decision Command 구현 예정 |
-| Audit Foundation | NOT_STARTED | 원본 Event 저장과 최소 Case Timeline 구현 예정 |
-| Infra Integration | NOT_STARTED | 서비스별 PostgreSQL, Kafka, Docker Compose E2E 통합 예정 |
-| Cross-Repo Verification | NOT_STARTED | 각 Repository main 병합 후 통합 검증 예정 |
-| Final Baseline | NOT_STARTED | Phase 1 완료 시 병합 commit, image, migration, contract version 고정 예정 |
+| Phase 1 Kickoff | MERGED | `rippleguard-docs` PR #6 merged at `d18231e55d891eb2f73736381cc3921289b73d2b` |
+| Contracts | MERGED | `rippleguard-contracts` PR #3 merged at `29f6c348fd93633476438ee36b3f93a3d036e165`; `make validate` PASS |
+| Loan Service | MERGED | `rippleguard-loan-service` PR #1 merged at `54ea344a682723d61d9beedf4ade56ee48029c0d`; `./mvnw test` PASS with Docker/Testcontainers access |
+| Governance Service | MERGED | `rippleguard-governance-service` PR #1 merged at `29bafba34c47e003fdefafa455924992993721cf`; `./mvnw test` PASS with Docker/Testcontainers access |
+| Audit Foundation | MERGED | `rippleguard-audit-replay-service` PR #1 merged at `e7d9d9f8afb106ecdec16235d79695d88c18b3cd`; `./mvnw test` PASS with Docker/Testcontainers access |
+| Infra Integration | IN_REVIEW | `rippleguard-infra` PR #2 merged at `ebdd864b279e39701f2bb21750a5080a827943f2`; `make validate-static` PASS, but local image OCI label verification failed |
+| E2E | BLOCKED | Docker Compose E2E, duplicate, recovery, outbox recovery and order/timeline scripts were not run to PASS because image provenance failed first |
+| Baseline | IN_REVIEW | main commits, PRs, CI and contract/migration metadata are recorded; image provenance and local E2E evidence remain incomplete |
 
-Phase 1 진행은 한 번에 하나의 Repository만 수정한다. 현재 Repository PR이 main에 병합된 뒤 다음 Repository 작업을 시작한다.
+Phase 1을 `VERIFIED`로 전환하려면 image provenance 검증과 Docker Compose 통합 검증이 모두 PASS여야 한다. 현재 상태에서는 Phase 2를 `READY`로 전환하지 않는다.
 
 ## Phase 1 Contract Scope
 

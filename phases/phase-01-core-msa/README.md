@@ -1,13 +1,15 @@
 # Phase 1 — Core MSA Foundation
 
 - Phase: 1
-- 상태: `IN_PROGRESS`
+- 상태: `IN_REVIEW`
 - 선행 Phase: Phase 0
 - 후속 Phase: Phase 2
 
 ## 목표와 필요성
 
 AI 없이 대출 신청부터 Governance 처리와 최종 상태 반영까지 최소 수직 흐름을 구현한다. 이후 Agent를 교체 가능한 경계 위에 올리기 전에 Event, 상태 소유권, 멱등성과 독립 DB를 검증한다.
+
+2026-07-20 기준 구현 PR, service-level tests, contract validation and CI checks are confirmed. Phase 1 remains `IN_REVIEW` because service image provenance verification failed locally and Docker Compose runtime E2E checks are not recorded as PASS.
 
 ## 범위와 경계
 
@@ -42,7 +44,7 @@ Phase 1은 다음 순서로 하나의 Repository씩 진행한다.
 5. `rippleguard-infra`
 6. `rippleguard-docs` finalization
 
-현재 Repository PR이 main에 병합된 뒤 다음 Repository 작업을 시작한다. 한 번에 하나의 Repository만 수정하며, 각 서비스 상세 구현은 해당 Repository에서 관리한다. 중앙 Docs에는 Cross-Repo 진행 상태와 검증 Baseline만 기록한다.
+Repository 구현 PR은 main에 병합됐다. 중앙 Docs finalization에서는 merge commit, contract, migration, CI and local verification evidence를 고정하되, image provenance와 Docker Compose runtime 검증이 완료되기 전에는 Phase 1을 `VERIFIED`로 올리지 않는다.
 
 ## 통합 지점과 실패 경로
 
@@ -58,7 +60,7 @@ Loan Service가 신청 Event를 발행하고 Governance가 Case를 생성한다.
 
 ## 다음 Phase 인계 조건
 
-Mock Agent를 실제 Loan Decision Agent로 교체할 Versioned Snapshot과 평가 요청·결과 계약이 준비되어야 한다.
+Mock Agent를 실제 Loan Decision Agent로 교체할 Versioned Snapshot과 평가 요청·결과 계약이 준비되어야 한다. Phase 2는 Phase 1 image provenance와 runtime E2E가 PASS로 기록되어 Phase 1이 `VERIFIED`가 된 뒤 `READY`로 전환한다.
 
 ## 실행 추적
 
