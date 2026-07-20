@@ -24,9 +24,9 @@ Phase 1 Evidence에는 구현 Repository별 PR, 병합 commit, 검증 명령, CI
 
 | Verification | Reason Missing | Owner | Required Artifact |
 | --- | --- | --- | --- |
-| Loan OCI provenance | Required labels absent | `rippleguard-loan-service` | Image inspect summary showing tag, source commit, OCI revision and OCI source |
-| Governance OCI provenance | Required labels absent | `rippleguard-governance-service` | Image inspect summary showing tag, source commit, OCI revision and OCI source |
-| Audit OCI provenance | Required labels absent | `rippleguard-audit-replay-service` | Image inspect summary showing tag, source commit, OCI revision and OCI source |
+| Loan OCI provenance | Required labels absent | `rippleguard-loan-service` | Follow-up PR merge commit, new commit-based image tag, image inspect summary showing OCI revision/source labels |
+| Governance OCI provenance | Required labels absent | `rippleguard-governance-service` | Follow-up PR merge commit, new commit-based image tag, image inspect summary showing OCI revision/source labels |
+| Audit OCI provenance | Required labels absent | `rippleguard-audit-replay-service` | Follow-up PR merge commit, new commit-based image tag, image inspect summary showing OCI revision/source labels |
 | Runtime E2E | Blocked by image provenance | `rippleguard-infra` | Sanitized `phase1-e2e` summary |
 | Duplicate test | Runtime stack baseline not reached | `rippleguard-infra` | Sanitized duplicate-check summary |
 | Recovery test | Runtime stack baseline not reached | `rippleguard-infra` | Sanitized recovery and outbox-recovery summaries |
@@ -38,7 +38,7 @@ Phase 1 Evidence에는 구현 Repository별 PR, 병합 commit, 검증 명령, CI
 Image provenance evidence must include:
 
 - Repository.
-- Source commit.
+- Revised source commit from the follow-up PR merge.
 - Immutable image tag.
 - `org.opencontainers.image.revision`.
 - `org.opencontainers.image.source`.

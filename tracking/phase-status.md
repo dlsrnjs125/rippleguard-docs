@@ -22,15 +22,15 @@ Phase 0은 Contracts, Infra, Docs finalization 결과가 main에 병합됐고 Pu
 
 1. Loan service image provenance
    - Owner: `rippleguard-loan-service`
-   - Required: OCI revision/source labels and immutable image rebuild
+   - Required: OCI revision/source labels, follow-up PR merge commit baseline and immutable image rebuild from that new commit
 
 2. Governance service image provenance
    - Owner: `rippleguard-governance-service`
-   - Required: OCI revision/source labels and immutable image rebuild
+   - Required: OCI revision/source labels, follow-up PR merge commit baseline and immutable image rebuild from that new commit
 
 3. Audit service image provenance
    - Owner: `rippleguard-audit-replay-service`
-   - Required: OCI revision/source labels and immutable image rebuild
+   - Required: OCI revision/source labels, follow-up PR merge commit baseline and immutable image rebuild from that new commit
 
 4. Infra manifest update and runtime verification
    - Owner: `rippleguard-infra`

@@ -22,9 +22,9 @@ AI 없는 Core MSA 최소 수직 흐름이 계약, 상태 소유권, 멱등성, 
 | Audit service tests | `rippleguard-audit-replay-service ./mvnw test` | 17 tests passed | PASS | N/A | `rippleguard-audit-replay-service` | N/A |
 | Infra static validation | `rippleguard-infra make validate-static` | Compose config, topic baseline, manifest and secret checks passed | PASS | N/A | `rippleguard-infra` | N/A |
 | CI | GitHub Checks API on main commits | Contracts, Loan, Governance, Audit and Infra checks succeeded | PASS | N/A | Each repository | N/A |
-| Loan image provenance | `rippleguard-infra python3 scripts/verify-phase1-images.py manifests/phase1-core-msa.json` | Expected OCI labels missing | FAIL | Docker image lacks `org.opencontainers.image.revision` and `org.opencontainers.image.source` | `rippleguard-loan-service` | Docker build PR merged, image rebuilt, image verification PASS |
-| Governance image provenance | same command | Expected OCI labels missing | FAIL | Docker image lacks `org.opencontainers.image.revision` and `org.opencontainers.image.source` | `rippleguard-governance-service` | Docker build PR merged, image rebuilt, image verification PASS |
-| Audit image provenance | same command | Expected OCI labels missing | FAIL | Docker image lacks `org.opencontainers.image.revision` and `org.opencontainers.image.source` | `rippleguard-audit-replay-service` | Docker build PR merged, image rebuilt, image verification PASS |
+| Loan image provenance | `rippleguard-infra python3 scripts/verify-phase1-images.py manifests/phase1-core-msa.json` | Expected OCI labels missing | FAIL | Docker image lacks `org.opencontainers.image.revision` and `org.opencontainers.image.source` | `rippleguard-loan-service` | OCI-label PR merged; new merge commit recorded as revised baseline; image built/tagged from that commit; image verification PASS |
+| Governance image provenance | same command | Expected OCI labels missing | FAIL | Docker image lacks `org.opencontainers.image.revision` and `org.opencontainers.image.source` | `rippleguard-governance-service` | OCI-label PR merged; new merge commit recorded as revised baseline; image built/tagged from that commit; image verification PASS |
+| Audit image provenance | same command | Expected OCI labels missing | FAIL | Docker image lacks `org.opencontainers.image.revision` and `org.opencontainers.image.source` | `rippleguard-audit-replay-service` | OCI-label PR merged; new merge commit recorded as revised baseline; image built/tagged from that commit; image verification PASS |
 | Phase 1 compose check | `rippleguard-infra make phase1-check` | Not executed to PASS | BLOCKED_BY_IMAGE_PROVENANCE | Immutable service images are not provenance-valid | `rippleguard-infra`; blocked by service image PRs | All three image provenance checks PASS |
 | Runtime E2E | `rippleguard-infra make phase1-e2e` | Not executed to PASS | BLOCKED_BY_IMAGE_PROVENANCE | Stack verification must not proceed from unverified images | `rippleguard-infra` | `phase1-check` PASS |
 | Duplicate test | `rippleguard-infra make phase1-duplicate-check` | Not executed to PASS | BLOCKED_BY_IMAGE_PROVENANCE | Runtime stack verification not established | `rippleguard-infra` | Runtime E2E baseline established |
@@ -55,7 +55,8 @@ Required Follow-up:
 
 - Add OCI source/revision labels to Docker build.
 - Merge service follow-up PRs.
-- Rebuild immutable images from recorded main commits.
+- Record each follow-up PR merge commit as the revised service baseline.
+- Build immutable images from those new merge commits and tag each image with the corresponding new merge commit SHA.
 - Rerun Infra image verification.
 
 Downstream Blocked:
@@ -75,6 +76,7 @@ Do not:
 
 ## 잔여 위험
 
-- `imageDigest` remains `null` in the Infra manifest; commit tags and OCI labels are the current provenance mechanism.
+- OCI labels establish the declared source repository and revision baseline. They do not cryptographically prove that the image contents were built from that commit.
+- `imageDigest` remains `null` in the Infra manifest; registry digest pinning, build attestation, SBOM and SLSA/GitHub Actions provenance are deferred.
 - Flyway checksum baselines remain `null`; version, description and script are recorded.
 - Phase 1 cannot be declared `VERIFIED` until image provenance and Docker Compose runtime checks pass.

@@ -31,7 +31,7 @@ Missing labels:
 
 ### Root Cause
 
-Service Dockerfiles build runnable images but do not embed the required OCI provenance labels. The Infra manifest expects commit-tagged images to prove that the image bytes were built from the recorded service repository and source commit.
+Service Dockerfiles build runnable images but do not embed the required OCI provenance labels. OCI labels establish the declared source repository and revision baseline expected by the Infra manifest. They do not cryptographically prove that the image contents were built from that commit; registry digest pinning and build attestations are deferred.
 
 ### Owner
 
@@ -66,10 +66,12 @@ Do not:
 
 1. Update each service Dockerfile/build workflow.
 2. Merge service follow-up PRs.
-3. Rebuild commit-tagged images from the recorded main commits.
-4. Update Infra manifest if tags or digests change.
-5. Rerun image verification and all Phase 1 runtime checks.
-6. Publish sanitized summaries for Docs finalization.
+3. Record each follow-up PR merge commit as the revised service baseline.
+4. Build a commit-tagged image from that new merge commit.
+5. Verify OCI revision/source labels against the new commit.
+6. Update the Infra manifest and local tagging script.
+7. Rerun image verification and all Phase 1 runtime checks.
+8. Publish sanitized summaries for Docs finalization.
 
 ### Exit Criteria
 

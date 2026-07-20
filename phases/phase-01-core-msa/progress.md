@@ -35,7 +35,8 @@ Completed:
 Remaining:
 
 - Add required OCI image labels.
-- Rebuild immutable image from merged main commit.
+- Merge the OCI-label follow-up PR and record that new merge commit as the revised service baseline.
+- Build and tag the immutable image from the new merge commit.
 - Provide provenance evidence.
 
 Owner:
@@ -61,7 +62,8 @@ Completed:
 Remaining:
 
 - Add required OCI image labels.
-- Rebuild immutable image from merged main commit.
+- Merge the OCI-label follow-up PR and record that new merge commit as the revised service baseline.
+- Build and tag the immutable image from the new merge commit.
 - Provide provenance evidence.
 
 Owner:
@@ -88,7 +90,8 @@ Completed:
 Remaining:
 
 - Add required OCI image labels.
-- Rebuild immutable image from merged main commit.
+- Merge the OCI-label follow-up PR and record that new merge commit as the revised service baseline.
+- Build and tag the immutable image from the new merge commit.
 - Provide provenance evidence.
 
 Owner:
@@ -133,7 +136,7 @@ Root Cause:
 
 Remaining:
 
-- Service repository follow-up PRs must add labels and rebuild immutable images.
+- Service repository follow-up PRs must add labels, create new merge commits and rebuild immutable images from those new commits.
 
 Owner:
 
