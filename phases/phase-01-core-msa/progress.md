@@ -1,6 +1,6 @@
 # Phase 1 Progress
 
-Phase 1은 implementation merge 상태와 published verification 상태를 분리해서 추적한다. 구현 PR이 병합됐더라도 image provenance와 runtime E2E가 PASS가 아니면 Phase 1은 `VERIFIED`가 아니다.
+Phase 1은 implementation merge 상태와 published verification 상태를 분리해서 추적한다. 구현 PR 병합 후 image provenance와 runtime E2E 재검증이 PASS가 되어 Phase 1은 `VERIFIED`다.
 
 ## Contracts
 
@@ -22,7 +22,7 @@ Owner:
 
 ## Loan
 
-Status: IMPLEMENTED / IMAGE_BASELINE_PENDING
+Status: COMPLETE
 
 Completed:
 
@@ -32,12 +32,11 @@ Completed:
 - Final decision command application.
 - Service tests: `./mvnw test` PASS, 24 tests.
 
-Remaining:
+Remediation:
 
-- Add required OCI image labels.
-- Merge the OCI-label follow-up PR and record that new merge commit as the revised service baseline.
-- Build and tag the immutable image from the new merge commit.
-- Provide provenance evidence.
+- OCI-label follow-up PR #2 merged at `e403c0a60ccb1cebf03380832d047f3fc01019e0`.
+- Final image baseline: `rippleguard-loan-service:e403c0a60ccb`.
+- OCI labels verified by Infra PR #3.
 
 Owner:
 
@@ -45,26 +44,25 @@ Owner:
 
 Blocks:
 
-- `rippleguard-infra` image verification.
-- Runtime E2E.
+- None for Phase 1.
 
 ## Governance
 
-Status: IMPLEMENTED / IMAGE_BASELINE_PENDING
+Status: COMPLETE
 
 Completed:
 
 - Decision Case and Evaluation Run persistence.
 - Deterministic Mock Evaluation.
 - Decision Command outbox.
-- Service tests: `./mvnw test` PASS, 16 tests.
+- Service tests: `make test` PASS, 17 tests.
 
-Remaining:
+Remediation:
 
-- Add required OCI image labels.
-- Merge the OCI-label follow-up PR and record that new merge commit as the revised service baseline.
-- Build and tag the immutable image from the new merge commit.
-- Provide provenance evidence.
+- OCI-label follow-up PR #2 merged at `45790ebd5de1c458f87a38b1a067b46c15a59134`.
+- Event ordering follow-up PR #3 merged at `4e06e672affddc02d7e6662f3022d00de86bb3b9`.
+- Final image baseline: `rippleguard-governance-service:4e06e672affd`.
+- OCI labels and ordering checks verified by Infra PR #3.
 
 Owner:
 
@@ -72,12 +70,11 @@ Owner:
 
 Blocks:
 
-- `rippleguard-infra` image verification.
-- Runtime E2E.
+- None for Phase 1.
 
 ## Audit
 
-Status: IMPLEMENTED / IMAGE_BASELINE_PENDING
+Status: COMPLETE
 
 Completed:
 
@@ -87,12 +84,11 @@ Completed:
 - Minimal Case Timeline API.
 - Service tests: `./mvnw test` PASS, 17 tests.
 
-Remaining:
+Remediation:
 
-- Add required OCI image labels.
-- Merge the OCI-label follow-up PR and record that new merge commit as the revised service baseline.
-- Build and tag the immutable image from the new merge commit.
-- Provide provenance evidence.
+- OCI-label follow-up PR #2 merged at `83ca52edda2f608f90d10694428dff6dffee8a23`.
+- Final image baseline: `rippleguard-audit-replay-service:83ca52edda2f`.
+- OCI labels verified by Infra PR #3.
 
 Owner:
 
@@ -100,8 +96,7 @@ Owner:
 
 Blocks:
 
-- `rippleguard-infra` image verification.
-- Runtime E2E.
+- None for Phase 1.
 
 ## Infra Static Integration
 
@@ -124,19 +119,23 @@ Owner:
 
 ## Image Baseline
 
-Status: BLOCKED
+Status: COMPLETE
 
 Evidence:
 
-- `python3 scripts/verify-phase1-images.py manifests/phase1-core-msa.json` failed.
+- Initial `python3 scripts/verify-phase1-images.py manifests/phase1-core-msa.json` failed because OCI labels were missing.
+- Reverification `make phase1-build-images` PASS.
+- Reverification `make phase1-verify-images` PASS.
 
 Root Cause:
 
-- Loan, Governance and Audit service images were built without required OCI source/revision labels.
+- Initial Loan, Governance and Audit service images were built without required OCI source/revision labels.
 
-Remaining:
+Resolution:
 
-- Service repository follow-up PRs must add labels, create new merge commits and rebuild immutable images from those new commits.
+- Service repository follow-up PRs added labels.
+- Infra rebuilt images from clean service checkouts matching manifest source commits.
+- Final tags: `e403c0a60ccb`, `4e06e672affd`, `83ca52edda2f`.
 
 Owner:
 
@@ -145,13 +144,19 @@ Owner:
 
 ## Runtime E2E
 
-Status: BLOCKED_BY_IMAGE_PROVENANCE
+Status: COMPLETE
 
 Evidence:
 
-- Runtime commands were not marked PASS after image provenance failed.
+- `make phase1-check` PASS.
+- `make phase1-e2e` PASS.
+- `make phase1-duplicate-check` PASS.
+- `make phase1-recovery-check` PASS.
+- `make phase1-outbox-recovery-check` PASS.
+- `make phase1-order-check` PASS.
+- `make phase1-down` PASS.
 
-Blocked commands:
+Remediated commands:
 
 - `make phase1-check`
 - `make phase1-e2e`
@@ -162,20 +167,19 @@ Blocked commands:
 
 Owner:
 
-- `rippleguard-infra`, after service image baselines are fixed.
+- `rippleguard-infra`
 
 ## Docs Published Baseline
 
-Status: PENDING
+Status: IN_REVIEW_FOR_MERGE
 
 Evidence:
 
-- Current docs branch records the IN_REVIEW snapshot and blockers.
+- Current docs branch records the `VERIFIED` snapshot, remediation history and deferred risks.
 
 Remaining:
 
-- Update published baseline after Infra runtime evidence is available.
-- Change Phase 1 to `VERIFIED` and Phase 2 to `READY` only after all blockers close.
+- Merge PR #7 after final review.
 
 Owner:
 

@@ -3,15 +3,15 @@
 | Producer | Consumer | 통신 | 계약 | 목적 | 구현 상태 |
 | --- | --- | --- | --- | --- | --- |
 | FDS Simulator Container | Loan Service | REST | External Risk Signal payload schema `1.0.0`; REST contract TBD | 운영형 Demo의 목적·범위 Risk Signal을 Versioned Snapshot으로 저장 | OUT_OF_SCOPE_FOR_PHASE |
-| Loan Service | Governance Service, Audit Replay Service | Kafka | `loan.application.submitted.v1` | Decision Case 생성과 Audit Timeline 기록 | IMPLEMENTED_PENDING_E2E |
-| Governance Service | Loan Service, Audit Replay Service | Kafka | `governance.review.started.v1` | Loan Application을 검토 중으로 전이하고 Audit Timeline에 기록 | IMPLEMENTED_PENDING_E2E |
+| Loan Service | Governance Service, Audit Replay Service | Kafka | `loan.application.submitted.v1` | Decision Case 생성과 Audit Timeline 기록 | RUNTIME_VERIFIED |
+| Governance Service | Loan Service, Audit Replay Service | Kafka | `governance.review.started.v1` | Loan Application을 검토 중으로 전이하고 Audit Timeline에 기록 | RUNTIME_VERIFIED |
 | Governance Service | Loan Service | Kafka | `governance.evidence.requested.v1` | 한정된 Evidence 보완 요청 | CONTRACT_READY / GOVERNANCE_PRODUCER_DEFERRED |
 | Loan Service | Governance Service | Kafka | `loan.evidence.updated.v1` | Versioned Snapshot 재평가 | PARTIALLY_IMPLEMENTED |
-| Governance Service | Audit Replay Service | Kafka | `agent.evaluation.requested.v1` | Phase 1 Mock Evaluation 요청 사실을 Audit Timeline에 기록 | IMPLEMENTED_PENDING_E2E |
-| Governance Service | Audit Replay Service | Kafka | `agent.evaluation.completed.v1` | Phase 1 Mock Evaluation result를 Audit Timeline에 기록 | IMPLEMENTED_PENDING_E2E |
+| Governance Service | Audit Replay Service | Kafka | `agent.evaluation.requested.v1` | Phase 1 Mock Evaluation 요청 사실을 Audit Timeline에 기록 | RUNTIME_VERIFIED |
+| Governance Service | Audit Replay Service | Kafka | `agent.evaluation.completed.v1` | Phase 1 Mock Evaluation result를 Audit Timeline에 기록 | RUNTIME_VERIFIED |
 | Agent Runtime | Governance Service, Audit Replay Service | Kafka | `agent.evaluation.completed.v1` | Phase 2+ actual Agent result | CONTRACT_READY / IMPLEMENTATION_DEFERRED |
-| Governance Service | Loan Service, Audit Replay Service | Kafka | `loan.decision.commanded.v1` | 검증된 최종 처리 명령과 Audit Timeline 기록 | IMPLEMENTED_PENDING_E2E |
-| Loan Service | Audit Replay Service | Kafka | `loan.decision.finalized.v1` | 최종 반영 결과를 Audit Timeline에 기록 | IMPLEMENTED_PENDING_E2E |
+| Governance Service | Loan Service, Audit Replay Service | Kafka | `loan.decision.commanded.v1` | 검증된 최종 처리 명령과 Audit Timeline 기록 | RUNTIME_VERIFIED |
+| Loan Service | Audit Replay Service | Kafka | `loan.decision.finalized.v1` | 최종 반영 결과를 Audit Timeline에 기록 | RUNTIME_VERIFIED |
 | Governance Service | OPA | 동기 API | Policy Input/Decision TBD | Assurance 정책 평가 | OUT_OF_SCOPE_FOR_PHASE |
 | Web | Loan Service | REST | OpenAPI TBD | 신청과 대출 상태 조회 | OUT_OF_SCOPE_FOR_PHASE |
 | Web | Governance Service | REST | OpenAPI TBD | Case·Agent 운영 | OUT_OF_SCOPE_FOR_PHASE |
@@ -26,6 +26,7 @@
 - `CONTRACT_READY`: Contract exists and validates, but implementation is not claimed.
 - `PARTIALLY_IMPLEMENTED`: At least one side of the producer/consumer path is implemented, but the full path is not implemented or verified.
 - `IMPLEMENTED_PENDING_E2E`: Producer and consumer implementation exist and service-level tests passed, but Docker Compose runtime E2E is not recorded as PASS.
+- `RUNTIME_VERIFIED`: Producer and consumer implementation exist and Phase 1 Docker Compose runtime verification passed.
 - `BLOCKED`: Work cannot proceed until an upstream prerequisite is resolved.
 - `OUT_OF_SCOPE_FOR_PHASE`: Not part of the Phase 1 core vertical flow.
 - `PLANNED`: Future contract or implementation planning only.

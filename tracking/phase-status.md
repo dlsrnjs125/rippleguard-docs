@@ -3,8 +3,8 @@
 | Phase | 이름 | 상태 | 선행 Phase | 핵심 종료 조건 |
 | --- | --- | --- | --- | --- |
 | 0 | [Foundation & Architecture Baseline](../phases/phase-00-foundation/README.md) | VERIFIED | 없음 | 서비스·계약 기준과 전체 Roadmap 검증 |
-| 1 | [Core MSA Foundation](../phases/phase-01-core-msa/README.md) | IN_REVIEW | 0 | AI 없는 최소 수직 흐름, 서비스별 DB와 최소 Timeline 검증 |
-| 2 | [Loan Decision Agent](../phases/phase-02-loan-decision/README.md) | PLANNED | 1 | Versioned Snapshot에서 재현 가능한 Loan Proposal |
+| 1 | [Core MSA Foundation](../phases/phase-01-core-msa/README.md) | VERIFIED | 0 | AI 없는 최소 수직 흐름, 서비스별 DB와 최소 Timeline 검증 |
+| 2 | [Loan Decision Agent](../phases/phase-02-loan-decision/README.md) | READY | 1 | Versioned Snapshot에서 재현 가능한 Loan Proposal |
 | 3 | [RippleGuard Consequence Agent](../phases/phase-03-consequence-agent/README.md) | PLANNED | 2 | 핵심 2차 위험을 Consequence Envelope로 탐지 |
 | 4 | [Evidence & Legacy Control](../phases/phase-04-evidence-legacy-control/README.md) | PLANNED | 2, 3 | 증빙·통제 누락을 구조화된 Finding으로 생성 |
 | 5 | [Assurance Policy & Dynamic Routing](../phases/phase-05-assurance-policy/README.md) | PLANNED | 3, 4 | OPA 기반 자동화·검증·차단 경로 검증 |
@@ -16,28 +16,27 @@
 
 허용 상태는 `PLANNED`, `READY`, `IN_PROGRESS`, `BLOCKED`, `IN_REVIEW`, `VERIFIED`, `SUPERSEDED`다. 상태 변경은 선행 조건, Verification과 Cross-Repo Baseline에 근거하며 변경 이유는 [Roadmap Change Log](roadmap-change-log.md)에 남긴다.
 
-Phase 0은 Contracts, Infra, Docs finalization 결과가 main에 병합됐고 Published Baseline이 고정되어 `VERIFIED`다. Phase 1 구현 PR과 Infra PR은 main에 병합됐지만 image provenance verification과 Docker Compose runtime verification이 아직 완료되지 않아 `IN_REVIEW`다. Phase 2는 Phase 1 `VERIFIED` 전까지 `PLANNED`로 유지한다.
+Phase 0은 Contracts, Infra, Docs finalization 결과가 main에 병합됐고 Published Baseline이 고정되어 `VERIFIED`다. Phase 1은 서비스 OCI provenance 보완 PR과 Infra runtime verification PR이 main에 병합됐고 필수 runtime checks가 PASS로 기록되어 `VERIFIED`다. Phase 2는 Phase 1 handoff가 충족되어 `READY`다.
 
-## Phase 1 Exit Blockers
+## Phase 1 Exit Evidence
 
 1. Loan service image provenance
    - Owner: `rippleguard-loan-service`
-   - Required: OCI revision/source labels, follow-up PR merge commit baseline and immutable image rebuild from that new commit
+   - Result: PASS with merge commit `e403c0a60ccb1cebf03380832d047f3fc01019e0`
 
 2. Governance service image provenance
    - Owner: `rippleguard-governance-service`
-   - Required: OCI revision/source labels, follow-up PR merge commit baseline and immutable image rebuild from that new commit
+   - Result: PASS with merge commit `4e06e672affddc02d7e6662f3022d00de86bb3b9`
 
 3. Audit service image provenance
    - Owner: `rippleguard-audit-replay-service`
-   - Required: OCI revision/source labels, follow-up PR merge commit baseline and immutable image rebuild from that new commit
+   - Result: PASS with merge commit `83ca52edda2f608f90d10694428dff6dffee8a23`
 
 4. Infra manifest update and runtime verification
    - Owner: `rippleguard-infra`
-   - Blocked by: 1-3
-   - Required: image verification, Phase 1 check, E2E, duplicate, recovery, outbox recovery and timeline checks
+   - Result: PASS with merge commit `4499fa6a321d5bd1305ec6f07910fbc9c3096db4`
+   - Verified: image verification, Phase 1 check, E2E, duplicate, recovery, outbox recovery and timeline checks
 
 5. Final published baseline and status transition
    - Owner: `rippleguard-docs`
-   - Blocked by: 4
-   - Required: Phase 1 `VERIFIED`, Phase 2 `READY`, updated evidence and baseline records
+   - Result: PR #7 records Phase 1 `VERIFIED`, Phase 2 `READY`, updated evidence and baseline records

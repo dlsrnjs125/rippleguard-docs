@@ -1,13 +1,15 @@
 # Phase 2 — Loan Decision Agent
 
 - Phase: 2
-- 상태: `PLANNED`
+- 상태: `READY`
 - 선행 Phase: Phase 1
 - 후속 Phase: Phase 3, Phase 4
 
 ## 목표와 필요성
 
 Mock 평가를 정형 금융 Snapshot 기반의 재현 가능한 Loan Proposal로 교체한다. 후속 Agent가 검증할 안정적인 Decision Envelope와 Model provenance를 제공한다.
+
+2026-07-20 기준 Phase 1 Core MSA Foundation이 `VERIFIED`이며 Versioned Snapshot, 평가 요청·결과 경계, Kafka·PostgreSQL Infra, commit-tagged OCI Image Baseline과 최소 Case Timeline이 확인되어 Phase 2는 `READY`다.
 
 ## 범위와 경계
 

@@ -4,11 +4,11 @@ Phase 1 진행 중 발생한 재현 가능한 문제, 원인, 해결, 검증 결
 
 ## TS-PH1-IMAGE-001: OCI Provenance Label Mismatch
 
-Status: OPEN
+Status: RESOLVED
 
 ### Symptom
 
-`rippleguard-infra` image verification fails because the expected OCI labels are missing from the local commit-tagged service images.
+Initial `rippleguard-infra` image verification failed because the expected OCI labels were missing from the local commit-tagged service images.
 
 Failed command:
 
@@ -48,10 +48,9 @@ Secondary:
 
 ### Impact
 
-- `rippleguard-infra` runtime verification is blocked.
-- Docker Compose E2E, duplicate, recovery, outbox recovery and timeline checks cannot be recorded as PASS.
-- Phase 1 cannot be promoted to `VERIFIED`.
-- Phase 2 cannot be promoted to `READY`.
+- Initial `rippleguard-infra` runtime verification was blocked.
+- Docker Compose E2E, duplicate, recovery, outbox recovery and timeline checks were not recorded as PASS until provenance-valid images existed.
+- Phase 1 and Phase 2 status transitions were blocked until remediation.
 
 ### Non-Solution
 
@@ -64,14 +63,12 @@ Do not:
 
 ### Resolution
 
-1. Update each service Dockerfile/build workflow.
-2. Merge service follow-up PRs.
-3. Record each follow-up PR merge commit as the revised service baseline.
-4. Build a commit-tagged image from that new merge commit.
-5. Verify OCI revision/source labels against the new commit.
-6. Update the Infra manifest and local tagging script.
-7. Rerun image verification and all Phase 1 runtime checks.
-8. Publish sanitized summaries for Docs finalization.
+1. Loan PR #2 added OCI labels and merged at `e403c0a60ccb1cebf03380832d047f3fc01019e0`.
+2. Governance PR #2 added OCI labels and merged at `45790ebd5de1c458f87a38b1a067b46c15a59134`.
+3. Audit PR #2 added OCI labels and merged at `83ca52edda2f608f90d10694428dff6dffee8a23`.
+4. Governance PR #3 stabilized event ordering and merged at `4e06e672affddc02d7e6662f3022d00de86bb3b9`.
+5. Infra PR #3 rebuilt commit-tagged images from clean service checkouts, verified OCI labels and passed all runtime checks.
+6. Docs PR #7 records Phase 1 `VERIFIED` and Phase 2 `READY`.
 
 ### Exit Criteria
 
@@ -81,7 +78,7 @@ Do not:
 
 ## TS-PH1-E2E-001: Runtime Verification Blocked by Image Baseline
 
-Status: BLOCKED
+Status: RESOLVED
 
 Primary Owner:
 
@@ -91,11 +88,11 @@ Dependency:
 
 - TS-PH1-IMAGE-001
 
-Runtime commands are intentionally not marked PASS until provenance-valid service images are available.
+Runtime commands are PASS after provenance-valid service images and Governance event ordering remediation.
 
 ## TS-PH1-DOC-001: Integration Matrix Capability Drift
 
-Status: OPEN
+Status: MITIGATED
 
 Primary Owner:
 
@@ -109,5 +106,10 @@ Resolution:
 
 - Split contract readiness from producer implementation, consumer implementation and runtime verification.
 - Compare the Integration Matrix with the Infra service capability manifest before Phase status changes.
+
+Current Result:
+
+- Phase 1 core manifest paths are recorded as runtime verified.
+- Deferred producer/consumer paths remain explicitly marked out of core runtime scope.
 
 새 항목은 [Troubleshooting Template](../../../templates/troubleshooting-template.md)을 사용한다.

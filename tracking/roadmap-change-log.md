@@ -9,6 +9,7 @@ Phase 추가·삭제·분리, 서비스·Repository 경계, 핵심 Agent 역할,
 | 2026-07-16 | Graph Visualization 범위 미정 | Phase 6 Static Architecture Graph, Phase 7 EvaluationRun Execution Graph, Phase 9 Graph 사용성·정확성 평가 추가. Data Provenance Graph는 MVP 제외 | Multi-Agent 구조와 실행 인과관계를 설명·추적하되 Graph를 Source of Truth로 만들지 않기 위함 | 6, 7, 9, 10 | [ADR-006](../adr/ADR-006-agent-graph-visualization-scope.md) |
 | 2026-07-16 | Phase 0 `IN_REVIEW`, Phase 1 `PLANNED` | Phase 0 `VERIFIED`, Phase 1 `IN_PROGRESS` | Phase 0 Contracts·Infra·Docs published baseline을 main merge commit으로 고정하고 Phase 1 Core MSA tracking 시작 | 0, 1 | N/A |
 | 2026-07-20 | Phase 1 final baseline expected after implementation PRs | Phase 1 verification deferred: Phase 1 `IN_REVIEW`, Phase 2 `PLANNED` 유지 | Service image OCI provenance is missing, Infra runtime tests are not complete and Integration Matrix required capability correction | 1, 2 | N/A |
+| 2026-07-20 | Phase 1 `IN_REVIEW`, Phase 2 `PLANNED` | Phase 1 `VERIFIED`, Phase 2 `READY` | Service OCI provenance remediation, Governance ordering remediation and Infra runtime reverification all passed | 1, 2 | N/A |
 
 ## 2026-07-20 — Phase 1 Verification Deferred
 
@@ -22,5 +23,30 @@ Reason:
 - Service image OCI provenance labels are missing.
 - Infra runtime tests are not completed.
 - Integration Matrix required capability correction against the Infra manifest.
+
+## 2026-07-20 — Phase 1 Verified
+
+Decision:
+
+- Phase 1 was promoted to `VERIFIED`.
+- Phase 2 was promoted to `READY`.
+
+Reason:
+
+- Loan OCI remediation PR #2 merged at `e403c0a60ccb1cebf03380832d047f3fc01019e0`.
+- Governance OCI remediation PR #2 merged at `45790ebd5de1c458f87a38b1a067b46c15a59134`.
+- Governance event ordering PR #3 merged at `4e06e672affddc02d7e6662f3022d00de86bb3b9`.
+- Audit OCI remediation PR #2 merged at `83ca52edda2f608f90d10694428dff6dffee8a23`.
+- Infra runtime verification PR #3 merged at `4499fa6a321d5bd1305ec6f07910fbc9c3096db4`.
+- `phase1-check`, `phase1-e2e`, duplicate, recovery, outbox recovery and order checks all passed.
+
+Deferred:
+
+- Registry Digest
+- GHCR Publish
+- SBOM
+- Build Attestation
+- SLSA Provenance
+- Release Flyway Checksum Pinning
 
 계획이 대체되더라도 이전 문서와 ADR을 삭제하지 않는다. 변경된 Phase는 필요하면 `SUPERSEDED`로 표시하고 새 경로와 인계 조건을 연결한다.

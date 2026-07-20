@@ -14,10 +14,10 @@
 - [x] `correlationId`·`causationId`와 원본 Event 저장 구현
 - [x] 최소 Case Timeline 조회 API 구현
 - [x] `rippleguard-infra` Docker Compose E2E 통합 PR 병합
-- [ ] Docker Compose 최소 수직 흐름 실행
-- [ ] Kafka 중복·지연·실패 시나리오의 로컬 통합 검증
-- [ ] Phase 1 service image OCI provenance label 검증
+- [x] Docker Compose 최소 수직 흐름 실행
+- [x] Kafka 중복·지연·실패 시나리오의 로컬 통합 검증
+- [x] Phase 1 service image OCI provenance label 검증
 - [ ] `rippleguard-docs` Phase 1 finalization PR 병합
-- [ ] Verification과 Cross-Repo Baseline 고정
+- [x] Verification과 Cross-Repo Baseline 고정
 
-현재까지 완료된 항목은 병합된 main commit, GitHub Checks API, 로컬 계약/서비스 테스트로 확인한 범위만 체크했다. Docker Compose E2E와 image provenance 검증은 아직 완료되지 않았으므로 Phase 1은 `VERIFIED`가 아니다.
+현재까지 완료된 항목은 병합된 main commit, GitHub Checks API, 로컬 계약/서비스 테스트, OCI image provenance와 Docker Compose runtime 검증으로 확인했다. Docs PR #7 병합만 남아 있으며 Phase 1은 `VERIFIED`, Phase 2는 `READY`로 기록한다.
