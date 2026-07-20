@@ -2,8 +2,11 @@
 
 - [ ] Development·Regression·Holdout Partition과 라벨 Version 고정
 - [ ] Holdout 접근 이력과 튜닝 비사용 확인
-- [ ] 세 비교군 실행 Manifest 확정
+- [ ] Loan Model Only, Loan Model + Local LLM Multi-Agent, Loan Model + Local LLM Multi-Agent + Governance Gate 실행 Manifest 확정
+- [ ] 선택적 External API LLM Benchmark 가능 여부와 미실행 시 N/A 근거 기록
 - [ ] Detection·Escape·Containment 지표 계산
+- [ ] Structured Output 성공률, 위험 탐지 Recall, 허용 사용 과탐률, 한국어 문서 처리력 측정
+- [ ] Latency, Memory, Timeout, Context Overflow, Model별 Common-Mode Failure, 동일 입력 안정성 측정
 - [ ] Trace Completeness·시간·비용·검토율 계산
 - [ ] Graph Load Time과 Node·Link Render Budget 측정
 - [ ] Case 추적 완료 시간과 최종 결정 근거 탐색 시간 측정

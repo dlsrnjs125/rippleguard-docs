@@ -12,7 +12,7 @@ Decision Case는 하나의 대출 신청에 대한 Governance 업무 단위다. 
 | `decisionCaseId` | 상위 Governance Case |
 | `inputSnapshotVersion` | 평가한 금융·FDS·문서 Reference 조합 |
 | `executionPlanVersion` | Agent Trigger와 실행 순서 |
-| `modelPromptToolVersions` | 모든 Agent 실행 provenance |
+| `modelPromptToolVersions` | 모든 Agent 실행 provenance. Loan Decision Agent의 tabular model metadata와 Local LLM Agent의 model/prompt/tool metadata를 구분해 기록 |
 | `policyInputVersion`, `policyBundleVersion` | Assurance와 Routing 재현 기준 |
 | `supersedesRunId` | 원인 제거 후 재산출할 때 이전 Run Reference |
 
@@ -44,3 +44,5 @@ Run 상태는 덮어쓰거나 `BLOCKED → RUNNING`으로 되돌리지 않는다
 Phase 7 Execution Graph는 특정 `decisionCaseId` 또는 `evaluationRunId`를 기준으로 Evaluation Run, Agent Run, Envelope, Policy Decision, Human Task, Final Decision과 Event 인과관계를 표시한다.
 
 Graph 링크는 `correlationId`, `causationId`, `evaluationRunId`, `agentRunId`, `supersedesRunId`를 중심으로 구성한다. Graph는 Audit Read Model에서 파생되며, Timeline을 대체하지 않는다. Graph와 Timeline 결과가 의미상 불일치하면 Trace Read Model Drift로 기록한다.
+
+Local LLM Agent Run은 `modelProvider`, `modelName`, `modelDigest`, `quantization`, `runtimeVersion`, `promptVersion`, `toolVersion`, `contextTokenCount`, `inferenceLatencyMs`, `retryCount`와 `outputSchemaVersion`을 Audit 가능한 Metadata로 남긴다. Chain-of-Thought, 전체 Prompt와 전체 Response는 Evaluation Run 또는 Audit Event에 저장하지 않는다.

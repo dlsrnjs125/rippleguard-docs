@@ -7,12 +7,12 @@
 
 ## 목표와 필요성
 
-Loan Decision이 데이터 목적·의미·판단 범위를 바꾸며 만드는 2차 위험을 탐지해 Consequence Envelope로 반환한다.
+Loan Decision이 데이터 목적·의미·판단 범위를 바꾸며 만드는 2차 위험을 탐지해 Consequence Envelope로 반환한다. Phase 3은 Local LLM이 처음 실제 통합되는 Phase다.
 
 ## 범위와 경계
 
-- 포함: Cross-Purpose Data Reuse, Scope Escalation, Semantic Transformation, 만료·미확정 추론 사용, FDS 대표 Case
-- 제외: Evidence 문서 검증, OPA 최종 실행 경로, 법률 자문
+- 포함: Cross-Purpose Data Reuse, Scope Escalation, Semantic Transformation, 만료·미확정 추론 사용, FDS 대표 Case, Ollama Runtime, Local Instruct Model 후보 비교, Quantized Model, `StructuredLlmPort` Ollama Adapter, Prompt Version, Model Manifest, Context Budget, Structured Output, Timeout·Retry
+- 제외: Evidence 문서 검증, OPA 최종 실행 경로, 법률 자문, 외부 유료 API 필수 경로
 - 변경 금지: RippleGuard Agent는 Loan 결과·Assurance를 확정하거나 Evidence Agent 결론을 입력으로 사용하지 않는다.
 
 ## 참여 Repository
@@ -34,10 +34,18 @@ Governance가 Decision Envelope와 허용 Snapshot으로 실행을 지시하고 
 
 ## 완료 기준
 
+- 외부 유료 API 없이 Consequence Envelope 생성
+- Model Weight가 Git에 포함되지 않음
+- Model Name, Digest, Quantization, Runtime Version 고정
+- Output Schema Validation PASS
+- Timeout·Malformed Output·Runtime Down 안전 실패
+- Golden Case와 Negative Case 품질 측정
 - FDS 정보 오용 대표 Case를 위험 유형과 Evidence Reference로 탐지
 - 허용 사용 Negative Case의 과탐 결과 기록
 - Agent Timeout·Schema·Tool 실패 경로 검증
 - 독립 빌드·Docker 통합·Baseline 고정
+
+구체적인 Local LLM 모델 이름은 지금 확정하지 않는다. Phase 3 구현 시 후보 2~3개를 비교하고 하나를 선택한다.
 
 ## 다음 Phase 인계 조건
 

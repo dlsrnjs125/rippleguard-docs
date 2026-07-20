@@ -40,6 +40,9 @@ Phase 0~9의 검증 결과와 평가 보고서가 필요하다. 산출물은 Rel
 - Architecture Graph와 실제 서비스·Event 구조 일치 확인
 - Execution Graph와 Audit Trace 일치 확인
 - Graph에서 PII·원문 Prompt·문서 원문 비노출 확인
+- Model Manifest 고정, Model Digest 확인, Ollama Runtime Version 기록, Prompt Version 기록
+- Provider Adapter 검증, Model Weight Git 비포함 확인, Local LLM 장애 안전 경로 확인
+- Graph 민감정보 비노출과 Chain-of-Thought 비저장 확인
 - 노드 수 제한과 Filter 동작 검증
 - Graph가 없는 Timeline 대체 경로 제공
 - Demo Scenario에서 Graph 재현 가능

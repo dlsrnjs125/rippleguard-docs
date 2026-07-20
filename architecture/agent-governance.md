@@ -47,3 +47,21 @@ Governance Service가 Versioned Trigger Rule로 실행 계획을 만들고 Trigg
 Trigger 구현 오류로 위험 Case가 우회되는 것을 탐지하기 위해 `SAFE_AUTOMATION` 후보 중 일부를 무작위와 위험 기반으로 **Sample Audit**에 배정해 두 전문 Agent를 모두 Shadow 실행한다. 표본 비율·Seed·선정 규칙을 Version으로 고정하고, 발견된 Escape는 정책·Trigger 회귀 Case와 Risk 지표에 반영한다. Sample Audit 결과는 해당 운영 결정을 소급 변경하지 않으며 안전 문제 발견 시 별도 차단·재평가 절차를 시작한다.
 
 Prompt, 모델, Tool 또는 정책 변경은 Golden Case Replay와 Shadow Mode 비교를 통과한 뒤 활성화한다. 정책 엔진이나 Governance Service를 우회하는 Tool과 직접 상태 변경 경로는 허용하지 않는다.
+
+## Local Model Execution Boundary
+
+Loan Decision Agent는 XGBoost 또는 LightGBM 기반 정형 ML Model을 사용한다. RippleGuard Agent와 Evidence & Control Agent만 Local LLM Runtime을 사용할 수 있다.
+
+Agent Runtime만 Local LLM Runtime에 접근한다. Governance Service, Loan Service, Audit & Replay Service와 Web은 Local LLM Runtime을 직접 호출할 수 없다.
+
+## Shared Model Independence
+
+RippleGuard Agent와 Evidence & Control Agent가 같은 Foundation Model을 공유해도 실행은 독립적이어야 한다. 두 Agent는 서로의 최종 결과를 Input으로 사용하지 않으며 독립된 Prompt, Input Contract, Tool Allowlist, Output Schema와 Agent Run을 가진다.
+
+## Output Validation
+
+Local LLM 출력은 Pydantic, JSON Schema, Deterministic Validator를 모두 통과해야 한다. Schema를 통과했더라도 의미 규칙 위반, 금지 Scope 전이, Evidence 부족 또는 정책 위반은 Governance Service에서 거부할 수 있어야 한다.
+
+## Failure Boundary
+
+Local LLM 실패는 안전하다는 결과가 아니다. 필수 Agent 실패 시 `Agent Evaluation Failed`를 기록하고 Governance는 `VERIFICATION_REQUIRED` 또는 자동화 축소 경로로 이동한다. Mock 결과 자동 대체, 이전 성공 결과 재사용, 자동 승인과 Validation 우회는 금지한다.

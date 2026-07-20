@@ -32,3 +32,46 @@ Graph 민감정보 차단의 1차 책임은 Audit & Replay Service의 Graph Read
 - 문서가 외부 URL 호출, Secret 공개, 추가 Tool 사용 또는 다른 문서 접근을 요구해도 실행하지 않는다.
 - 의심스러운 지시문은 Evidence와 분리해 `PROMPT_INJECTION_SUSPECTED`로 기록하고 자동화를 축소한다.
 - 공격 문구가 포함된 Golden Case로 Tool 권한 유지와 민감정보 비노출을 회귀 검증한다.
+
+## Local LLM Runtime Security
+
+Ollama API는 외부 네트워크에 공개하지 않는다. Agent Runtime만 접근할 수 있는 Host 또는 내부 Network 경계로 제한하며, Model Runtime에 불필요한 Tool 권한을 부여하지 않는다.
+
+## Context Boundary
+
+Agent 목적에 필요한 최소 Context만 전달한다. 전체 신청자 Profile, 전체 Financial Snapshot, 전체 문서 원문, 불필요한 RAG Chunk를 기본 Context로 전달하지 않는다.
+
+## Model Supply Chain
+
+Model baseline은 다음 항목을 추적해야 한다.
+
+- `modelName`
+- `modelDigest`
+- `source`
+- `quantization`
+- `runtimeVersion`
+- `downloadedAt`
+- `licenseReference`
+
+모델 파일 출처와 Digest를 확인할 수 없는 Weight는 Baseline에 사용하지 않는다. 실제 Model Weight, Ollama cache와 GGUF 파일은 Git에 저장하지 않는다.
+
+## Local LLM Logging
+
+저장 금지:
+
+- Chain-of-Thought
+- 전체 System Prompt
+- 전체 User Prompt
+- 전체 LLM Response
+- 민감 문서 원문
+
+저장 허용:
+
+- Prompt Version
+- Model Version
+- Model Digest
+- Structured Output
+- Reason Code
+- Latency
+- Retry Count
+- Token 또는 Context 사용량 Summary

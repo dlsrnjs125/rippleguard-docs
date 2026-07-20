@@ -2,6 +2,8 @@
 
 Agent Graph Visualization은 RippleGuard의 구조와 특정 Evaluation Run의 실행 경로를 설명·추적하기 위한 화면이다. Graph는 새로운 업무 Source of Truth가 아니며, Versioned Manifest 또는 Audit Read Model에서 파생된 View다.
 
+Graph는 Agent의 내부 사고를 표현하지 않는다. Graph는 Evaluation Run, Agent Run, Model Version, Prompt Version, Structured Output, Event 인과관계와 Governance Validation을 추적한다.
+
 ## 목적
 
 - 전체 시스템, Agent, Tool, Policy, Event 관계를 한눈에 설명한다.
@@ -67,6 +69,7 @@ Execution Graph는 특정 대출 Case 또는 EvaluationRun이 어떤 입력, Age
 - Case 시작
 - Evaluation Run
 - Agent Run
+- Model Runtime Call
 - Decision Envelope
 - Consequence Envelope
 - Evidence Finding
@@ -74,6 +77,8 @@ Execution Graph는 특정 대출 Case 또는 EvaluationRun이 어떤 입력, Age
 - Human Verification Task
 - 최종 Loan Decision
 - Event
+
+Model Runtime Call을 별도 Node로 표시할지는 Phase 7 구현에서 결정한다. 표시하더라도 Chain-of-Thought, 전체 Prompt, 전체 Response, 전체 Document Chunk, 전체 Financial Snapshot과 Secret은 Graph Payload에 포함하지 않는다.
 
 ### 대표 관계
 
@@ -248,8 +253,17 @@ Data Provenance / Training Data Graph는 MVP에서 제외한다.
 - `documentId`
 - `evidenceRef`
 - `modelVersion`
+- `modelProvider`
+- `modelName`
+- `modelDigest`
+- `quantization`
+- `runtimeVersion`
 - `promptVersion`
 - `policyVersion`
 - `toolVersion`
+- `contextTokenCount`
+- `inferenceLatencyMs`
+- `retryCount`
+- `outputSchemaVersion`
 
 Reference는 원문이 아니며 클릭 시에도 권한 검증을 거쳐야 한다.

@@ -13,7 +13,7 @@ Graph 평가는 화면의 화려함이 아니라 사용자가 특정 EvaluationR
 
 ## 범위와 경계
 
-- 포함: `Loan Model Only`, `Loan Agent Only`, `Multi-Agent + Assurance Gate` 비교, Development·Regression과 분리된 Holdout Evaluation Case를 포함한 Golden Case 20~30건, 품질·시간·비용·사람 검토율, Graph 사용성·정확성 평가
+- 포함: `Loan Model Only`, `Loan Model + Local LLM Multi-Agent`, `Loan Model + Local LLM Multi-Agent + Governance Gate` 비교, 선택적 External API LLM Benchmark, Development·Regression과 분리된 Holdout Evaluation Case를 포함한 Golden Case 20~30건, 품질·시간·비용·사람 검토율, Graph 사용성·정확성 평가
 - 제외: 실제 고객 성능, 규제 적합성 인증, 통계적으로 일반화된 금융기관 결론
 - 변경 금지: 분모 0을 성공으로 처리하거나 합성 데이터 결과를 실제 금융 성능으로 과장하지 않는다.
 
@@ -35,9 +35,12 @@ Reliability 검증된 Baseline과 Partition·Label Version이 고정된 Golden C
 
 모든 비교군은 같은 Snapshot·Case·환경과 고정 Version을 사용한다. 실행 실패와 누락 Trace를 제외하지 않고 별도 실패 지표로 기록한다.
 
+외부 API 비교군은 필수가 아니다. API Key가 없더라도 Phase 9 전체가 Block되지 않으며, External API는 선택적 Benchmark로만 기록한다.
+
 ## 완료 기준
 
 - 위험 유형별 Detection·Escape·Containment·Trace 지표 산출
+- Structured Output 성공률, 위험 탐지 Recall, 허용 사용 과탐률, 한국어 문서 처리력, Latency, Memory, Timeout, Context Overflow, Model별 Common-Mode Failure, 동일 입력 결과 안정성 산출
 - 처리시간, Agent 호출 비용, 사람 검토율 비교
 - 모든 결과의 Run·Version·Case 재현 가능
 - Graph Load Time과 Node·Link Render Budget 검증
