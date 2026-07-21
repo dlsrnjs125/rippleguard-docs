@@ -28,12 +28,22 @@
 
 Decision Envelope, 목적 제한 Object Reference, 문서 보안 원칙이 필요하다. 산출물은 Findings Schema, Control Registry, 문서 Test Fixture, Agent Image와 검증 결과다.
 
+Evidence & Control Agent는 초기에는 Phase 3에서 검증한 Local LLM Runtime과 Model을 공유한다. 별도 모델 도입은 문서 분석 정확도, Latency, Memory와 Common-Mode Failure를 비교한 뒤 결정한다.
+
 ## 통합 지점과 실패 경로
 
 Governance가 필요한 문서 Chunk와 Control 목록으로 독립 실행을 요청한다. 파싱 실패, Prompt Injection 의심, Evidence 누락 시 원문을 Trace에 복사하지 않고 검증 필요 상태와 Reference를 반환한다.
 
 ## 완료 기준
 
+- 동일 Model 공유 상태에서도 Prompt·Input·Tool·Output이 독립적임
+- 두 Agent가 동일 Case에서 동일한 잘못된 추론을 생성하는 비율 측정
+- Prompt 분리, Input Scope 교차 오염 방지, Evidence Agent가 Consequence 결과를 암묵적으로 따르지 않는지 검증
+- 동일 공격 문자열에 두 Agent가 함께 실패하는지와 Agent별 Negative Fixture 분리 검증
+- Prompt Injection Test PASS
+- Context Overflow Test PASS
+- Parser 오류와 LLM 판단 오류를 분리 측정
+- 문서 원문과 Chain-of-Thought 비저장
 - 누락 소득 증빙과 필수 통제 누락을 구조화된 Finding으로 생성
 - Prompt Injection·민감정보 Trace 비노출 테스트 통과
 - Parser Ground Truth 정확도와 Evidence Agent 판단 정확도를 분리 측정

@@ -6,11 +6,11 @@
 
 ## 해결 방식
 
-RippleGuard는 대출 판단을 Decision Case로 추적하고, Loan Decision Agent의 제안에 대해 RippleGuard Agent가 목적·범위의 변질을 분석하며 Evidence & Control Agent가 증거와 기존 통제 이행 여부를 확인한다. 결정론적 Governance Service와 정책 엔진은 결과를 검증해 자동 처리, 추가 검증 또는 차단 경로를 선택한다. 사람은 고위험·불완전 사례를 확인하고 Agent 상태와 정책 활성화를 통제한다.
+RippleGuard는 대출 판단을 Decision Case로 추적하고, 정형 ML 기반 Loan Decision Agent가 금융 Snapshot에서 재현 가능한 Proposal을 생성하게 한다. Local LLM 기반 RippleGuard Agent는 목적·범위의 변질과 Downstream Impact를 분석하며 Evidence & Control Agent는 문서·Snapshot 불일치와 기존 통제 이행 여부를 독립 확인한다. 결정론적 Governance Service와 OPA는 구조화된 Agent 결과를 검증해 자동 처리, 추가 검증 또는 차단 경로를 선택한다. 사람은 고위험·불완전 사례를 확인하고 Agent 상태와 정책 활성화를 통제한다.
 
 대출 신청은 데이터 목적, 판단 범위, 설명 가능성, 기존 내부통제가 한 흐름에서 충돌하는 대표적 실증 도메인이므로 MVP 대상으로 선택한다. Multi-Agent는 대출 제안, 2차 위험 검토, 증거·통제 검증을 서로 다른 책임으로 분리해 한 Agent의 결론이 자체 검증으로 끝나지 않게 한다.
 
-정책 엔진은 사전에 승인된 결정 규칙을 일관되게 집행하고, 사람은 정책으로 확정할 수 없는 사례의 검증과 변경 승인에 책임을 진다. Agent는 분석과 제안만 수행하며 최종 금융 행동을 실행하지 않는다.
+정책 엔진은 사전에 승인된 결정 규칙을 일관되게 집행하고, 사람은 정책으로 확정할 수 없는 사례의 검증과 변경 승인에 책임을 진다. Agent는 분석과 제안만 수행하며 최종 금융 행동을 실행하지 않는다. Loan Service만 최종 대출 상태를 변경하며 Governance Service, Loan Service와 Audit Service는 Local LLM Runtime을 직접 호출하지 않는다.
 
 ## MVP 성공 기준
 

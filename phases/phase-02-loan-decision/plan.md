@@ -2,9 +2,12 @@
 
 - [ ] 합성 데이터와 Feature Schema 확정
 - [ ] XGBoost·LightGBM 비교 후 Model 선택 기록
-- [ ] Model Artifact와 Version 고정 방식 구현
+- [ ] Tabular Model Manifest와 Model Binary Artifact digest 고정 방식 구현
+- [ ] framework version, feature schema version, preprocessing version, training dataset reference, training code commit, random seed, threshold version, evaluation dataset version, SHAP explainer version/config 기록
+- [ ] `TabularModelPort` 구현과 Phase 3 LLM Provider 확장 지점 Architecture Note 기록
 - [ ] SHAP 설명과 Decision Envelope 계약 구현
 - [ ] LangGraph Loan Decision 흐름 구현
+- [ ] Local LLM Runtime 없이 Phase 2 E2E 성공 검증
 - [ ] Evaluation Run과 종속 Agent Run 계약 구현
 - [ ] Timeout·Retry·Output Schema 검증
 - [ ] 동일 입력 재현성 테스트

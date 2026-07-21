@@ -4,9 +4,11 @@
 
 Loan Decision Agent의 제안을 단순 점수가 아니라 사용 목적, 입력 Snapshot, 근거, 실행 버전과 함께 전달해 후속 Governance 검증이 가능하게 한다.
 
+Loan Decision Agent는 XGBoost 또는 LightGBM 기반 정형 모델로 Proposal을 생성하며 Local LLM을 사용하지 않는다. Local LLM Agent는 Decision Envelope를 검토할 수 있지만 Loan Score 또는 최종 대출 결정을 계산하지 않는다.
+
 | 구분 | 내용 |
 | --- | --- |
-| 핵심 필드 | `caseId`, 제안 결과, 위험·상환 평가, 사용 데이터 목적, input snapshot reference, evidence references, agent/model/prompt/tool versions, 생성 시각 |
+| 핵심 필드 | `caseId`, 제안 결과, 위험·상환 평가, 사용 데이터 목적, input snapshot reference, evidence references, agent/model/tool versions, 생성 시각 |
 | 생성 주체 | Agent Runtime의 Loan Decision Agent |
 | 소비 주체 | Governance Service, 조건부 RippleGuard Agent, Audit & Replay Service |
 

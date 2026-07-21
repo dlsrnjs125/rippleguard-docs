@@ -1,12 +1,21 @@
 # Phase 3 Plan
 
 - [ ] FDS Signal과 Consequence Envelope 계약 구현
+- [ ] Agent Failure Event Schema와 Failure Code taxonomy 확정
+- [ ] Retryable/non-retryable 분류, Governance route mapping, Audit storage contract 확정
 - [ ] 핵심 위험별 Development·Regression Positive/Negative Case 작성
 - [ ] Holdout ID·Label·접근 경계 분리 검증
 - [ ] RippleGuard Agent Graph와 제한 Tool 구현
+- [ ] `StructuredLlmPort` executable interface와 contract test 확정
+- [ ] Ollama Runtime과 `StructuredLlmPort` Ollama Adapter 구현
+- [ ] Local Instruct Model 후보 2~3개 비교 후 Quantized Model 선택 기록
+- [ ] Model Manifest Instance, artifact digest semantics, provider manifest digest, Modelfile digest, source revision, license metadata, Quantization, Runtime Version 고정
+- [ ] Prompt Version과 Context Budget 검증
+- [ ] Context completeness status, omitted/truncated evidence counts, required evidence missing behavior 검증
+- [ ] 동일 입력 5~N회 반복 안정성 Metric과 target 기록
 - [ ] Purpose·Scope·Inference 검증 로직 구현
 - [ ] Governance 실행 계획과 Validator 통합
 - [ ] RippleGuard Trigger·생략 사유·Sample Audit Trace 검증
-- [ ] Timeout·Schema·Metadata 누락 경로 검증
+- [ ] Timeout·Malformed Output·Runtime Down·Digest Mismatch·Context Overflow·Schema·Metadata 누락 경로 검증
 - [ ] 위험 탐지와 과탐 결과 기록
 - [ ] Docker 통합과 Cross-Repo Baseline 고정

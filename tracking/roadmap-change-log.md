@@ -10,6 +10,7 @@ Phase 추가·삭제·분리, 서비스·Repository 경계, 핵심 Agent 역할,
 | 2026-07-16 | Phase 0 `IN_REVIEW`, Phase 1 `PLANNED` | Phase 0 `VERIFIED`, Phase 1 `IN_PROGRESS` | Phase 0 Contracts·Infra·Docs published baseline을 main merge commit으로 고정하고 Phase 1 Core MSA tracking 시작 | 0, 1 | N/A |
 | 2026-07-20 | Phase 1 final baseline expected after implementation PRs | Phase 1 verification deferred: Phase 1 `IN_REVIEW`, Phase 2 `PLANNED` 유지 | Service image OCI provenance is missing, Infra runtime tests are not complete and Integration Matrix required capability correction | 1, 2 | N/A |
 | 2026-07-20 | Phase 1 `IN_REVIEW`, Phase 2 `PLANNED` | Phase 1 `VERIFIED`, Phase 2 `READY` | Service OCI provenance remediation, Governance ordering remediation and Infra runtime reverification all passed | 1, 2 | N/A |
+| 2026-07-20 | Local LLM strategy implicit; external API and agent-specific model choices not bounded | Hybrid Multi-Agent strategy accepted: Loan Decision Agent remains tabular ML, RippleGuard·Evidence Agents are Local LLM first with Ollama, external API is optional benchmark, Phase 3 is first Local LLM integration | Architecture boundary, MVP runtime and Phase gates needed a versioned decision | 2, 3, 4, 8, 9, 10 | [ADR-007](../adr/ADR-007-local-llm-first-agent-strategy.md) |
 
 ## 2026-07-20 — Phase 1 Verification Deferred
 
@@ -48,5 +49,35 @@ Deferred:
 - Build Attestation
 - SLSA Provenance
 - Release Flyway Checksum Pinning
+
+## 2026-07-20 — Local LLM First Agent Strategy
+
+Decision:
+
+- RippleGuard is a Hybrid Multi-Agent Governance Platform.
+- Loan Decision Agent keeps a structured ML path with XGBoost or LightGBM and SHAP.
+- RippleGuard Consequence Agent and Evidence & Control Agent are Local LLM first.
+- MVP Local Runtime uses Ollama.
+- External API LLMs move to optional Benchmark and Provider Adapter candidates.
+- Agent-specific separate foundation models are excluded from the initial scope.
+
+Phase impact:
+
+- Phase 2 defines tabular model and provider boundaries but does not implement Ollama inference.
+- Phase 3 is the first Local LLM integration.
+- Phase 4 initially shares the Phase 3 Local LLM Runtime and Model.
+- Phase 8 adds Local Model Runtime failure drills.
+- Phase 9 compares local multi-agent paths and optional external API benchmarks.
+
+Merge guard:
+
+- Model Manifest Schema must be owned by `rippleguard-contracts`; manifest instances and published baselines must be tracked separately.
+- Phase 3 must fix digest semantics before Phase 8 digest mismatch drills.
+- Phase 2 does not implement `StructuredLlmPort`; executable LLM provider interfaces move to Phase 3.
+- Phase 4 requires a minimum shared-model common-mode regression gate before closure.
+- Phase 2 requires a Tabular Model Manifest for XGBoost/LightGBM reproducibility.
+- External API providers are not automatic runtime fallbacks; they require explicit policy, data boundary, provider manifest, evaluation baseline and audit trace.
+- Phase 3 stability means repeated-run semantic agreement and reference validity metrics, not byte-identical LLM output.
+- Partial context results must carry `contextCompleteness`; required evidence omission cannot be marked as normal completion.
 
 계획이 대체되더라도 이전 문서와 ADR을 삭제하지 않는다. 변경된 Phase는 필요하면 `SUPERSEDED`로 표시하고 새 경로와 인계 조건을 연결한다.
