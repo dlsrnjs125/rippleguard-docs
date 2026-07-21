@@ -16,7 +16,7 @@
 
 허용 상태는 `PLANNED`, `READY`, `IN_PROGRESS`, `BLOCKED`, `IN_REVIEW`, `VERIFIED`, `SUPERSEDED`다. 상태 변경은 선행 조건, Verification과 Cross-Repo Baseline에 근거하며 변경 이유는 [Roadmap Change Log](roadmap-change-log.md)에 남긴다.
 
-Phase 0은 Contracts, Infra, Docs finalization 결과가 main에 병합됐고 Published Baseline이 고정되어 `VERIFIED`다. Phase 1은 서비스 OCI provenance 보완 PR과 Infra runtime verification PR이 main에 병합됐고 필수 runtime checks가 PASS로 기록되어 `VERIFIED` candidate다. Phase 2는 Phase 1 handoff가 충족되어 `READY` candidate다. 이 상태 전환은 PR #7이 main에 병합되면 published project status가 된다.
+Phase 0은 Contracts, Infra, Docs finalization 결과가 main에 병합됐고 Published Baseline이 고정되어 `VERIFIED`다. Phase 1은 서비스 OCI provenance 보완 PR과 Infra runtime verification PR이 main에 병합됐고 필수 runtime checks가 PASS로 기록되어 `VERIFIED`다. Phase 2는 Phase 1 handoff가 충족되어 `READY`다. Phase 2 구현은 Contract-First 계획과 Repository별 독립 PR을 요구한다.
 
 ## Phase 1 Exit Evidence
 
@@ -39,4 +39,4 @@ Phase 0은 Contracts, Infra, Docs finalization 결과가 main에 병합됐고 Pu
 
 5. Final published baseline and status transition
    - Owner: `rippleguard-docs`
-   - Result: PR #7 head branch `docs/phase-1-baseline-finalization` records Phase 1 `VERIFIED`, Phase 2 `READY`, updated evidence and baseline records; published status is pending PR #7 merge
+   - Result: PR #7 merged to main as `86b6c8c`; Phase 1 `VERIFIED` and Phase 2 `READY` are published project status
