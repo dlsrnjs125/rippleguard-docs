@@ -9,6 +9,9 @@
 | Loan Service | Governance Service | Kafka | `loan.evidence.updated.v1` | Versioned Snapshot 재평가 | PARTIALLY_IMPLEMENTED |
 | Governance Service | Audit Replay Service | Kafka | `agent.evaluation.requested.v1` | Phase 1 Mock Evaluation 요청 사실을 Audit Timeline에 기록 | RUNTIME_VERIFIED |
 | Governance Service | Audit Replay Service | Kafka | `agent.evaluation.completed.v1` | Phase 1 Mock Evaluation result를 Audit Timeline에 기록 | RUNTIME_VERIFIED |
+| Governance Service | Agent Runtime | Kafka or API TBD | Agent Request Contract TBD | Fixed Snapshot and model-version Loan Proposal request | PLANNED |
+| Agent Runtime | Governance Service | Kafka or API TBD | Loan Proposal / Phase 2 Decision Envelope TBD | Validated proposal or explicit failure response; not final Loan state mutation | PLANNED |
+| Agent Runtime | Audit Replay Service | Kafka TBD | Agent Run Metadata TBD | Minimal Agent Run timeline with model, feature schema, preprocessing and artifact provenance | PLANNED |
 | Agent Runtime | Governance Service, Audit Replay Service | Kafka | `agent.evaluation.completed.v1` | Phase 2+ actual Agent result | CONTRACT_READY / IMPLEMENTATION_DEFERRED |
 | Agent Runtime | Local LLM Runtime | HTTP via `StructuredLlmPort` | Structured LLM Request TBD | Phase 3·4 Local LLM 추론 호출 | PLANNED |
 | Local LLM Runtime | Agent Runtime | HTTP Provider Response | Schema-constrained Response TBD | 구조화 LLM 응답 반환 | PLANNED |

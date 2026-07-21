@@ -11,6 +11,7 @@ Phase 추가·삭제·분리, 서비스·Repository 경계, 핵심 Agent 역할,
 | 2026-07-20 | Phase 1 final baseline expected after implementation PRs | Phase 1 verification deferred: Phase 1 `IN_REVIEW`, Phase 2 `PLANNED` 유지 | Service image OCI provenance is missing, Infra runtime tests are not complete and Integration Matrix required capability correction | 1, 2 | N/A |
 | 2026-07-20 | Phase 1 `IN_REVIEW`, Phase 2 `PLANNED` | Phase 1 `VERIFIED`, Phase 2 `READY` | Service OCI provenance remediation, Governance ordering remediation and Infra runtime reverification all passed | 1, 2 | N/A |
 | 2026-07-20 | Local LLM strategy implicit; external API and agent-specific model choices not bounded | Hybrid Multi-Agent strategy accepted: Loan Decision Agent remains tabular ML, RippleGuard·Evidence Agents are Local LLM first with Ollama, external API is optional benchmark, Phase 3 is first Local LLM integration | Architecture boundary, MVP runtime and Phase gates needed a versioned decision | 2, 3, 4, 8, 9, 10 | [ADR-007](../adr/ADR-007-local-llm-first-agent-strategy.md) |
+| 2026-07-21 | Phase 2 `READY` without repository execution plan | Phase 2 remains `READY`; Contract-First work order, verification matrix and cross-repo tracking are defined | Phase 2 implementation needs an explicit planning baseline before contracts work starts | 2 | N/A |
 
 ## 2026-07-20 — Phase 1 Verification Deferred
 
@@ -79,5 +80,19 @@ Merge guard:
 - External API providers are not automatic runtime fallbacks; they require explicit policy, data boundary, provider manifest, evaluation baseline and audit trace.
 - Phase 3 stability means repeated-run semantic agreement and reference validity metrics, not byte-identical LLM output.
 - Partial context results must carry `contextCompleteness`; required evidence omission cannot be marked as normal completion.
+
+## 2026-07-21 — Phase 2 Loan Decision Planning
+
+Decision:
+
+- Phase 2 remains `READY`; it is not promoted to `IN_PROGRESS`.
+- The next implementation repository is `rippleguard-contracts`.
+- Phase 2 uses a Contract-First order before Agent Runtime, Governance, Audit and Infra implementation.
+
+Reason:
+
+- Phase 1 has a published verified baseline.
+- Agent Runtime exists, but Phase 2 contracts and implementation PRs have not started.
+- Loan Proposal, Decision Envelope, Tabular Model Manifest and Agent Run metadata need executable contract ownership before producer or consumer code changes.
 
 계획이 대체되더라도 이전 문서와 ADR을 삭제하지 않는다. 변경된 Phase는 필요하면 `SUPERSEDED`로 표시하고 새 경로와 인계 조건을 연결한다.
