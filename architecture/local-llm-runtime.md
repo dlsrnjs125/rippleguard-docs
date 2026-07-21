@@ -68,6 +68,30 @@ Agent Run start
 
 Internal Chain-of-Thought is not stored, emitted to Kafka or shown in Graph views. Full prompts and full LLM responses are not published as events. Audit receives structured results, reason codes, references and version metadata.
 
+## Structured Validation Roles
+
+The three validation steps have separate responsibilities:
+
+- Pydantic: Agent Runtime internal parsing and type validation.
+- JSON Schema: cross-repo executable contract validation from `rippleguard-contracts`.
+- Deterministic Validator: domain rules, allowed scope transitions and reference integrity.
+
+Passing schema validation does not imply a result is safe. Governance can still reject a result that violates domain meaning, policy constraints or reference integrity.
+
+## Context Budget
+
+Context Budget is an Agent Runtime responsibility and must be recorded as versioned metadata. The baseline fields are:
+
+- `maximumInputTokens`
+- `reservedOutputTokens`
+- `systemPromptTokens`
+- `evidenceTokenBudget`
+- `truncationPolicy`
+- `chunkSelectionVersion`
+- `overflowBehavior`
+
+Trace metadata must record which evidence references were included, omitted or truncated. A context overflow must fail safely; it must not silently drop required evidence and continue as if the evaluation were complete.
+
 ## Failure Principles
 
 The following failures are not safe results:
@@ -88,13 +112,65 @@ Agent Evaluation Failed
 
 The system must not substitute mock results, reuse a previous successful result, auto-approve, or bypass validation after a Local LLM failure.
 
+Failure causes must be preserved even when Governance routes all of them to `VERIFICATION_REQUIRED`. Initial failure code candidates are:
+
+- `MODEL_RUNTIME_UNAVAILABLE`
+- `MODEL_LOAD_FAILED`
+- `MODEL_DIGEST_MISMATCH`
+- `INFERENCE_TIMEOUT`
+- `CONTEXT_BUDGET_EXCEEDED`
+- `MALFORMED_STRUCTURED_OUTPUT`
+- `SCHEMA_VALIDATION_FAILED`
+- `DETERMINISTIC_VALIDATION_FAILED`
+
+Phase 3 must define Agent Failure Event Schema, failure code taxonomy, retryable/non-retryable classification, Governance route mapping and Audit storage contract before the OllamaAdapter failure drill is considered complete.
+
+## Model Manifest Ownership
+
+Model Manifest Schema and Model Manifest Instance are separate artifacts.
+
+| Artifact | Owner | Responsibilities |
+| --- | --- | --- |
+| Model Manifest Schema | `rippleguard-contracts` | JSON Schema, required fields, version rules, compatibility policy, examples and invalid fixtures |
+| Model Manifest Instance | `rippleguard-agent-runtime` | Actual model name, provider, quantization, digest fields, runtime version, context limit, license and source metadata |
+| Published Model Baseline | `rippleguard-infra` | Commit-pinned manifest instance used by Docker Compose and runtime verification |
+
+The manifest must not use one ambiguous `modelDigest` field. It must distinguish the digest target and algorithm.
+
+Example fields:
+
+```yaml
+model:
+  logicalName: rippleguard-specialist
+  sourceProvider: huggingface
+  sourceRepository: organization/model-name
+  sourceRevision: exact-revision
+  artifactType: GGUF
+  artifactDigestAlgorithm: sha256
+  artifactDigest: TBD
+  quantization: Q4_K_M
+
+runtime:
+  provider: ollama
+  providerVersion: TBD
+  providerManifestDigest: TBD
+  modelfileDigest: TBD
+```
+
+If a later adapter uses LoRA or multiple files, the manifest must either add explicit adapter digests or define a composite digest with deterministic construction rules. Phase 8 digest mismatch drills are meaningful only after Phase 3 fixes these digest semantics.
+
 ## Model Weight Management
 
 Tracked in GitHub:
 
 - Model Manifest
 - Modelfile or download script
-- Digest
+- Artifact digest, provider manifest digest and Modelfile digest semantics
+- Source repository and exact source revision
+- License ID and license URL or license file reference
+- Commercial use and redistribution flags
+- Model card reference
+- Download timestamp
 - Prompt Version
 - Evaluation result
 

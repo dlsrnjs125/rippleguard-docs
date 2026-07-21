@@ -11,7 +11,7 @@ Agent, Kafka, OPA, DB 장애와 Event 중복·순서 역전 상황에서도 위�
 
 ## 범위와 경계
 
-- 포함: Retry, Timeout, DLT, Circuit Breaker, 중복·순서 역전, Fail-Closed, Manual Safe Mode, Segment Isolation, 장애 Runbook, Ollama Down, Model Load Failure, Model Digest Mismatch, Inference Timeout, Context Window Overflow, Malformed Structured Output, Memory Pressure, Agent Runtime과 Model Runtime Network Failure
+- 포함: Retry, Timeout, DLT, Circuit Breaker, 중복·순서 역전, Fail-Closed, Manual Safe Mode, Segment Isolation, 장애 Runbook, Ollama Down, Model Load Failure, artifact/provider/Modelfile Digest Mismatch, Inference Timeout, Context Window Overflow, Malformed Structured Output, Memory Pressure, Agent Runtime과 Model Runtime Network Failure
 - 제외: 무중단 운영 SLA 보장, Kubernetes 복구, 외부 금융기관 DR
 - 변경 금지: 장애 시 검증을 생략하거나 마지막 성공 결과를 새 결정으로 재사용하지 않는다.
 

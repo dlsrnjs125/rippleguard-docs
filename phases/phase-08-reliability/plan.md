@@ -5,7 +5,7 @@
 - [ ] Inbox·Outbox·멱등 최종화 Stress Test
 - [ ] Kafka DLT와 안전한 재처리 검증
 - [ ] OPA·Agent·DB Fail-Closed 검증
-- [ ] Ollama Down·Model Load Failure·Model Digest Mismatch Drill
+- [ ] Ollama Down·Model Load Failure·artifact/provider/Modelfile Digest Mismatch Drill
 - [ ] Inference Timeout·Context Window Overflow·Malformed Structured Output Drill
 - [ ] Memory Pressure와 Agent Runtime ↔ Model Runtime Network Failure Drill
 - [ ] Local LLM 실패 시 Mock 대체·이전 결과 재사용·자동 승인·Validation 우회 금지 검증

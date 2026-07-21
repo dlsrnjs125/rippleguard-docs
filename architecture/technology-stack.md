@@ -11,7 +11,7 @@ Phase 0에서 언어와 핵심 프레임워크 경계를 고정한다. 구체적
 | Local LLM Runtime | Ollama | Phase 3·4 비정형 전문 Agent의 로컬 추론 |
 | Local LLM Model | Quantized Instruct Model | RippleGuard·Evidence Agent가 초기 공유 |
 | Model Provider Abstraction | StructuredLlmPort | Ollama, llama.cpp, 외부 API 교체 경계 |
-| Model Manifest | Versioned JSON or YAML Manifest | 모델 이름, Digest, Quantization, Context, Runtime Metadata |
+| Model Manifest | Versioned JSON or YAML Manifest | 모델 이름, source revision, artifact/provider/Modelfile digest, Quantization, Context, Runtime Metadata, license |
 | Alternative Runtime | llama.cpp | 후속 재현성·GGUF 고정 실행 후보 |
 | Event | Kafka | 서비스 간 상태 변경과 비동기 업무 |
 | Policy | OPA | Versioned Assurance Routing 정책 |

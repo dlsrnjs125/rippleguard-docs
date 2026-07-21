@@ -104,7 +104,9 @@ Agent Run Node Metadata 후보는 다음과 같다.
 
 - `modelProvider`
 - `modelName`
-- `modelDigest`
+- `artifactDigest`
+- `providerManifestDigest`
+- `modelfileDigest`
 - `quantization`
 - `runtimeVersion`
 - `promptVersion`

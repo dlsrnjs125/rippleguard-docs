@@ -19,6 +19,8 @@ RippleGuard is a Hybrid Multi-Agent Governance Platform.
 - Agent independence is guaranteed by purpose, input contract, prompt, tool allowlist, output contract and run separation, not by requiring separate foundation models.
 - Agent Runtime owns `StructuredLlmPort` so providers are isolated behind an adapter boundary.
 - External API LLMs and llama.cpp are later adapter or benchmark candidates, not an MVP required path.
+- Model Manifest Schema is owned by `rippleguard-contracts`; manifest instances are owned by `rippleguard-agent-runtime` and published as integration baselines by `rippleguard-infra`.
+- Phase 2 documents the LLM provider extension point only; the executable `StructuredLlmPort` contract and OllamaAdapter are Phase 3 responsibilities.
 
 Governance Service validates structured outputs and determines execution routes. Loan Service remains the only service that changes final loan state.
 
@@ -62,8 +64,10 @@ Costs:
 
 - Phase 2 succeeds without Local LLM Runtime.
 - Phase 3 generates Consequence Envelopes without external paid APIs.
-- Phase 3 records model name, digest, quantization and runtime version.
+- Phase 3 records model source, exact source revision, artifact digest target and algorithm, provider manifest digest, Modelfile digest, quantization, runtime version and license metadata.
+- Phase 3 defines Agent Failure Event Schema, failure code taxonomy, retryable/non-retryable classification, Governance route mapping and Audit storage contract before failure drills.
 - Phase 4 proves shared-model agents remain independent by prompt, input, tool and output boundaries.
+- Phase 4 runs a minimum common-mode regression gate for shared Foundation Model failure before closure.
 - Phase 8 verifies runtime down, timeout, context overflow, malformed output and digest mismatch safe failures.
 - Phase 9 measures local model quality and common-mode failure, with optional external API benchmark if available.
 

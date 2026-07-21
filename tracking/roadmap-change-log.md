@@ -69,4 +69,11 @@ Phase impact:
 - Phase 8 adds Local Model Runtime failure drills.
 - Phase 9 compares local multi-agent paths and optional external API benchmarks.
 
+Merge guard:
+
+- Model Manifest Schema must be owned by `rippleguard-contracts`; manifest instances and published baselines must be tracked separately.
+- Phase 3 must fix digest semantics before Phase 8 digest mismatch drills.
+- Phase 2 does not implement `StructuredLlmPort`; executable LLM provider interfaces move to Phase 3.
+- Phase 4 requires a minimum shared-model common-mode regression gate before closure.
+
 계획이 대체되더라도 이전 문서와 ADR을 삭제하지 않는다. 변경된 Phase는 필요하면 `SUPERSEDED`로 표시하고 새 경로와 인계 조건을 연결한다.

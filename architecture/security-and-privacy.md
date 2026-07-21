@@ -46,12 +46,24 @@ Agent 목적에 필요한 최소 Context만 전달한다. 전체 신청자 Profi
 Model baseline은 다음 항목을 추적해야 한다.
 
 - `modelName`
-- `modelDigest`
+- `sourceProvider`
+- `sourceRepository`
+- `sourceRevision`
+- `artifactType`
+- `artifactDigestAlgorithm`
+- `artifactDigest`
+- `providerManifestDigest`
+- `modelfileDigest`
 - `source`
 - `quantization`
 - `runtimeVersion`
 - `downloadedAt`
+- `licenseId`
+- `licenseUrl` 또는 `licenseFile`
 - `licenseReference`
+- `commercialUseAllowed`
+- `redistributionAllowed`
+- `modelCardReference`
 
 모델 파일 출처와 Digest를 확인할 수 없는 Weight는 Baseline에 사용하지 않는다. 실제 Model Weight, Ollama cache와 GGUF 파일은 Git에 저장하지 않는다.
 
@@ -69,7 +81,9 @@ Model baseline은 다음 항목을 추적해야 한다.
 
 - Prompt Version
 - Model Version
-- Model Digest
+- Artifact Digest
+- Provider Manifest Digest
+- Modelfile Digest
 - Structured Output
 - Reason Code
 - Latency

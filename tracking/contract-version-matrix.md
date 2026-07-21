@@ -19,10 +19,11 @@
 | Evaluation Run | 1 | Governance Service | N/A | Governance Service | `1.0.0`, `2.0.0` schema available | Implemented as service-local persisted run | N/A | Service tests PASS | IMPLEMENTED |
 | Consequence Envelope | 3 | Agent Runtime | Governance Service | TBD | TBD | NOT_STARTED | NOT_STARTED | NOT_RUN | NOT_STARTED |
 | Evidence & Control Findings | 4 | Agent Runtime | Governance Service | TBD | TBD | NOT_STARTED | NOT_STARTED | NOT_RUN | NOT_STARTED |
-| Model Manifest | 3 | Agent Runtime | N/A | Model Manifest validator | TBD | NOT_STARTED | N/A | NOT_RUN | NOT_STARTED |
+| Model Manifest Schema | 3 | N/A; owner `rippleguard-contracts` | Agent Runtime, Infra, Audit Replay Service | Schema validation, version rules, examples and invalid fixtures | TBD | N/A | NOT_STARTED | NOT_RUN | NOT_STARTED |
+| Model Manifest Instance | 3 | `rippleguard-agent-runtime`; published baseline by `rippleguard-infra` | Governance Service, Audit Replay Service | Model name, provider, quantization, digest, runtime version, context limit, license and source metadata | TBD | NOT_STARTED | NOT_STARTED | NOT_RUN | NOT_STARTED |
 | Agent Run Metadata | 2+ | Agent Runtime | Governance Service, Audit Replay Service | Run metadata persistence | TBD | NOT_STARTED | NOT_STARTED | NOT_RUN | NOT_STARTED |
 | Local LLM Invocation Metadata | 3+ | Agent Runtime | Audit Replay Service | Agent Run Timeline | TBD | NOT_STARTED | NOT_STARTED | NOT_RUN | NOT_STARTED |
-| Agent Failure Event | 3+ | Agent Runtime | Governance Service, Audit Replay Service | Failure routing and trace | TBD | NOT_STARTED | NOT_STARTED | NOT_RUN | NOT_STARTED |
+| Agent Failure Event | 3 | Agent Runtime | Governance Service, Audit Replay Service | Failure code taxonomy, retryable classification, Governance route mapping and Audit trace | TBD | NOT_STARTED | NOT_STARTED | NOT_RUN | NOT_STARTED |
 | Structured Consequence Envelope | 3 | Agent Runtime | Governance Service | Consequence validator | TBD | NOT_STARTED | NOT_STARTED | NOT_RUN | NOT_STARTED |
 | Structured Evidence Finding | 4 | Agent Runtime | Governance Service | Evidence validator | TBD | NOT_STARTED | NOT_STARTED | NOT_RUN | NOT_STARTED |
 | Assurance Policy Input | 5 | Governance Service | OPA | TBD | TBD | NOT_STARTED | NOT_STARTED | NOT_RUN | NOT_STARTED |
@@ -30,3 +31,7 @@
 | Impacted Evaluation Run Query | 7 | Governance Service | Audit Replay Service | TBD | TBD | NOT_STARTED | NOT_STARTED | NOT_RUN | NOT_STARTED |
 
 Contract existence, producer implementation, consumer implementation and integration verification are separate states. A contract can be `CONTRACT_READY` even when one or both implementation sides are deferred.
+
+Model Manifest Schema is an executable cross-repo contract owned by `rippleguard-contracts`. Model Manifest Instance is runtime configuration and baseline evidence owned by `rippleguard-agent-runtime`, then published and verified by `rippleguard-infra` when it becomes part of an integration baseline.
+
+Agent Failure Event must preserve causes such as `MODEL_RUNTIME_UNAVAILABLE`, `MODEL_LOAD_FAILED`, `MODEL_DIGEST_MISMATCH`, `INFERENCE_TIMEOUT`, `CONTEXT_BUDGET_EXCEEDED`, `MALFORMED_STRUCTURED_OUTPUT`, `SCHEMA_VALIDATION_FAILED` and `DETERMINISTIC_VALIDATION_FAILED`, even when Governance maps them to the same high-level `VERIFICATION_REQUIRED` route.

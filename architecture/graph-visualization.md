@@ -255,7 +255,9 @@ Data Provenance / Training Data Graph는 MVP에서 제외한다.
 - `modelVersion`
 - `modelProvider`
 - `modelName`
-- `modelDigest`
+- `artifactDigest`
+- `providerManifestDigest`
+- `modelfileDigest`
 - `quantization`
 - `runtimeVersion`
 - `promptVersion`
