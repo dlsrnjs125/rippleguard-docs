@@ -36,11 +36,14 @@ decisionCaseId
             -> attemptId: 3
 ```
 
-- Governance owns `evaluationRunId`, `agentRunId` and the request idempotency key.
+- Governance owns `evaluationRunId`, `agentRunId` and the request idempotency mapping.
 - Agent Runtime owns execution attempt metadata, including `attemptId`.
 - Retrying the same Agent Request reuses the same `agentRunId`.
 - A new execution attempt under the same request receives a new `attemptId`.
-- The idempotency key is derived from the fixed Decision Case, Evaluation Run, Agent Run, Snapshot reference, Feature Schema Version, Model Version, Model Artifact Digest and Threshold Version.
+- `requestIdempotencyKey` prevents duplicate logical requests and does not include `agentRunId`.
+- `requestIdempotencyKey` is derived from the fixed Decision Case, Evaluation Run, Agent Type, Snapshot digest or immutable reference, Feature Schema Version, Model Version, Model Artifact Digest and Threshold Version.
+- `agentRunId` is the Governance-issued execution identifier mapped to one accepted logical request key.
+- Governance must look up the idempotency mapping before issuing a new `agentRunId` for a repeated upstream request.
 - The same `agentRunId` with a different Snapshot, Feature Schema, Model Version, Artifact Digest or Threshold Version is a contract validation failure.
 - Conflicting successful results for the same `agentRunId` are `BLOCKED`.
 - Duplicate delivery of the same result is idempotent and must not create a second accepted result.
@@ -111,7 +114,7 @@ Docs define required meaning; executable field names are finalized by `ripplegua
 | Retry exhaustion | `VALIDATION_REQUIRED` |
 | Duplicate Agent Request | Idempotent handling; no duplicate accepted result |
 | Same `agentRunId` conflicting result | `BLOCKED` |
-| SHAP calculation failure | `VALIDATION_REQUIRED` |
+| SHAP calculation failure | `VALIDATION_REQUIRED`; score-only output is not adopted as normal completion in Phase 2 |
 | Contract validation failure | `VALIDATION_REQUIRED` |
 | Audit event publish failure | `RETRYABLE` through outbox retry; `BLOCKED` only when durable publication cannot be guaranteed after retry policy exhaustion |
 | Local LLM Runtime not running | Normal Phase 2 condition; must not fail E2E |

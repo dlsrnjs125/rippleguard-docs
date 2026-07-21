@@ -53,6 +53,6 @@ Phase 2 can move to `IN_REVIEW` only after repository implementation PRs are com
 | Agent timeout | Governance request execution | `RETRYABLE` then `VALIDATION_REQUIRED` after exhaustion | Yes | No accepted proposal before success | timeout test |
 | Duplicate Agent Request | Governance idempotency handling | Idempotent accepted or pending response | No duplicate execution required | No duplicate accepted result | idempotency test |
 | Same `agentRunId` conflicting result | Governance result validation | `BLOCKED` | No | Existing accepted result is not overwritten | conflict test |
-| SHAP calculation failure | Agent Runtime explanation step | `VALIDATION_REQUIRED` | Implementation-defined | No accepted proposal unless contract permits partial explanation | failure fixture |
+| SHAP calculation failure | Agent Runtime explanation step | `VALIDATION_REQUIRED` | No | Score-only output is not adopted as normal completion; partial result is debugging/evidence only | failure fixture |
 | Audit publish failure | Governance outbox publish | `RETRYABLE`; `BLOCKED` only after durable publication cannot be guaranteed | Yes | Proposal validation state is not lost; audit pending is explicit | outbox test |
 | Local LLM Runtime absent | Infra E2E | PASS for Phase 2 | N/A | No dependency on LLM state | compose report |

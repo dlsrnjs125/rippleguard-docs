@@ -10,7 +10,7 @@
 | `StructuredLlmPort` executable contract is deferred to Phase 3 | Prevents speculative unused LLM interface in Phase 2 |
 | Audit scope is minimal Agent Run timeline | Phase 7 replay/hash-chain scope is not pulled forward |
 | Phase 2 result flow is Governance-validated | Agent Runtime returns results to Governance; Governance validates and emits Audit trace to avoid duplicate raw result consumers |
-| Governance owns `agentRunId` and request idempotency | Retries must address the same logical Agent Run while Agent Runtime records separate attempts |
+| Governance owns `agentRunId` and request idempotency mapping | The logical request key excludes `agentRunId`; retries reuse the mapped Agent Run while Agent Runtime records separate attempts |
 
 ## Open Questions
 

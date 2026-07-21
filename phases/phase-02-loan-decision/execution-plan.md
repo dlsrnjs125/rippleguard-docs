@@ -31,7 +31,7 @@ Phase 2 remains `READY`. Phase 1 is published as `VERIFIED` on main, but Phase 2
 | --- | --- |
 | `rippleguard-docs` | `docs/phase-2-loan-decision-kickoff` |
 | `rippleguard-contracts` | `feat/phase-2-loan-decision-contracts` |
-| `rippleguard-loan-service` | `review/phase-2-snapshot-contract` if implementation impact is confirmed |
+| `rippleguard-loan-service` | No branch for docs-only impact review; `feat/phase-2-snapshot-contract` if code changes are required |
 | `rippleguard-agent-runtime` | `feat/phase-2-loan-decision-agent` |
 | `rippleguard-governance-service` | `feat/phase-2-agent-orchestration` |
 | `rippleguard-audit-replay-service` | `feat/phase-2-agent-run-timeline` |
