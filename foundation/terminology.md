@@ -27,7 +27,8 @@
 | llama.cpp Adapter | 후속 재현성 강화 또는 GGUF 기반 실행 후보 Adapter |
 | External API Adapter | MVP 필수 경로가 아닌 외부 LLM API 비교·Benchmark 후보 Adapter |
 | Model Manifest | 모델 이름, source revision, artifact digest, provider manifest digest, Modelfile digest, Quantization, Context, Runtime Version과 license를 기록하는 Versioned JSON 또는 YAML 기준 |
-| Model Artifact | 모델 Weight, Modelfile, Prompt, 평가 결과 등 모델 실행과 검증에 필요한 Artifact 묶음 |
+| Model Binary Artifact | Git에 저장하지 않는 실제 추론 파일. 예: GGUF, weights, adapter files |
+| Model Governance Artifact | Git에서 추적하는 모델 운영 기준. 예: Manifest, digest semantics, prompt version, evaluation result, license metadata |
 | Model Digest | 대상과 알고리즘이 명시된 digest. `artifactDigest`, `providerManifestDigest`, `modelfileDigest` 또는 규칙이 정의된 composite digest를 구분해 기록한다 |
 | Quantization | 로컬 실행을 위해 모델 Weight 정밀도를 줄여 메모리와 Latency를 낮추는 방식 |
 | Context Budget | Agent 목적에 맞게 전달 가능한 입력 Token 또는 Context 크기 제한 |

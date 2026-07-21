@@ -52,6 +52,8 @@ StructuredLlmPort
 
 Agent Graph nodes must call `StructuredLlmPort`, not an Ollama-specific SDK. Ollama is the MVP default provider. llama.cpp is a later reproducibility or GGUF execution candidate. External API providers are optional benchmark or adapter candidates, not an MVP required path.
 
+External API provider is not an automatic runtime fallback. Provider switching requires an explicitly versioned execution policy, approved data boundary, provider manifest, evaluation baseline and audit trace. An Ollama timeout must not automatically send applicant context or document content to an external provider.
+
 ## Execution Flow
 
 ```text
@@ -89,8 +91,14 @@ Context Budget is an Agent Runtime responsibility and must be recorded as versio
 - `truncationPolicy`
 - `chunkSelectionVersion`
 - `overflowBehavior`
+- `contextCompleteness`: `COMPLETE`, `PARTIAL_ALLOWED` or `INCOMPLETE_BLOCKING`
+- `omittedEvidenceCount`
+- `truncatedEvidenceCount`
+- `requiredEvidenceMissing`
 
 Trace metadata must record which evidence references were included, omitted or truncated. A context overflow must fail safely; it must not silently drop required evidence and continue as if the evaluation were complete.
+
+If required evidence is missing or truncated, the result must not be marked as a normal completed evaluation. It must fail or route to Governance as `VERIFICATION_REQUIRED`. `PARTIAL_ALLOWED` is only valid when the omitted evidence is non-required and the output contract preserves the partial-context status.
 
 ## Failure Principles
 
@@ -159,6 +167,33 @@ runtime:
 
 If a later adapter uses LoRA or multiple files, the manifest must either add explicit adapter digests or define a composite digest with deterministic construction rules. Phase 8 digest mismatch drills are meaningful only after Phase 3 fixes these digest semantics.
 
+## Tabular Model Manifest
+
+Loan Decision Agent uses a separate tabular model manifest. It can share common manifest envelope fields, but it must have `modelType: TABULAR` and tabular-specific provenance.
+
+Example fields:
+
+```yaml
+modelType: TABULAR
+framework: xgboost
+frameworkVersion: TBD
+artifactDigestAlgorithm: sha256
+artifactDigest: TBD
+featureSchemaVersion: TBD
+preprocessingVersion: TBD
+trainingDatasetRef: TBD
+trainingCodeCommit: TBD
+evaluationDatasetVersion: TBD
+randomSeed: TBD
+thresholdVersion: TBD
+explainer:
+  type: SHAP
+  version: TBD
+  configVersion: TBD
+```
+
+This manifest is required for Phase 2 reproducibility and is independent of Local LLM provider manifests.
+
 ## Model Weight Management
 
 Tracked in GitHub:
@@ -176,7 +211,7 @@ Tracked in GitHub:
 
 Kept outside Git:
 
-- Actual Model Weight
+- Actual Model Binary Artifact
 - Ollama Model Cache
 - GGUF files
 

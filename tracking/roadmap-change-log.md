@@ -75,5 +75,9 @@ Merge guard:
 - Phase 3 must fix digest semantics before Phase 8 digest mismatch drills.
 - Phase 2 does not implement `StructuredLlmPort`; executable LLM provider interfaces move to Phase 3.
 - Phase 4 requires a minimum shared-model common-mode regression gate before closure.
+- Phase 2 requires a Tabular Model Manifest for XGBoost/LightGBM reproducibility.
+- External API providers are not automatic runtime fallbacks; they require explicit policy, data boundary, provider manifest, evaluation baseline and audit trace.
+- Phase 3 stability means repeated-run semantic agreement and reference validity metrics, not byte-identical LLM output.
+- Partial context results must carry `contextCompleteness`; required evidence omission cannot be marked as normal completion.
 
 계획이 대체되더라도 이전 문서와 ADR을 삭제하지 않는다. 변경된 Phase는 필요하면 `SUPERSEDED`로 표시하고 새 경로와 인계 조건을 연결한다.

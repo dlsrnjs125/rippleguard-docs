@@ -17,6 +17,8 @@
 | `loan.decision.finalized.v1` | 1 | Loan Service | Audit Replay Service | Audit records finalization | schema `1.0.0`, compatible minor `1.1.0` | Implemented | Implemented by Audit | Service tests PASS; runtime E2E PASS | RUNTIME_VERIFIED |
 | Decision Envelope | 1 Mock / 2+ Actual | Governance Mock evaluator; later Agent Runtime | N/A | Governance Service | `1.0.0` | Phase 1 Mock implemented | N/A | Deterministic mock evaluation tests PASS; runtime E2E PASS for mock boundary | RUNTIME_VERIFIED_FOR_MOCK |
 | Evaluation Run | 1 | Governance Service | N/A | Governance Service | `1.0.0`, `2.0.0` schema available | Implemented as service-local persisted run | N/A | Service tests PASS | IMPLEMENTED |
+| Tabular Model Manifest Schema | 2 | N/A; owner `rippleguard-contracts` | Agent Runtime, Governance Service, Audit Replay Service, Infra | Framework, feature schema, preprocessing, dataset, threshold and explainer metadata contract | TBD | N/A | NOT_STARTED | NOT_RUN | NOT_STARTED |
+| Tabular Model Manifest Instance | 2 | `rippleguard-agent-runtime`; published baseline by `rippleguard-infra` | Governance Service, Audit Replay Service | XGBoost/LightGBM version, artifact digest, feature schema, preprocessing, training dataset, training code commit, random seed, threshold and SHAP config | TBD | NOT_STARTED | NOT_STARTED | NOT_RUN | NOT_STARTED |
 | Consequence Envelope | 3 | Agent Runtime | Governance Service | TBD | TBD | NOT_STARTED | NOT_STARTED | NOT_RUN | NOT_STARTED |
 | Evidence & Control Findings | 4 | Agent Runtime | Governance Service | TBD | TBD | NOT_STARTED | NOT_STARTED | NOT_RUN | NOT_STARTED |
 | Model Manifest Schema | 3 | N/A; owner `rippleguard-contracts` | Agent Runtime, Infra, Audit Replay Service | Schema validation, version rules, examples and invalid fixtures | TBD | N/A | NOT_STARTED | NOT_RUN | NOT_STARTED |
@@ -33,5 +35,7 @@
 Contract existence, producer implementation, consumer implementation and integration verification are separate states. A contract can be `CONTRACT_READY` even when one or both implementation sides are deferred.
 
 Model Manifest Schema is an executable cross-repo contract owned by `rippleguard-contracts`. Model Manifest Instance is runtime configuration and baseline evidence owned by `rippleguard-agent-runtime`, then published and verified by `rippleguard-infra` when it becomes part of an integration baseline.
+
+Tabular Model Manifest follows the same schema/instance split. Schema belongs to `rippleguard-contracts`; Phase 2 instances belong to `rippleguard-agent-runtime` and become published runtime baselines only through `rippleguard-infra`.
 
 Agent Failure Event must preserve causes such as `MODEL_RUNTIME_UNAVAILABLE`, `MODEL_LOAD_FAILED`, `MODEL_DIGEST_MISMATCH`, `INFERENCE_TIMEOUT`, `CONTEXT_BUDGET_EXCEEDED`, `MALFORMED_STRUCTURED_OUTPUT`, `SCHEMA_VALIDATION_FAILED` and `DETERMINISTIC_VALIDATION_FAILED`, even when Governance maps them to the same high-level `VERIFICATION_REQUIRED` route.

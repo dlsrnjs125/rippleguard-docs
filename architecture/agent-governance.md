@@ -48,6 +48,31 @@ Trigger 구현 오류로 위험 Case가 우회되는 것을 탐지하기 위해 
 
 Prompt, 모델, Tool 또는 정책 변경은 Golden Case Replay와 Shadow Mode 비교를 통과한 뒤 활성화한다. 정책 엔진이나 Governance Service를 우회하는 Tool과 직접 상태 변경 경로는 허용하지 않는다.
 
+## Manifest and Prompt Activation
+
+Model Manifest 또는 Prompt 변경은 다음 순서로 활성화한다.
+
+```text
+Candidate Manifest
+-> Digest verification
+-> Contract validation
+-> Golden Case Replay
+-> Negative and Prompt Injection tests
+-> Shadow comparison
+-> Approval
+-> Active Manifest promotion
+```
+
+다음 변경은 모두 새 Baseline으로 취급한다.
+
+- model source revision
+- quantization
+- Modelfile
+- runtime provider/version
+- prompt version
+- context policy
+- deterministic validator version
+
 ## Local Model Execution Boundary
 
 Loan Decision Agent는 XGBoost 또는 LightGBM 기반 정형 ML Model을 사용한다. RippleGuard Agent와 Evidence & Control Agent만 Local LLM Runtime을 사용할 수 있다.

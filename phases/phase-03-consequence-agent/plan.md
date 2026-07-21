@@ -11,6 +11,8 @@
 - [ ] Local Instruct Model 후보 2~3개 비교 후 Quantized Model 선택 기록
 - [ ] Model Manifest Instance, artifact digest semantics, provider manifest digest, Modelfile digest, source revision, license metadata, Quantization, Runtime Version 고정
 - [ ] Prompt Version과 Context Budget 검증
+- [ ] Context completeness status, omitted/truncated evidence counts, required evidence missing behavior 검증
+- [ ] 동일 입력 5~N회 반복 안정성 Metric과 target 기록
 - [ ] Purpose·Scope·Inference 검증 로직 구현
 - [ ] Governance 실행 계획과 Validator 통합
 - [ ] RippleGuard Trigger·생략 사유·Sample Audit Trace 검증

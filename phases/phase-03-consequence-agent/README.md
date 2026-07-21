@@ -40,13 +40,15 @@ Governance가 Decision Envelope와 허용 Snapshot으로 실행을 지시하고 
 - Model source, source revision, artifact digest target, provider manifest digest, Modelfile digest and license metadata fixed
 - Output Schema Validation PASS
 - Timeout·Malformed Output·Runtime Down·Digest Mismatch·Context Overflow 안전 실패
+- Context completeness metadata distinguishes `COMPLETE`, `PARTIAL_ALLOWED` and `INCOMPLETE_BLOCKING`; required evidence missing routes to failure or `VERIFICATION_REQUIRED`
+- 동일 입력 반복 실행에서 Schema success rate, risk classification agreement, reason code overlap, critical finding recall consistency, invalid hallucinated reference rate and repeated-run variance measured against explicit targets
 - Golden Case와 Negative Case 품질 측정
 - FDS 정보 오용 대표 Case를 위험 유형과 Evidence Reference로 탐지
 - 허용 사용 Negative Case의 과탐 결과 기록
 - Agent Timeout·Schema·Tool 실패 경로 검증
 - 독립 빌드·Docker 통합·Baseline 고정
 
-구체적인 Local LLM 모델 이름은 지금 확정하지 않는다. Phase 3 구현 시 후보 2~3개를 한국어 이해, JSON structured output 성공률, Consequence recall, false positive rate, 평균·P95 latency, peak memory, context limit, license, quantization별 품질 저하, cold start와 반복 실행 안정성 기준으로 비교하고 하나를 선택한다.
+구체적인 Local LLM 모델 이름은 지금 확정하지 않는다. Phase 3 구현 시 후보 2~3개를 한국어 이해, JSON structured output 성공률, Consequence recall, false positive rate, 평균·P95 latency, peak memory, context limit, license, quantization별 품질 저하, cold start와 반복 실행 안정성 기준으로 비교하고 하나를 선택한다. 안정성은 완전 동일 문자열 출력을 뜻하지 않으며, 동일 입력 5~N회 반복에서 schema success, 핵심 risk classification agreement, critical recall variance, hallucinated evidence reference rate, temperature/seed/runtime configuration을 함께 평가한다.
 
 ## 다음 Phase 인계 조건
 
