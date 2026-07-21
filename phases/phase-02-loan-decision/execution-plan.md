@@ -12,15 +12,17 @@ Phase 2 remains `READY`. Phase 1 is published as `VERIFIED` on main, but Phase 2
    - Confirm scope, boundaries, work order, verification matrix and open questions.
 2. `rippleguard-contracts`
    - Define Feature Schema, Versioned Snapshot references, Loan Proposal, Decision Envelope, Tabular Model Manifest, Agent Run metadata, request/result events, failure reason codes and fixtures.
-3. `rippleguard-agent-runtime`
+3. `rippleguard-loan-service`
+   - Review existing Versioned Snapshot compatibility, immutability and digest requirements. Open an implementation PR only if the contracts cannot be satisfied by the current Snapshot path.
+4. `rippleguard-agent-runtime`
    - Prepare synthetic dataset, preprocessing, XGBoost/LightGBM comparison, model selection, binary artifact reference, manifest, `TabularModelPort`, SHAP and result handling.
-4. `rippleguard-governance-service`
+5. `rippleguard-governance-service`
    - Request Agent execution for a fixed Snapshot and model version, validate output, connect Evaluation Run and Agent Run, and handle timeout/retry/failure states.
-5. `rippleguard-audit-replay-service`
+6. `rippleguard-audit-replay-service`
    - Record minimal Agent Run timeline and version metadata without pulling Phase 7 replay or hash-chain scope forward.
-6. `rippleguard-infra`
+7. `rippleguard-infra`
    - Wire Agent Runtime image, model artifact reference, health checks and Phase 2 E2E validation.
-7. `rippleguard-docs`
+8. `rippleguard-docs`
    - Record merged PRs, commits, images, evidence, baselines and final Phase 2 verification.
 
 ## Branch Plan
@@ -29,6 +31,7 @@ Phase 2 remains `READY`. Phase 1 is published as `VERIFIED` on main, but Phase 2
 | --- | --- |
 | `rippleguard-docs` | `docs/phase-2-loan-decision-kickoff` |
 | `rippleguard-contracts` | `feat/phase-2-loan-decision-contracts` |
+| `rippleguard-loan-service` | `review/phase-2-snapshot-contract` if implementation impact is confirmed |
 | `rippleguard-agent-runtime` | `feat/phase-2-loan-decision-agent` |
 | `rippleguard-governance-service` | `feat/phase-2-agent-orchestration` |
 | `rippleguard-audit-replay-service` | `feat/phase-2-agent-run-timeline` |

@@ -4,7 +4,7 @@
 
 Status: `READY`
 
-Phase 2 has a published Phase 1 handoff and planning baseline. Implementation work has not started in service repositories.
+Phase 2 has a published Phase 1 handoff and a candidate planning baseline in this PR. Implementation work has not started in service repositories.
 
 ## Entry Check
 
@@ -23,6 +23,7 @@ Phase 2 has a published Phase 1 handoff and planning baseline. Implementation wo
 | --- | --- | --- |
 | `rippleguard-docs` | IN_PROGRESS | Kickoff planning branch defines work order and verification |
 | `rippleguard-contracts` | NOT_STARTED | Next repository |
+| `rippleguard-loan-service` | IMPACT_REVIEW_REQUIRED | Snapshot compatibility must be reviewed after contracts |
 | `rippleguard-agent-runtime` | NOT_STARTED | Waits for contracts |
 | `rippleguard-governance-service` | NOT_STARTED | Waits for contracts and Agent Runtime output contract |
 | `rippleguard-audit-replay-service` | NOT_STARTED | Waits for Agent Run metadata contract |

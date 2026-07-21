@@ -8,6 +8,7 @@ Governance Service
 -> Agent Runtime Loan Decision Agent
 -> Loan Proposal / Decision Envelope
 -> Governance validation
+-> Governance validated/rejected Audit event
 -> Audit minimal Agent Run timeline
 ```
 
@@ -18,6 +19,8 @@ Loan Service remains the only owner of final loan state. Loan Decision Agent pro
 - Governance requests a fixed Snapshot and model version.
 - Agent Runtime returns schema-valid Loan Proposal or explicit failure.
 - Governance does not adopt invalid output.
+- Agent Runtime does not publish the same Phase 2 result directly to Audit Replay.
+- Governance emits the Audit trace only after validation.
 - Timeout and retry state is explicit.
 - Mock success result is not used as fallback.
 - Audit can retrieve Agent Run metadata.

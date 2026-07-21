@@ -1,5 +1,7 @@
 # Phase 2 Plan
 
+This file is the phase-level concise implementation checklist. Detailed ownership and acceptance criteria are authoritative in [Repository Workplan](repository-workplan.md) and [Verification](verification.md). Status is tracked only in [Progress](progress.md).
+
 - [ ] 합성 데이터와 Feature Schema 확정
 - [ ] XGBoost·LightGBM 비교 후 Model 선택 기록
 - [ ] Tabular Model Manifest와 Model Binary Artifact digest 고정 방식 구현
