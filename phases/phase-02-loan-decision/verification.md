@@ -1,20 +1,21 @@
 # Phase 2 Verification
 
+Final cross-repository verification on 2026-07-22 concluded `BLOCKED`. See [Final Cross-Repository Verification](final-review.md).
+
 ## Verification Matrix
 
-| 검증 항목 | Owner Repo | 검증 방법 | 성공 조건 | Evidence |
-| --- | --- | --- | --- | --- |
-| Feature Schema validation | `rippleguard-contracts` | schema test | valid pass, invalid reject | test log |
-| Snapshot reference contract | `rippleguard-contracts` | fixture and compatibility test | stable reference or digest accepted | fixture report |
-| Loan Proposal contract | `rippleguard-contracts` | schema and examples | proposal is distinct from final decision | schema log |
-| Tabular Model Manifest | `rippleguard-contracts` | schema and invalid fixtures | required provenance fields enforced | test log |
-| Model reproducibility | `rippleguard-agent-runtime` | repeated inference | same inputs match within tolerance | report |
-| SHAP provenance | `rippleguard-agent-runtime` | manifest/result comparison | explainer version and contribution refs linked | fixture |
-| Governance validation | `rippleguard-governance-service` | integration test | invalid output not adopted | test output |
-| Timeout and retry | `rippleguard-governance-service`, `rippleguard-agent-runtime` | failure test | status and retry exhaustion explicit | log |
-| Agent timeline | `rippleguard-audit-replay-service` | API/DB test | Agent Run metadata queryable | response |
-| Docker integration | `rippleguard-infra` | compose E2E | Local LLM absent and Phase 2 passes | report |
-| Baseline provenance | `rippleguard-docs` | cross-repo review | PR, commit, image and digest linked | baseline doc |
+| 검증 항목 | Owner Repo | Baseline | 명령·방법 | 실제 결과 | Evidence | Verdict |
+| --- | --- | --- | --- | --- | --- | --- |
+| Contracts | `rippleguard-contracts` | `f4012e8b5a0dcd5605b61652a5c39deacb14454b` | `PYTHONDONTWRITEBYTECODE=1 make validate` | PASS | Direct command output in final review | PASS |
+| Reproducibility | `rippleguard-agent-runtime` | `35121627550e5999a084c123b610f47884aa01f7` | `make reproducibility-test` with pytest cache disabled | PASS for one integration test | Direct command output in final review | PASS_WITH_LIMITATIONS |
+| SHAP | `rippleguard-agent-runtime` | `35121627550e5999a084c123b610f47884aa01f7` | Source/test inspection | Not directly executed in final review | Source tests | UNVERIFIED |
+| Governance validation | `rippleguard-governance-service` | `6e5dee34a01429ac017774fcd7a238e2f1415481` | Source/test inspection | Not directly executed in final review | Source tests | UNVERIFIED |
+| Retry·timeout | `governance/runtime` | `6e5dee3`, `3512162` | Source/test inspection | No integrated drill executed | Source tests | UNVERIFIED |
+| Audit Timeline | `rippleguard-audit-replay-service` | `f3162d3bf3ea2bcfd8d40c929607a84d88054082` | Source/test inspection | No full E2E API result | Source tests | UNVERIFIED |
+| Image provenance | `rippleguard-infra` | `b4051c271fe3b82cb8b6d2b8b89517f98017165c` | `python3 scripts/verify-phase2-images.py` | FAIL | Images not inspectable; manifest image digests are null | BLOCKED |
+| Full E2E | `rippleguard-infra` | `b4051c2` | `./scripts/phase2-e2e.sh` | BLOCKED | Direct command output | BLOCKED |
+| Local LLM absent | `rippleguard-infra`, `rippleguard-contracts` | `b4051c2`, `f4012e8` | Fixture/source inspection | No Phase 2 LLM dependency observed, no full E2E PASS | Source/evidence | PASS_WITH_LIMITATIONS |
+| Artifact failure | `runtime/infra` | model digest baseline | Source/test inspection | No integrated drill executed | Source tests | UNVERIFIED |
 
 ## Evidence Requirements
 
@@ -34,9 +35,7 @@ Evidence must record:
 
 ## Status Rule
 
-Phase 2 remains `READY` while only the docs planning branch is open. It moves to `IN_PROGRESS` after the planning baseline is merged, a `rippleguard-contracts` Phase 2 PR is opened and that PR records the parent planning commit.
-
-Phase 2 can move to `IN_REVIEW` only after repository implementation PRs are complete and integrated verification evidence exists. Phase 2 can move to `VERIFIED` only after cross-repo baseline, contract versions, image metadata and evidence are published in docs.
+Phase 2 is `BLOCKED` until full production E2E, image digest provenance, and Loan/Governance feature snapshot integration are proven. `PASS_WITH_LIMITATIONS` does not allow promotion to `VERIFIED`.
 
 ## Failure Verification Matrix
 
@@ -55,4 +54,4 @@ Phase 2 can move to `IN_REVIEW` only after repository implementation PRs are com
 | Same `agentRunId` conflicting result | Governance result validation | `BLOCKED` | No | Existing accepted result is not overwritten | conflict test |
 | SHAP calculation failure | Agent Runtime explanation step | `VALIDATION_REQUIRED` | No | Score-only output is not adopted as normal completion; partial result is debugging/evidence only | failure fixture |
 | Audit publish failure | Governance outbox publish | `RETRYABLE`; `BLOCKED` only after durable publication cannot be guaranteed | Yes | Proposal validation state is not lost; audit pending is explicit | outbox test |
-| Local LLM Runtime absent | Infra E2E | PASS for Phase 2 | N/A | No dependency on LLM state | compose report |
+| Local LLM Runtime absent | Infra E2E | PASS for Phase 2 | N/A | No dependency on LLM state, but full E2E is currently blocked | compose/source report |

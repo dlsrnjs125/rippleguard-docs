@@ -2,9 +2,11 @@
 
 Phase 2 replaces the Phase 1 mock evaluation path with a reproducible Loan Proposal generated from a versioned financial Snapshot and a tabular model. This is a planning document; it does not implement schemas, services, models or Docker wiring.
 
+2026-07-22 final cross-repository verification supersedes the initial planning status in this file. Phase 2 is currently `BLOCKED`; see [Final Cross-Repository Verification](final-review.md).
+
 ## Current Status
 
-Phase 2 remains `READY`. Phase 1 is published as `VERIFIED` on main, but Phase 2 implementation has not started. The next executable work is `rippleguard-contracts`.
+Initial planning status was `READY`. Phase 1 is published as `VERIFIED` on main. Implementation PRs now exist, but final verification is blocked by missing full E2E, image digest provenance and the production feature snapshot path.
 
 ## Repository Order
 

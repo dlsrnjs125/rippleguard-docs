@@ -42,3 +42,9 @@ The Phase 2 E2E must show:
 4. Governance validates the result.
 5. Audit exposes minimal Agent Run metadata.
 6. Local LLM Runtime is not required.
+
+## Final Review Status
+
+Current status: `BLOCKED`
+
+The final review found that the minimal E2E is not executable from the published main baselines. Infra records the blocker explicitly: Loan publishes the Phase 1 submitted event without the materialized Phase 2 feature payload required by Agent Runtime, while Governance passes an immutable reference. The next integration work must close that production path without direct DB inserts, synthetic Kafka final events, mock Agent containers or Local LLM fallbacks.

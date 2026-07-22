@@ -28,6 +28,8 @@
 
 Decision Envelope, 목적 제한 Object Reference, 문서 보안 원칙이 필요하다. 산출물은 Findings Schema, Control Registry, 문서 Test Fixture, Agent Image와 검증 결과다.
 
+현재 Phase 2가 `BLOCKED`이므로 Phase 4 handoff는 승인되지 않았다.
+
 Evidence & Control Agent는 초기에는 Phase 3에서 검증한 Local LLM Runtime과 Model을 공유한다. 별도 모델 도입은 문서 분석 정확도, Latency, Memory와 Common-Mode Failure를 비교한 뒤 결정한다.
 
 ## 통합 지점과 실패 경로

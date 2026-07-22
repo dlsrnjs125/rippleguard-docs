@@ -23,3 +23,11 @@
 | Image digest availability for local Phase 2 baseline | `rippleguard-infra` | Infra PR |
 | Whether Phase 2 replaces, versions or leaves `agent.evaluation.completed.v1` as Phase 1 mock-only | `rippleguard-contracts` | Contracts PR |
 | Exact idempotency key field names and `attemptId` representation | `rippleguard-contracts` | Contracts PR |
+
+## Final Review Decisions
+
+| Decision | Rationale |
+| --- | --- |
+| Phase 2 remains `BLOCKED`, not `VERIFIED` | Full production E2E, service image digests and the Loan/Governance feature snapshot path are missing |
+| `phase2-scaffold-check` is evidence for scaffolding only | It validates source, artifact and mount structure but does not prove image provenance or runtime E2E |
+| Phase 3·4 handoff is not approved | Verified Decision Envelope, production snapshot path and Audit Timeline are not jointly proven |
