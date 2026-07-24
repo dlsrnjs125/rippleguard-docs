@@ -16,7 +16,7 @@
 
 허용 상태는 `PLANNED`, `READY`, `IN_PROGRESS`, `BLOCKED`, `IN_REVIEW`, `VERIFIED`, `SUPERSEDED`다. 상태 변경은 선행 조건, Verification과 Cross-Repo Baseline에 근거하며 변경 이유는 [Roadmap Change Log](roadmap-change-log.md)에 남긴다.
 
-Phase 0은 Contracts, Infra, Docs finalization 결과가 main에 병합됐고 Published Baseline이 고정되어 `VERIFIED`다. Phase 1은 서비스 OCI provenance 보완 PR과 Infra runtime verification PR이 main에 병합됐고 필수 runtime checks가 PASS로 기록되어 `VERIFIED`다. Phase 2는 구현 PR들이 main에 병합됐지만 최종 Cross-Repository Gate에서 full E2E, image digest provenance, Loan-to-Agent feature snapshot path가 충족되지 않아 `BLOCKED`다.
+Phase 0은 Contracts, Infra, Docs finalization 결과가 main에 병합됐고 Published Baseline이 고정되어 `VERIFIED`다. Phase 1은 서비스 OCI provenance 보완 PR과 Infra runtime verification PR이 main에 병합됐고 필수 runtime checks가 PASS로 기록되어 `VERIFIED`다. Phase 2는 최신 remediation으로 Happy Path E2E, image provenance, snapshot identity, model provenance, causation, reproducibility and Local LLM absence가 PASS지만, 필수 Failure Drill 10개가 실제 runtime injection으로 구현되지 않아 `BLOCKED`다.
 
 ## Phase 1 Exit Evidence
 
@@ -41,4 +41,4 @@ Phase 0은 Contracts, Infra, Docs finalization 결과가 main에 병합됐고 Pu
    - Owner: `rippleguard-docs`
    - Result: PR #7 merged to main as `86b6c8c`; Phase 1 `VERIFIED` and Phase 2 `READY` are published project status
 
-Note: the Phase 2 `READY` handoff above was superseded by the 2026-07-22 Phase 2 final cross-repository review. Current Phase 2 status is `BLOCKED`.
+Note: the Phase 2 `READY` handoff above was superseded by the Phase 2 final cross-repository review and subsequent remediation evidence. Current Phase 2 status remains `BLOCKED` until infra `make phase2-verify` exits 0 and the release manifest is promoted to `PUBLISHED`.

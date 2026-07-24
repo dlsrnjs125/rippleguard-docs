@@ -1,258 +1,117 @@
 # Phase 2 Final Cross-Repository Verification
 
-Date: 2026-07-22
+Date: 2026-07-24
 
-## 1. Phase 2 Final Verdict
+## Executive Verdict
 
 `BLOCKED`
 
-Phase 2 is not `VERIFIED`. Contracts and selected service-level implementation evidence exist, but the published cross-repository baseline does not satisfy the release gate because full production E2E, image digest provenance, and the Loan-to-Agent materialized feature path are still blocked.
+Phase 2 is still not `VERIFIED`. The latest infra evidence proves the real happy path, image provenance, model artifact provenance, local LLM absence and Audit causation path. The final release gate remains blocked because ten required failure drills still return exit code 2 and are explicitly recorded as not implemented with real runtime injection.
 
-## 2. Verdict Basis
+Source of truth:
 
-Directly executed during this review:
+- Manifest: `../rippleguard-infra/manifests/phase2-loan-decision.json`
+- Final evidence: `../rippleguard-infra/evidence/phase2/final-verification.json`
+- Happy path evidence: `../rippleguard-infra/evidence/phase2/happy-path.json`
 
-| Command | Repository | Result | Evidence |
+The current infra manifest records:
+
+- `publicationStatus`: `BLOCKED`
+- `verification.status`: `FAILED`
+- `knownBlockers`: `FAILURE_DRILLS_REQUIRE_REAL_INJECTION`
+- `verification.attemptedAt`: `2026-07-24T04:35:36.621404Z`
+
+## Repository Baseline
+
+| Repository | Commit | Phase 2 responsibility | Current result |
 | --- | --- | --- | --- |
-| `PYTHONDONTWRITEBYTECODE=1 make validate` | `rippleguard-contracts` | PASS | [contracts-validation.md](evidence/contracts-validation.md) |
-| `PYTHONDONTWRITEBYTECODE=1 PYTEST_ADDOPTS='-p no:cacheprovider' make reproducibility-test` | `rippleguard-agent-runtime` | PASS | [agent-runtime-reproducibility.md](evidence/agent-runtime-reproducibility.md) |
-| `make validate-static` | `rippleguard-infra` | PASS | [infra-scaffold-validation.md](evidence/infra-scaffold-validation.md) |
-| `make phase2-scaffold-check` with absolute sibling repo env vars | `rippleguard-infra` | PASS | [infra-scaffold-validation.md](evidence/infra-scaffold-validation.md) |
-| `python3 scripts/verify-phase2-images.py` | `rippleguard-infra` | FAIL | [infra-image-and-e2e-blockers.md](evidence/infra-image-and-e2e-blockers.md) |
-| `./scripts/phase2-e2e.sh` | `rippleguard-infra` | BLOCKED | [infra-image-and-e2e-blockers.md](evidence/infra-image-and-e2e-blockers.md) |
+| `rippleguard-contracts` | `751f43c88c1bef860c76398eed24b3d60225b931` | Phase 2 API/Event/Agent schemas and causation semantics | PASS |
+| `rippleguard-loan-service` | `948e1039b249558683ed1a0276d054f4c56ccafe` | Immutable Feature Snapshot source of truth and final Loan state ownership | PASS |
+| `rippleguard-governance-service` | `053206df5d114b723bc6135642cbfcddeb54b2ba` | Snapshot acquisition, Evaluation Run, request event, Agent orchestration, validation | PASS for happy path; failure drills pending |
+| `rippleguard-agent-runtime` | `25e8c187ee807f3a89055a5db2dbc18cb595a63e` | Deterministic XGBoost execution, model artifact validation, OCI image provenance | PASS |
+| `rippleguard-audit-replay-service` | `e6baae0a1fefcbb32ccc2dbd02cae2da8b360581` | Event-to-event causation validation, pending reconciliation, Agent Run timeline | PASS for happy path |
+| `rippleguard-infra` | `68da7b96f63177d9d8d573930e7e387563809e7e` | Compose runtime, image/artifact baseline, E2E and failure drill gates | BLOCKED by failure drill injection gap |
+| `rippleguard-docs` | PR branch `docs/phase-2-final-verification` | Cross-repo tracking and final verdict | IN_REVIEW |
 
-Commands intentionally not executed:
+## Resolved Blockers
 
-- Maven test/package commands in Loan, Governance, and Audit repositories were not run because they can update `target/` under read-only verification repositories.
-- Docker image build commands were not run because image build outputs must not be promoted into baselines during docs verification.
-
-Service-level CI evidence policy:
-
-- Service implementation PR CI can be used as auxiliary evidence only when a durable CI run link or artifact is attached.
-- Service PR CI must not be treated as full Phase 2 E2E evidence.
-- In this final cross-repository review, Governance and Audit remain `UNVERIFIED` for direct execution because their Maven commands were not rerun and no CI run artifact is linked here.
-
-## 3. Published Commit Baseline
-
-| Repository | Published `origin/main` commit | Latest main summary |
-| --- | --- | --- |
-| `rippleguard-docs` | `6db708b1ff6f77c358103230b4bd25eb7e5479f9` | `docs: start phase 2 loan decision planning (#9)` |
-| `rippleguard-contracts` | `f4012e8b5a0dcd5605b61652a5c39deacb14454b` | `feat: define phase 2 loan decision contracts (#4)` |
-| `rippleguard-loan-service` | `e403c0a60ccb1cebf03380832d047f3fc01019e0` | `fix: add phase 1 image provenance labels (#2)` |
-| `rippleguard-agent-runtime` | `35121627550e5999a084c123b610f47884aa01f7` | `feat: implement phase 2 loan decision agent (#1)` |
-| `rippleguard-governance-service` | `6e5dee34a01429ac017774fcd7a238e2f1415481` | `feat: orchestrate phase 2 loan decision agent (#4)` |
-| `rippleguard-audit-replay-service` | `f3162d3bf3ea2bcfd8d40c929607a84d88054082` | `feat: add phase 2 agent run timeline (#3)` |
-| `rippleguard-infra` | `b4051c271fe3b82cb8b6d2b8b89517f98017165c` | `feat: add phase 2 agent integration infra (#4)` |
-| `rippleguard-web` | `2f835e5fb65d9470f3a37b190ef14dd6d95a0eb0` | Not in Phase 2 gate |
-
-## 4. Repository Verdicts
-
-| Repository | Phase 2 responsibility | Observed implementation | Observed tests/evidence | Contract alignment | Integration alignment | Verdict | Blockers / follow-up |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `rippleguard-contracts` | Executable Phase 2 schemas, fixtures, validator | Feature schema/payload, snapshot reference, request/result, model manifest, governance validation event, failure fixtures present | Direct `make validate` PASS; see [contracts-validation.md](evidence/contracts-validation.md) | Contract source of truth defines validation `causationId` as nearest persisted event; runtime diverges by using `agentRunId` | Provides fixtures but not runtime E2E | `PASS_WITH_LIMITATIONS` | Resolve HIGH causation policy mismatch in runtime before final baseline |
-| `rippleguard-loan-service` | Snapshot source and final loan state owner | Versioned `financial_snapshot` exists; submitted event carries `inputSnapshotVersion` | Maven tests observed in source, not executed in this review | Phase 1 event compatible with existing contracts | Does not publish materialized Phase 2 feature payload or immutable feature snapshot reference | `BLOCKED` | Add production Phase 2 feature/snapshot provider path |
-| `rippleguard-agent-runtime` | Tabular inference, SHAP, model/artifact verification | XGBoost baseline, digest checks, feature validation, reproducibility test present | Direct reproducibility test PASS; see [agent-runtime-reproducibility.md](evidence/agent-runtime-reproducibility.md) | Uses contracts and model manifest | Requires materialized feature payload; cannot consume current Loan/Governance immutable reference path | `PASS_WITH_LIMITATIONS` | OCI image labels/digest and cross-service snapshot resolution remain missing |
-| `rippleguard-governance-service` | Agent orchestration, validation, retry/timeout state, outbox event | Phase 2 Agent Runtime client, identity fields, validation event, no proposal-to-command path documented and tested in source | Tests observed, not executed in this review | Uses contracts for request/result/event validation | Current integration sends immutable reference while Agent Runtime requires feature payload | `BLOCKED` | Connect production feature payload/snapshot resolution without mock fallback |
-| `rippleguard-audit-replay-service` | Agent Run read model and timeline | Consumes `governance.agent-result.validated.v1`, quarantine, payload conflict recovery, Agent Run APIs | Tests observed, not executed in this review | Supports current governance event and rejects Agent Runtime producer | Cannot prove full Phase 2 timeline until E2E exists | `PASS_WITH_LIMITATIONS` | Reverify after E2E; keep metadata nullable unless event carries it |
-| `rippleguard-infra` | Cross-repo integration gate | Phase 2 compose, manifest, scaffold check, blocked E2E script | Direct static/scaffold PASS, image verify FAIL, E2E BLOCKED; see [infra-scaffold-validation.md](evidence/infra-scaffold-validation.md) and [infra-image-and-e2e-blockers.md](evidence/infra-image-and-e2e-blockers.md) | Manifest pins contract/model baselines | Full E2E intentionally not executable | `BLOCKED` | Publish digest-pinned images and implement real E2E |
-| `rippleguard-docs` | Phase status, final review, risk and handoff gate | This review updates status to blocked and links durable evidence summaries | This document and evidence files | N/A | N/A | `PASS` | Keep Phase 3/4 handoff blocked |
-
-## 5. Contracts Baseline
-
-- Commit: `f4012e8b5a0dcd5605b61652a5c39deacb14454b`
-- Direct verification: `make validate` PASS; see [contracts-validation.md](evidence/contracts-validation.md)
-- Coverage observed: valid and invalid fixtures for Phase 2 request/result, duplicate request/result, retry, conflicting result, model artifact mismatch, snapshot mismatch, audit digest/reference mismatch, broken causation, and Local LLM absent scenarios.
-- Limitation: causation policy is inconsistent across contract docs and runtime compatibility. Contracts describe nearest persisted event cause; Governance/Audit currently use `causationId = agentRunId` for the validation event.
-
-## 6. Service Image Baseline
-
-| Service | Image tag in infra manifest | Image digest | OCI revision/source |
+| Blocker | Owner | Evidence | Result |
 | --- | --- | --- | --- |
-| Loan | `rippleguard-loan-service:e403c0a60ccb` | Missing evidence — blocks VERIFIED | Expected in manifest |
-| Governance | `rippleguard-governance-service:6e5dee34a014` | Missing evidence — blocks VERIFIED | Expected in manifest |
-| Agent Runtime | `rippleguard-agent-runtime:35121627550e` | Missing evidence — blocks VERIFIED | Dockerfile lacks OCI label wiring |
-| Audit | `rippleguard-audit-replay-service:f3162d3bf3ea` | Missing evidence — blocks VERIFIED | Expected in manifest |
+| Immutable Feature Snapshot Provider missing | Loan Service | `phase2-e2e` and happy-path snapshot evidence | RESOLVED |
+| Governance Feature Payload integration missing | Governance Service | Evaluation Run stores snapshot and feature payload identity | RESOLVED |
+| Event identity and domain identity conflation | Contracts/Governance | validation causation uses request event ID; `agentRunId` remains domain identity | RESOLVED |
+| Persisted request event causation missing | Governance Service | `validationCausationId == requestEventId` | RESOLVED |
+| Audit event-to-event causation exception | Audit Replay Service | Timeline includes request and validation events; pending causation is absent/resolved | RESOLVED for happy path |
+| Cross-topic pending reconciliation | Audit Replay Service | `pendingCausationStatusForValidationEvent = ABSENT`, quarantine count `0` | RESOLVED for happy path |
+| Agent Runtime OCI provenance missing | Agent Runtime | OCI revision/source labels match source commits | RESOLVED |
+| Service image digest baseline missing | Infra | local image IDs recorded for all Phase 2 services | RESOLVED for local Compose baseline |
+| Snapshot timestamp identity mismatch | Loan Service | DB `created_at`, API `createdAt`, reference `snapshotCreatedAt` all match | RESOLVED |
+| Full Happy Path E2E blocked | Infra | `make phase2-e2e` PASS, Governance `PROPOSAL_READY` | RESOLVED |
+| Reproducibility | Agent Runtime/Infra | `make phase2-reproducibility-check` PASS | RESOLVED |
+| Local LLM absence | Infra/Agent Runtime | `make phase2-local-llm-absent-check` PASS | RESOLVED |
 
-`python3 scripts/verify-phase2-images.py` failed in this review because the local images were not inspectable. Infra also records `imageDigest: null` for every Phase 2 service.
+## Remaining Blocker
 
-## 7. Model Artifact Baseline
+| Blocker | Owner | Evidence | Gate impact |
+| --- | --- | --- | --- |
+| Required failure drills are not implemented with real runtime injection | `rippleguard-infra` plus service-specific injection hooks | `make phase2-verify` FAIL, 10 gates exit `2` | Blocks `VERIFIED`, `PUBLISHED`, and Phase 3/4 verified handoff |
 
-| Field | Value |
-| --- | --- |
-| Model manifest | `../rippleguard-agent-runtime/artifacts/manifests/phase2-loan-xgboost.v1.0.0.json` |
-| Model manifest digest | `sha256:feae355ac937e43be18069d6390936d1c4b8630deea92333d6e6de15c514b9e7` |
-| Model artifact | `../rippleguard-agent-runtime/artifacts/models/phase2-loan-xgboost.v1.0.0.json` |
-| Model artifact digest | `sha256:1780b376723b52ad04630a474c6bd2eeddab2e89caa13956e76b356595ed79df` |
-| Threshold manifest digest | `sha256:c3a7e45bd4c65e57d3fb935e08213b16d144a4674365c16c0eedfce7c6b4e4ea` |
-| Feature schema version | `phase-2-loan-features.v1.0.0` |
-| Preprocessing version | `preprocess.v1.0.0` |
-| Threshold version | `threshold.v1.0.0` |
-| Random seed | `42` |
-| Runtime image digest in model manifest | Placeholder `sha256:ffffffff...` — not release evidence |
+The failing drill gates are retry, timeout, duplicate request, duplicate result, conflict, artifact digest failure, missing artifact, contract mismatch, snapshot mismatch and recovery.
 
-## 8. Final Gate Matrix
+## Final Verification Matrix
 
-| Verification item | Owner | Baseline | Method | Actual result | Evidence | Verdict |
+| 검증 항목 | Owner | 명령 | Expected | Actual | Result | Evidence |
 | --- | --- | --- | --- | --- | --- | --- |
-| Contracts | contracts | `f4012e8` | `make validate` | PASS | [contracts-validation.md](evidence/contracts-validation.md) | PASS |
-| Reproducibility | agent-runtime | `3512162` | `make reproducibility-test` | PASS for one test | [agent-runtime-reproducibility.md](evidence/agent-runtime-reproducibility.md) | PASS_WITH_LIMITATIONS |
-| SHAP | agent-runtime | `3512162` | Source/test inspection | Test coverage observed, not executed directly | `tests/contract`, `tests/integration` | UNVERIFIED |
-| Governance validation | governance | `6e5dee3` | Source/test inspection | Implementation and tests observed, not executed directly | source tests | UNVERIFIED |
-| Retry/timeout | governance/runtime | `6e5dee3`, `3512162` | Source/test inspection | Test code observed, no cross-repo drill | source tests | UNVERIFIED |
-| Audit Timeline | audit | `f3162d3` | Source/test inspection | Agent Run projection tests observed, no full E2E API result | source tests | UNVERIFIED |
-| Image provenance | infra | `b4051c2` | `verify-phase2-images.py` | FAIL | [infra-image-and-e2e-blockers.md](evidence/infra-image-and-e2e-blockers.md) | BLOCKED |
-| Full E2E | infra | `b4051c2` | `phase2-e2e.sh` | BLOCKED | [infra-image-and-e2e-blockers.md](evidence/infra-image-and-e2e-blockers.md) | BLOCKED |
-| Local LLM absent | infra/contracts | `b4051c2`, `f4012e8` | Contract fixture and infra docs/source | No Phase 2 LLM runtime dependency observed; no full E2E PASS | source/evidence | PASS_WITH_LIMITATIONS |
-| Artifact failure | infra/runtime | model digest | Source/test inspection | Artifact digest checks observed; no integrated drill | source tests | UNVERIFIED |
-
-## 9. Anti-Pattern, Hardcoding, Fallback, and Final State Findings
-
-- Local LLM/Ollama is not required in Phase 2 runtime wiring.
-- No production Phase 2 path was found that emits `loan.decision.commanded.v1` from Agent proposals; Loan final state remains Loan-owned.
-- Phase 1 mock classes remain in Governance for historical Phase 1 behavior. Source and docs state Phase 2 does not fall back to mock evaluation, but full E2E is blocked so this is not end-to-end proven.
-- Agent Runtime has no fallback model path in docs/source; LightGBM is documented as offline comparison only.
-- Hardcoded version strings exist in manifests, compose env, tests, and code constants. They are acceptable as pinned baseline/config values, but must be reconciled through the infra manifest before release.
-- Runtime image digest and service image digests are missing. This is a HIGH blocker.
-
-## 10. Critical and High Blockers
-
-| Severity | Blocker | Evidence | Phase gate impact |
-| --- | --- | --- | --- |
-| CRITICAL | Full production Phase 2 E2E is not executable | `phase2-e2e.sh` exits BLOCKED | Blocks `VERIFIED` and Phase 3/4 handoff |
-| HIGH | Loan/Governance do not provide a materialized Phase 2 feature payload path compatible with Agent Runtime | Infra evidence and runtime requirement | Blocks actual Loan -> Governance -> Agent Runtime -> Audit path |
-| HIGH | Service image digests are missing | Infra manifest has `imageDigest: null`; image verification failed | Blocks provenance gate |
-| HIGH | Agent Runtime Dockerfile lacks OCI source/revision labels | Dockerfile inspection and infra evidence | Blocks image provenance |
-| HIGH | Integrated failure drills are not executed | No full E2E; drills only exist as source tests/fixtures | Blocks release gate |
-| HIGH | Governance/Audit validation-event causation policy diverges from the contracts source of truth | Contracts docs define nearest persisted event cause; Governance/Audit currently tolerate `causationId = agentRunId` | Blocks final contract alignment until runtime semantics are corrected or a versioned contract change is approved |
-
-## 11. Phase 3 and Phase 4 Handoff
-
-Phase 3 and Phase 4 handoff is not approved. The verified Decision Envelope, production snapshot path, model provenance, Agent Run identity, governance validation outcome, and Audit Timeline are not jointly proven by a full Phase 2 E2E.
-
-## 12. Follow-Up Repository Work
-
-### Follow-up Repository: `rippleguard-loan-service`
-
-Severity: HIGH
-
-Observed commit: `e403c0a60ccb1cebf03380832d047f3fc01019e0`
-
-Problem: Loan submitted events provide `inputSnapshotVersion`, but do not provide the materialized Phase 2 feature payload or immutable feature snapshot path required by Agent Runtime.
-
-Required change: Add a production Phase 2 feature/snapshot provider path consumable by Governance/Agent Runtime.
-
-Must not use: direct DB injection, fixture-only payload, final event injection, mock fallback.
-
-Expected branch: `feat/phase-2-feature-snapshot-provider`
-
-Required verification: real Loan submit -> Governance request -> Agent Runtime inference -> Governance validation -> Audit timeline E2E.
-
-Phase Gate impact: Blocks `VERIFIED`.
-
-### Follow-up Repository: `rippleguard-governance-service`
-
-Severity: HIGH
-
-Observed commit: `6e5dee34a01429ac017774fcd7a238e2f1415481`
-
-Problem: Governance produces an immutable reference while Agent Runtime requires materialized feature input.
-
-Required change: Resolve feature payload acquisition through an approved production path and keep timeout/retry/conflict handling.
-
-Must not use: Phase 1 mock evaluator, previous proposal, default model, current application state fallback.
-
-Expected branch: `feat/phase-2-feature-snapshot-integration`
-
-Required verification: retry, timeout, conflict, invalid result, and successful validation with actual Agent Runtime.
-
-Phase Gate impact: Blocks full E2E.
-
-### Follow-up Repository: `rippleguard-agent-runtime`
-
-Severity: HIGH
-
-Observed commit: `35121627550e5999a084c123b610f47884aa01f7`
-
-Problem: Docker image provenance is incomplete; Dockerfile does not emit required OCI labels and runtime image digest is placeholder.
-
-Required change: Add OCI label args, publish immutable image digest, replace placeholder runtime image digest with release evidence.
-
-Must not use: `latest`, mutable local tag as final evidence, dummy/fallback model.
-
-Expected branch: `fix/phase-2-image-provenance`
-
-Required verification: image inspect, digest pinning, artifact digest verification, reproducibility test.
-
-Phase Gate impact: Blocks provenance gate.
-
-### Follow-up Repository: `rippleguard-infra`
-
-Severity: HIGH
-
-Observed commit: `b4051c271fe3b82cb8b6d2b8b89517f98017165c`
-
-Problem: Full Phase 2 E2E is intentionally blocked; service image digests are null.
-
-Required change: After upstream feature path and image publishing, replace blocked E2E with real flow and pin image digests.
-
-Must not use: synthetic Kafka final event, direct DB insert, mock Agent container, local LLM fallback.
-
-Expected branch: `feat/phase-2-runtime-e2e`
-
-Required verification: `phase2-preflight`, `phase2-verify`, failure drills, local LLM absent check.
-
-Phase Gate impact: Blocks `VERIFIED`.
-
-### Follow-up Repository: `rippleguard-governance-service` (causation)
-
-Severity: HIGH
-
-Observed commit: `6e5dee34a01429ac017774fcd7a238e2f1415481`
-
-Problem: `governance.agent-result.validated.v1.causationId` is emitted as `agentRunId`, not the persisted predecessor event id defined by contracts.
-
-Required change: Emit the actual persisted predecessor event id as `causationId` for the governance validation event.
-
-Must not use: redefining `causationId` as a business reference without a new contract version and scenario validation.
-
-Expected branch: `fix/phase-2-governance-event-causation`
-
-Required verification: Governance event envelope tests, contracts fixture validation, and cross-repo Audit ingestion compatibility tests.
-
-Phase Gate impact: Blocks final contract alignment.
-
-### Follow-up Repository: `rippleguard-audit-replay-service` (causation)
-
-Severity: HIGH
-
-Observed commit: `f3162d3bf3ea2bcfd8d40c929607a84d88054082`
-
-Problem: Audit currently accepts the `agentRunId` causation exception for runtime compatibility even though contracts define event causation by predecessor event id.
-
-Required change: After Governance emits the persisted predecessor event id, restore strict event causation validation and remove the `agentRunId` exception path.
-
-Must not use: permanent consumer-specific causation exception without matching contract semantics.
-
-Expected branch: `fix/phase-2-audit-event-causation-validation`
-
-Required verification: Audit causation/quarantine tests and a successful Governance validation event ingestion using predecessor event causation.
-
-Phase Gate impact: Blocks final contract alignment.
-
-### Follow-up Repository: `rippleguard-contracts` (policy guardrail)
-
-Severity: MEDIUM
-
-Observed commit: `f4012e8b5a0dcd5605b61652a5c39deacb14454b`
-
-Problem: Contracts are the source of truth and currently define event causation by nearest persisted predecessor event. If the design intentionally changes `causationId` to carry an Agent Run reference, that is a semantic contract change.
-
-Required change: Prefer Governance/Audit runtime correction. Only change contracts if the project explicitly adopts Agent Run causation semantics, and then publish a versioned contract update with scenarios and compatibility checks.
-
-Must not use: silent reinterpretation of the existing event envelope field.
-
-Expected branch: `fix/phase-2-validation-causation-policy`
-
-Required verification: contracts `make validate`, updated scenario fixtures, Governance event tests, and Audit causation/quarantine tests.
-
-Phase Gate impact: Guards final contract alignment.
+| Static docs/infra validation | Infra | `make validate-static` | PASS | PASS | PASS | `final-verification.json` |
+| Image provenance | Infra | `make phase2-verify-images` | PASS | PASS | PASS | Manifest service image IDs |
+| Runtime readiness | Infra | `make phase2-check` | PASS | PASS | PASS | `final-verification.json` |
+| Local LLM absence | Infra/Agent Runtime | `make phase2-local-llm-absent-check` | PASS | PASS | PASS | `local-llm-absent.json` |
+| Happy path E2E | Infra/all services | `make phase2-e2e` | PASS | PASS | PASS | `happy-path.json` |
+| Snapshot timestamp identity | Loan/Infra | `make phase2-e2e` | DB/API/reference timestamps equal | Equal | PASS | `happy-path.json` |
+| Governance snapshot acquisition | Governance/Infra | `make phase2-e2e` | snapshot and feature digests match Loan API | Match | PASS | `happy-path.json` |
+| Runtime model provenance | Agent Runtime/Infra | `make phase2-e2e` | model version and artifact digest match manifest | Match | PASS | `happy-path.json` |
+| Request event causation | Governance/Audit | `make phase2-e2e` | validation causation ID equals persisted request event ID | Match | PASS | `happy-path.json` |
+| Audit pending reconciliation | Audit | `make phase2-e2e` | no stale pending/quarantine for validation event | Pending absent, quarantine `0` | PASS | `happy-path.json` |
+| Reproducibility | Infra/Agent Runtime | `make phase2-reproducibility-check` | PASS | PASS | PASS | `reproducibility.json` |
+| Retry drill | Infra/Governance/Runtime | `make phase2-retry-check` | PASS | exit `2` | BLOCKED | `retry.json` |
+| Timeout drill | Infra/Governance/Runtime | `make phase2-timeout-check` | PASS | exit `2` | BLOCKED | `timeout.json` |
+| Duplicate request drill | Infra/Governance/Runtime | `make phase2-duplicate-request-check` | PASS | exit `2` | BLOCKED | `duplicate-request.json` |
+| Duplicate result drill | Infra/Governance/Audit | `make phase2-duplicate-result-check` | PASS | exit `2` | BLOCKED | `duplicate-result.json` |
+| Conflict drill | Infra/Governance/Audit | `make phase2-conflict-check` | PASS | exit `2` | BLOCKED | `conflict.json` |
+| Artifact digest failure drill | Infra/Agent Runtime | `make phase2-artifact-digest-failure-check` | PASS | exit `2` | BLOCKED | `artifact-failure.json` |
+| Missing artifact drill | Infra/Agent Runtime | `make phase2-missing-artifact-check` | PASS | exit `2` | BLOCKED | `missing-artifact.json` |
+| Contract mismatch drill | Infra/Contracts/services | `make phase2-contract-mismatch-check` | PASS | exit `2` | BLOCKED | `contract-mismatch.json` |
+| Snapshot mismatch drill | Infra/Loan/Governance | `make phase2-snapshot-mismatch-check` | PASS | exit `2` | BLOCKED | `snapshot-mismatch.json` |
+| Recovery drill | Infra/all services | `make phase2-recovery-check` | PASS | exit `2` | BLOCKED | `recovery.json` |
+
+## Image and Artifact Provenance
+
+| Service | Source commit | Image tag | Local image ID | OCI source |
+| --- | --- | --- | --- | --- |
+| Loan | `948e1039b249558683ed1a0276d054f4c56ccafe` | `rippleguard-loan-service:948e1039b249` | `sha256:6b2f0f337eb613185e5b2968bad9bd8e400d2262becc0d25158f1e0f286d1d0a` | `https://github.com/dlsrnjs125/rippleguard-loan-service` |
+| Governance | `053206df5d114b723bc6135642cbfcddeb54b2ba` | `rippleguard-governance-service:053206df5d11` | `sha256:1d06b97a48411e0df2dc126e7a4edc167c2e4982e54caa5ecf2951d0a363ea55` | `https://github.com/dlsrnjs125/rippleguard-governance-service` |
+| Agent Runtime | `25e8c187ee807f3a89055a5db2dbc18cb595a63e` | `rippleguard-agent-runtime:25e8c187ee80` | `sha256:fcc4ae3a47ebd6d0d2c7c769f4f792c4c8999dcf35938ca9429e40d1c40c3733` | `https://github.com/dlsrnjs125/rippleguard-agent-runtime` |
+| Audit | `e6baae0a1fefcbb32ccc2dbd02cae2da8b360581` | `rippleguard-audit-replay-service:e6baae0a1fef` | `sha256:2e76510aeeff820b44769cbf922bebf511b71f46633556184daf7ce435fce4cf` | `https://github.com/dlsrnjs125/rippleguard-audit-replay-service` |
+
+Model baseline:
+
+- Model manifest digest: `sha256:feae355ac937e43be18069d6390936d1c4b8630deea92333d6e6de15c514b9e7`
+- Model artifact digest: `sha256:1780b376723b52ad04630a474c6bd2eeddab2e89caa13956e76b356595ed79df`
+- Threshold manifest digest: `sha256:c3a7e45bd4c65e57d3fb935e08213b16d144a4674365c16c0eedfce7c6b4e4ea`
+- Runtime image digest owner: Infra release manifest
+
+## Remaining Limitations
+
+- Local image IDs are local Docker Compose evidence, not registry manifest digests.
+- Production registry publication, Kubernetes deployment and remote artifact registry are not Phase 2 verified.
+- Audit Agent Run read model currently exposes nullable Phase 2 provenance fields when the validation event payload omits them; Governance DB and happy-path evidence verify the provenance values.
+- Final Loan Decision Command, Phase 7 Replay, Hash Chain and Graph API remain future phase scope.
+
+## Handoff Decision
+
+- Phase 2 implementation remediation: substantially complete for happy path.
+- Phase 2 final verification: `BLOCKED`.
+- Phase 3/4 verified handoff: not approved.
+- Production release: not approved.
+
+The next work is not another happy-path documentation update. The remaining work is implementing the ten real runtime failure drills and promoting the infra manifest only after `make phase2-verify` exits `0`, `publicationStatus` becomes `PUBLISHED`, `verification.status` becomes `PASSED`, and `knownBlockers` is empty.
