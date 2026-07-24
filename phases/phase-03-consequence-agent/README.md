@@ -28,6 +28,8 @@ Loan Decision이 데이터 목적·의미·판단 범위를 바꾸며 만드는 
 
 검증된 Decision Envelope, FDS 목적 Metadata와 Development·Regression 위험 Case가 필요하다. Phase 3은 `StructuredLlmPort` executable interface, Agent Failure Event Schema, Failure Code taxonomy, retryable/non-retryable 분류, Governance route mapping과 Audit storage contract를 먼저 확정한 뒤 OllamaAdapter와 failure drill을 구현한다. 산출물은 Consequence Envelope, Agent Output 검증, 위험 유형별 Test와 Image다. Phase 9 Holdout 결과를 Prompt·Trigger·Policy 튜닝에 사용하지 않는다.
 
+현재 Phase 2가 `BLOCKED`이므로 Phase 3 handoff는 승인되지 않았다.
+
 ## 통합 지점과 실패 경로
 
 Governance가 Decision Envelope와 허용 Snapshot으로 실행을 지시하고 Agent Runtime이 결과를 반환한다. 목적 Metadata 누락, 만료, Schema 실패 시 안전하다고 추정하지 않고 검증 필요 또는 차단 후보로 기록한다.

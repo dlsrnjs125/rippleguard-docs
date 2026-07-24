@@ -4,7 +4,7 @@
 | --- | --- | --- | --- | --- |
 | 0 | [Foundation & Architecture Baseline](../phases/phase-00-foundation/README.md) | VERIFIED | 없음 | 서비스·계약 기준과 전체 Roadmap 검증 |
 | 1 | [Core MSA Foundation](../phases/phase-01-core-msa/README.md) | VERIFIED | 0 | AI 없는 최소 수직 흐름, 서비스별 DB와 최소 Timeline 검증 |
-| 2 | [Loan Decision Agent](../phases/phase-02-loan-decision/README.md) | READY | 1 | Versioned Snapshot에서 재현 가능한 Loan Proposal |
+| 2 | [Loan Decision Agent](../phases/phase-02-loan-decision/README.md) | BLOCKED | 1 | Versioned Snapshot에서 재현 가능한 Loan Proposal |
 | 3 | [RippleGuard Consequence Agent](../phases/phase-03-consequence-agent/README.md) | PLANNED | 2 | 핵심 2차 위험을 Consequence Envelope로 탐지 |
 | 4 | [Evidence & Legacy Control](../phases/phase-04-evidence-legacy-control/README.md) | PLANNED | 2, 3 | 증빙·통제 누락을 구조화된 Finding으로 생성 |
 | 5 | [Assurance Policy & Dynamic Routing](../phases/phase-05-assurance-policy/README.md) | PLANNED | 3, 4 | OPA 기반 자동화·검증·차단 경로 검증 |
@@ -16,7 +16,7 @@
 
 허용 상태는 `PLANNED`, `READY`, `IN_PROGRESS`, `BLOCKED`, `IN_REVIEW`, `VERIFIED`, `SUPERSEDED`다. 상태 변경은 선행 조건, Verification과 Cross-Repo Baseline에 근거하며 변경 이유는 [Roadmap Change Log](roadmap-change-log.md)에 남긴다.
 
-Phase 0은 Contracts, Infra, Docs finalization 결과가 main에 병합됐고 Published Baseline이 고정되어 `VERIFIED`다. Phase 1은 서비스 OCI provenance 보완 PR과 Infra runtime verification PR이 main에 병합됐고 필수 runtime checks가 PASS로 기록되어 `VERIFIED`다. Phase 2는 Phase 1 handoff가 충족되어 `READY`다. Phase 2 구현은 Contract-First 계획과 Repository별 독립 PR을 요구한다.
+Phase 0은 Contracts, Infra, Docs finalization 결과가 main에 병합됐고 Published Baseline이 고정되어 `VERIFIED`다. Phase 1은 서비스 OCI provenance 보완 PR과 Infra runtime verification PR이 main에 병합됐고 필수 runtime checks가 PASS로 기록되어 `VERIFIED`다. Phase 2는 최신 remediation으로 Happy Path E2E, image provenance, snapshot identity, model provenance, causation, reproducibility and Local LLM absence가 PASS지만, 필수 Failure Drill 10개가 실제 runtime injection으로 구현되지 않아 `BLOCKED`다.
 
 ## Phase 1 Exit Evidence
 
@@ -40,3 +40,5 @@ Phase 0은 Contracts, Infra, Docs finalization 결과가 main에 병합됐고 Pu
 5. Final published baseline and status transition
    - Owner: `rippleguard-docs`
    - Result: PR #7 merged to main as `86b6c8c`; Phase 1 `VERIFIED` and Phase 2 `READY` are published project status
+
+Note: the Phase 2 `READY` handoff above was superseded by the Phase 2 final cross-repository review and subsequent remediation evidence. Current Phase 2 status remains `BLOCKED` until infra `make phase2-verify` exits 0 and the release manifest is promoted to `PUBLISHED`.

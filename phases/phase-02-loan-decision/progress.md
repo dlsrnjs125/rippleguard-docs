@@ -2,33 +2,35 @@
 
 ## Current Status
 
-Status: `READY`
+Status: `BLOCKED`
 
-Phase 2 has a published Phase 1 handoff and a candidate planning baseline in this PR. Implementation work has not started in service repositories.
+Phase 2 implementation work exists across published main branches, but final cross-repository verification blocks `VERIFIED`.
 
 ## Entry Check
 
 | Check | Result | Evidence |
 | --- | --- | --- |
 | Phase 1 status is `VERIFIED` | PASS | Docs main commit `86b6c8c` includes Phase 1 finalization |
-| Phase 2 status is `READY` | PASS | [Phase Status](../../tracking/phase-status.md) |
+| Phase 2 status is `BLOCKED` | PASS | [Phase Status](../../tracking/phase-status.md), [Final Review](final-review.md) |
 | Phase 1 runtime evidence exists | PASS | [Phase 1 Verification](../phase-01-core-msa/verification.md) |
 | Agent Runtime repository exists | PASS | `rippleguard-agent-runtime` README present |
-| Agent Runtime Phase 2 integration is implemented | NOT_STARTED | No Phase 2 implementation PR recorded |
-| Contracts Phase 2 schemas exist | NOT_STARTED | Contract implementation must be next |
+| Agent Runtime Phase 2 integration is implemented | PASS | Published main contains runtime implementation; image provenance and runtime readiness are verified through infra |
+| Contracts Phase 2 schemas exist | PASS | `rippleguard-contracts` `make validate` PASS during final review |
+| Full Phase 2 E2E exists | PASS | Infra `make phase2-e2e` PASS |
+| Phase 2 service image digest provenance exists | PASS_LOCAL_BASELINE | Infra manifest records local image IDs and OCI labels; registry digests are future productionization |
 
 ## Repository Progress
 
 | Repository | Status | Notes |
 | --- | --- | --- |
-| `rippleguard-docs` | IN_PROGRESS | Kickoff planning branch defines work order and verification |
-| `rippleguard-contracts` | NOT_STARTED | Next repository |
-| `rippleguard-loan-service` | IMPACT_REVIEW_REQUIRED | Snapshot compatibility must be reviewed after contracts |
-| `rippleguard-agent-runtime` | NOT_STARTED | Waits for contracts |
-| `rippleguard-governance-service` | NOT_STARTED | Waits for contracts and Agent Runtime output contract |
-| `rippleguard-audit-replay-service` | NOT_STARTED | Waits for Agent Run metadata contract |
-| `rippleguard-infra` | NOT_STARTED | Waits for service images and manifests |
+| `rippleguard-docs` | IN_REVIEW | Final review documents current `BLOCKED` verdict and remediation evidence |
+| `rippleguard-contracts` | PASS | Phase 2 contracts baseline pinned and static validation PASS |
+| `rippleguard-loan-service` | PASS | Immutable Feature Snapshot API and timestamp identity verified |
+| `rippleguard-agent-runtime` | PASS | Deterministic runtime, model artifact digest, OCI image provenance and Local LLM absence verified |
+| `rippleguard-governance-service` | PASS_WITH_LIMITATIONS | Happy path snapshot acquisition, request event and validation causation verified; failure drill behavior still lacks real runtime injection evidence |
+| `rippleguard-audit-replay-service` | PASS_WITH_LIMITATIONS | Happy path timeline, event causation and pending/quarantine checks verified; failure drill behavior still lacks real runtime injection evidence |
+| `rippleguard-infra` | BLOCKED | Happy path and provenance gates pass; 10 required failure drills exit 2 |
 
 ## Open Blockers
 
-No blocking implementation defect is confirmed in docs. Phase 2 remains `READY` because this PR is planning-only and no implementation repository PR has started.
+See [Final Cross-Repository Verification](final-review.md). Phase 2 is blocked only by missing real runtime failure drill injection evidence. Earlier blockers for feature snapshots, image provenance, happy path E2E, timestamp identity and causation were remediated and verified.

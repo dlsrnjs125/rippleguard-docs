@@ -4,6 +4,8 @@
 
 Phase 2 is Contract-First. `rippleguard-contracts` must define executable schemas and fixtures before consumers implement against them.
 
+2026-07-22 final cross-repository verification supersedes this planning workplan where implementation status differs. Current gate status is `BLOCKED`; see [Final Cross-Repository Verification](final-review.md).
+
 | Repository | Responsibility | Input Contract | Implementation Scope | Excluded Scope | Expected Files or Modules | Tests | Failure Paths | Outputs | Done When | Downstream Consumer | Evidence |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | `rippleguard-docs` | Phase 2 scope, work order, verification and cross-repo tracking | Published Phase 1 baseline | Planning docs, matrices, open questions | Service code, schemas, Docker | `phases/phase-02-loan-decision/*`, `tracking/*` | Markdown checks | Planning ambiguity | Planning PR | Docs merged | All Phase 2 repos | PR, commit, docs diff |

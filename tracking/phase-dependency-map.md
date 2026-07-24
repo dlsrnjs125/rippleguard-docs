@@ -21,8 +21,8 @@ flowchart TD
 | --- | --- | --- | --- |
 | 1 | Phase 0 상태·계약·소유권 기준 | Infra Skeleton | 핵심 Event·DB 소유권 미정 |
 | 2 | Phase 1 Versioned Snapshot·평가 경계·검증된 Kafka/PostgreSQL Infra·commit-tagged OCI Image Baseline·최소 Case Timeline | 합성 데이터 준비 | Phase 1 published baseline 미병합 또는 Agent Runtime 연결 환경 미확인 |
-| 3 | Phase 2 Decision Envelope, LLM Provider 확장 지점 Architecture Note, Local LLM Runtime 계획 | FDS Case 작성 | Decision provenance 미검증 또는 Local LLM Provider executable contract 미정 |
-| 4 | Phase 2 Decision, Phase 3 독립 실행 경계, Phase 3 Local LLM Runtime과 Model baseline | 문서 Fixture·Control Registry | 문서 보안·Finding 계약 미정 또는 공유 모델 독립성 기준 미정 |
+| 3 | Verified Phase 2 Decision Envelope, production Snapshot path, Model provenance, Audit Timeline and failure drill baseline | FDS Case 작성 | Phase 2 `BLOCKED`, failure drill baseline 미검증 또는 Local LLM Provider executable contract 미정 |
+| 4 | Verified Phase 2 Proposal·Snapshot·provenance, failure drill baseline and Phase 3 independent execution boundary | 문서 Fixture·Control Registry | Phase 2 `BLOCKED`, 문서 보안·Finding 계약 미정 또는 공유 모델 독립성 기준 미정 |
 | 5 | Consequence와 Evidence Findings | OPA Rule 초안 | 필수 입력·Hard Block 의미 미정 |
 | 6 | Phase 5 Agent 상태·Task·정책 API, Phase 1~2 최소 Trace API, `rippleguard-contracts`의 Static Manifest Schema와 Graph Core DTO 초안, `rippleguard-infra` Manifest 소유권 기준 | Phase 5 후반 Web 기본 화면과 Static Architecture Graph 초안 | 권한·상태 또는 최소 Timeline API 미검증 상태의 운영 변경, Manifest가 실제 Architecture Baseline과 대조 불가, Web 내부 하드코딩 Manifest |
 | 7 | Phase 1~2 Audit Foundation, Phase 5 Trace Metadata, Phase 6 운영 Event, Phase 6 Graph Core DTO와 Static Manifest 기준 | Hash Chain·Replay 설계와 Execution Graph API·Read Model 확장 설계 | Correlation·Causation·Version Metadata 미정, 실제 causation Edge와 파생 Edge 구분 필드 미정 |

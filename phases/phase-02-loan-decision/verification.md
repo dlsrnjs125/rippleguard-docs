@@ -1,58 +1,35 @@
 # Phase 2 Verification
 
+Final cross-repository verification was last reconciled on 2026-07-24. Phase 2 remains `BLOCKED`; see [Final Cross-Repository Verification](final-review.md).
+
 ## Verification Matrix
 
-| 검증 항목 | Owner Repo | 검증 방법 | 성공 조건 | Evidence |
-| --- | --- | --- | --- | --- |
-| Feature Schema validation | `rippleguard-contracts` | schema test | valid pass, invalid reject | test log |
-| Snapshot reference contract | `rippleguard-contracts` | fixture and compatibility test | stable reference or digest accepted | fixture report |
-| Loan Proposal contract | `rippleguard-contracts` | schema and examples | proposal is distinct from final decision | schema log |
-| Tabular Model Manifest | `rippleguard-contracts` | schema and invalid fixtures | required provenance fields enforced | test log |
-| Model reproducibility | `rippleguard-agent-runtime` | repeated inference | same inputs match within tolerance | report |
-| SHAP provenance | `rippleguard-agent-runtime` | manifest/result comparison | explainer version and contribution refs linked | fixture |
-| Governance validation | `rippleguard-governance-service` | integration test | invalid output not adopted | test output |
-| Timeout and retry | `rippleguard-governance-service`, `rippleguard-agent-runtime` | failure test | status and retry exhaustion explicit | log |
-| Agent timeline | `rippleguard-audit-replay-service` | API/DB test | Agent Run metadata queryable | response |
-| Docker integration | `rippleguard-infra` | compose E2E | Local LLM absent and Phase 2 passes | report |
-| Baseline provenance | `rippleguard-docs` | cross-repo review | PR, commit, image and digest linked | baseline doc |
-
-## Evidence Requirements
-
-Evidence must record:
-
-- Repository
-- Branch
-- PR
-- Commit SHA
-- Execution command
-- Test result
-- Artifact path
-- Image tag
-- Image digest when available
-- Execution timestamp
-- Known limitations
+| 검증 항목 | Owner | 명령 | Expected | Actual | Result | Evidence |
+| --- | --- | --- | --- | --- | --- | --- |
+| Contract Validation | `rippleguard-contracts`, `rippleguard-infra` | `make validate-static` | PASS | PASS | PASS | `../rippleguard-infra/evidence/phase2/final-verification.json` |
+| Loan Snapshot Persistence | Loan, Infra | `make phase2-e2e` | Immutable snapshot ID/version/digest present | Present | PASS | `happy-path.json` |
+| Snapshot Timestamp Identity | Loan, Governance, Infra | `make phase2-e2e` | DB `created_at` = API `createdAt` = reference `snapshotCreatedAt` | Equal | PASS | `happy-path.json` |
+| Governance Snapshot Acquisition | Governance, Loan | `make phase2-e2e` | Evaluation Run stores Loan API snapshot identity and feature digest | Match | PASS | `happy-path.json` |
+| Agent Runtime Determinism | Agent Runtime, Infra | `make phase2-reproducibility-check` | Artifact digests match manifest | Match | PASS | `reproducibility.json` |
+| Request Event Causation | Governance, Audit | `make phase2-e2e` | `validation.causationId == request.eventId` and not `agentRunId` | Match | PASS | `happy-path.json` |
+| Audit Pending Reconciliation | Audit | `make phase2-e2e` | No stale pending/quarantine row for validation event | Pending absent, quarantine `0` | PASS | `happy-path.json` |
+| Image Provenance | Infra, all services | `make phase2-verify-images` | commit-tagged image, local image ID, OCI source/revision | Match | PASS_LOCAL_BASELINE | `phase2-loan-decision.json` |
+| Happy Path E2E | Infra, all services | `make phase2-e2e` | Loan -> Governance -> Agent Runtime -> Audit succeeds | `PROPOSAL_READY` | PASS | `happy-path.json` |
+| Retry | Infra/Governance/Runtime | `make phase2-retry-check` | PASS | exit `2` | BLOCKED | `retry.json` |
+| Timeout | Infra/Governance/Runtime | `make phase2-timeout-check` | PASS | exit `2` | BLOCKED | `timeout.json` |
+| Duplicate Request | Infra/Governance/Runtime | `make phase2-duplicate-request-check` | PASS | exit `2` | BLOCKED | `duplicate-request.json` |
+| Duplicate Result | Infra/Governance/Audit | `make phase2-duplicate-result-check` | PASS | exit `2` | BLOCKED | `duplicate-result.json` |
+| Conflict | Infra/Governance/Audit | `make phase2-conflict-check` | PASS | exit `2` | BLOCKED | `conflict.json` |
+| Artifact Digest Failure | Infra/Agent Runtime | `make phase2-artifact-digest-failure-check` | PASS | exit `2` | BLOCKED | `artifact-failure.json` |
+| Missing Artifact | Infra/Agent Runtime | `make phase2-missing-artifact-check` | PASS | exit `2` | BLOCKED | `missing-artifact.json` |
+| Contract Mismatch | Infra/Contracts/services | `make phase2-contract-mismatch-check` | PASS | exit `2` | BLOCKED | `contract-mismatch.json` |
+| Snapshot Mismatch | Infra/Loan/Governance | `make phase2-snapshot-mismatch-check` | PASS | exit `2` | BLOCKED | `snapshot-mismatch.json` |
+| Recovery | Infra/all services | `make phase2-recovery-check` | PASS | exit `2` | BLOCKED | `recovery.json` |
+| Reproducibility | Infra/Agent Runtime | `make phase2-reproducibility-check` | PASS | PASS | PASS | `reproducibility.json` |
+| Local LLM Absence | Infra/Agent Runtime | `make phase2-local-llm-absent-check` | PASS | PASS | PASS | `local-llm-absent.json` |
 
 ## Status Rule
 
-Phase 2 remains `READY` while only the docs planning branch is open. It moves to `IN_PROGRESS` after the planning baseline is merged, a `rippleguard-contracts` Phase 2 PR is opened and that PR records the parent planning commit.
+Phase 2 must remain `BLOCKED` until all required failure drills pass with real runtime injection, `make phase2-verify` exits `0`, the infra manifest records `publicationStatus = PUBLISHED`, `verification.status = PASSED`, and `knownBlockers = []`.
 
-Phase 2 can move to `IN_REVIEW` only after repository implementation PRs are complete and integrated verification evidence exists. Phase 2 can move to `VERIFIED` only after cross-repo baseline, contract versions, image metadata and evidence are published in docs.
-
-## Failure Verification Matrix
-
-| Failure | Injection Point | Expected Status | Retry | State Mutation | Evidence |
-| --- | --- | --- | --- | --- | --- |
-| Required Feature missing | Agent Runtime input validation | `VALIDATION_REQUIRED` | No | No Loan final state change | invalid fixture log |
-| Unsupported extra Feature | Agent Runtime input validation | `VALIDATION_REQUIRED` | No | No Loan final state change | invalid fixture log |
-| Feature Schema Version mismatch | Governance or Agent Runtime validation | `VALIDATION_REQUIRED` or `BLOCKED` by conflict condition | No | No accepted proposal | contract test |
-| Snapshot ID missing | Governance request handling | `NON_RETRYABLE` | No | No accepted proposal | integration test |
-| Snapshot temporary lookup failure | Governance or Agent Runtime lookup | `RETRYABLE` then `VALIDATION_REQUIRED` after exhaustion | Yes | No accepted proposal before success | retry log |
-| Snapshot digest mismatch | Agent Runtime validation | `BLOCKED` | No | No accepted proposal | digest test |
-| Model Manifest missing | Agent Runtime startup or request validation | `BLOCKED` | No | No accepted proposal | startup/request log |
-| Model Binary Artifact digest mismatch | Agent Runtime model load | `BLOCKED` | No | No accepted proposal | digest verification log |
-| Agent timeout | Governance request execution | `RETRYABLE` then `VALIDATION_REQUIRED` after exhaustion | Yes | No accepted proposal before success | timeout test |
-| Duplicate Agent Request | Governance idempotency handling | Idempotent accepted or pending response | No duplicate execution required | No duplicate accepted result | idempotency test |
-| Same `agentRunId` conflicting result | Governance result validation | `BLOCKED` | No | Existing accepted result is not overwritten | conflict test |
-| SHAP calculation failure | Agent Runtime explanation step | `VALIDATION_REQUIRED` | No | Score-only output is not adopted as normal completion; partial result is debugging/evidence only | failure fixture |
-| Audit publish failure | Governance outbox publish | `RETRYABLE`; `BLOCKED` only after durable publication cannot be guaranteed | Yes | Proposal validation state is not lost; audit pending is explicit | outbox test |
-| Local LLM Runtime absent | Infra E2E | PASS for Phase 2 | N/A | No dependency on LLM state | compose report |
+`PASS_LOCAL_BASELINE` means a local Docker Compose image ID was verified. It is not a production registry digest.
